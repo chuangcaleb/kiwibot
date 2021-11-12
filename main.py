@@ -1,33 +1,3 @@
-# %% [markdown]
-# # **HAI Coursework 1: AN INTERACTIVE NLP-BASED AI SYSTEM**
-#
-# ## Project Title: Chatbot Assistant for Computer Programmers
-#
-# 20204134 Chuang Caleb hcycc2
-#
-# BSc Hons Computer Science with Artificial Intelligence
-#
-# ---
-#
-
-# %% [markdown]
-# ## **INITIALIZATION**
-#
-# ### Imports
-
-# %%
-# External python modules/packages
-import nltk
-
-# My own python modules
-# from utils.my_global import *
-
-
-# %% [markdown]
-# ### Global declarations!
-#
-
-# %%
 # Global Chat
 colors = {
     'green': '\033[92m',
@@ -68,14 +38,9 @@ def user_says():
     return input()
 
 
-# %% [markdown]
-# ---
-#
-# ## Greeting
-
-# %%
+print()
 docbot_says(
-    f"Hello, my name is DocBot! I am a chatbot assistant for computer programmers!")
+    "Hello, my name is DocBot! I am a chatbot assistant for computer programmers!")
 docbot_says("What's your name?")
 q = user_says()
 print(f"My name is: {q}")
