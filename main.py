@@ -1,46 +1,19 @@
-# Global Chat
-colors = {
-    'green': '\033[92m',
-    'yellow': '\033[93m',
-    'red': '\033[91m',
-    'grey': '\033[90m',
-    'white': '\033[97m',
-    'end': '\033[0m',
-}
+from interface import *
+from canned_messages import *
 
+# Desc: Main entry point executable for docbot
 
-def green(message):
-    return f"{colors['green']}{message}{colors['end']}"
+print(green("\n###################################################################################"))
 
+DOC_GREETING = [
+    "Hello, my name is DocBot! I am a chatbot assistant for computer programmers!",
+    "What's your name?"
+]
 
-def yellow(message):
-    return f"{colors['yellow']}{message}{colors['end']}"
+docbot_says(DOC_GREETING)
 
+NAME = user_says()
 
-def red(message):
-    return f"{colors['red']}{message}{colors['end']}"
+NAME_RESPONSE = [f"Your name is: {NAME}"]
 
-
-def grey(message):
-    return f"{colors['grey']}{message}{colors['end']}"
-
-
-def white(message):
-    return f"{colors['white']}{message}{colors['end']}"
-
-
-def docbot_says(message):
-    return print(green(f"{message}"))
-
-
-def user_says():
-    print()
-    return input()
-
-
-print()
-docbot_says(
-    "Hello, my name is DocBot! I am a chatbot assistant for computer programmers!")
-docbot_says("What's your name?")
-q = user_says()
-print(f"My name is: {q}")
+docbot_says(NAME_RESPONSE)
