@@ -68,11 +68,6 @@ for intent in intents_file['intents']:
         if intent['tag'] not in classes:
             classes.append(intent['tag'])
 
-english_stopwords = stopwords.words('english')
-ignore_words = [',']
-ignore_words.extend(english_stopwords)
-lemmatizer = WordNetLemmatizer()
-
 # lemmatize, lowercase and remove stopwords
 for intent in intents:
     tok_doc[intent] = list(chain.from_iterable(docbot_mu.clean_query(
