@@ -1,6 +1,7 @@
-from test import *
+
 from interface import *
 from canned_messages import *
+from prediction import *
 
 # Desc: Main entry point executable for docbot
 
@@ -23,3 +24,10 @@ docbot_says(DOC_GREETING)
 # NAME_RESPONSE = [f"Your name is: {NAME}"]
 
 # docbot_says(NAME_RESPONSE)
+
+terminate = False
+
+while not terminate:
+
+    query = user_says()
+    predictLikeliestIntent(query)

@@ -16,7 +16,11 @@
 				"Good to see you again",
 				"Hi there, how can I help?"
 			],
-			"context": [""]
+			"context": {
+				"filter": "",
+				"set": "",
+				"clear": true
+			}
 		},
 		{
 			"tag": "goodbye",
@@ -32,7 +36,12 @@
 				"Have a nice day",
 				"Bye! Come back again soon."
 			],
-			"context": [""]
+			"function": "terminate",
+			"context": {
+				"filter": "",
+				"set": "",
+				"clear": true
+			}
 		},
 		{
 			"tag": "thanks",
