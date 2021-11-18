@@ -10,11 +10,7 @@
 # ---
 #
 
-
-# ## **INITIALIZATION**
-#
 # ### Imports
-#
 
 import json
 import pickle
@@ -32,49 +28,29 @@ import mathutils as docbot_mu
 
 data_file = open('intents.json').read()
 intents_file = json.loads(data_file)
+
 tok_doc = {}
 intents = {}
 classes = []
-documents = []
 vocabulary = []
 
 ########################################
 # ## Pre-processing
 ########################################
 
-# Tokenization and document/class tagging
-
-"""
-- tok_doc: class - tokenized phrases
-- documents: pattern - its class
-- classes: all classes
-"""
-
 for intent in intents_file['intents']:
 
-    # Tokenize every word
-    # tok_doc[intent['tag']] = list(chain.from_iterable(
-    #     [nltk.word_tokenize(pattern) for pattern in intent['patterns']]))
-
-    # Load every pattern
+    # Load every pattern in every intent
     intents[intent['tag']] = [pattern for pattern in intent['patterns']]
-
-    for pattern in intent['patterns']:
-
-        # adding documents
-        documents.append((pattern, intent['tag']))
-
-        # adding classes to our class list
-        if intent['tag'] not in classes:
-            classes.append(intent['tag'])
+    # Only if intent has a pattern, then add it as a class for the classifier
+    if intent['patterns']:
+        classes.append(intent['tag'])
 
 # lemmatize, lowercase and remove stopwords
 for intent in intents:
     tok_doc[intent] = list(chain.from_iterable(docbot_mu.clean_query(
         pattern) for pattern in intents[intent]))
     # tok_doc[intent] = [clean_query(word) for word in tok_doc[intent]]
-
-print(tok_doc)
 
 # vocabulary: distinct set of all words in documents
 vocabulary = sorted(
@@ -84,8 +60,6 @@ vocabulary = sorted(
 classes = sorted(list(set(classes)))
 
 print("\n\nDataset statistics:\n")
-# documents = combination between patterns and intents
-print(len(documents), "documents")
 # classes = intents
 print(len(classes), "classes", classes)
 # words = all words, vocabulary
@@ -113,7 +87,7 @@ for intent in classes:
     print(f'{intent}: {bow[intent][1:10]}')
 
 
-# Weighing function the terms in our bag of words model
+# Weighting function for the terms in our bag of words model
 for intent in bow:
     bow[intent] = docbot_mu.logfreq_weighting(bow[intent])
     # print(f'{intent}: {bow[intent][1:10]}')

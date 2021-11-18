@@ -9,9 +9,8 @@ import mathutils as docbot_mu
 
 pickle_data = pickle.load(open("training_data.pickle", "rb"))
 vocabulary = pickle_data['vocabulary']
-classes = pickle_data['classes']
 bow = pickle_data['w_bow']
-
+classes = bow.keys()
 
 ########################################
 # Function Defintions
@@ -52,7 +51,7 @@ def predictAllIntents(query):
     sorted_sim_data = sorted(
         sim_data.items(), key=lambda item: item[1], reverse=True)
 
-    print(sorted_sim_data)
+    # print(sorted_sim_data)
     return sorted_sim_data
 
 
