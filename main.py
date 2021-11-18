@@ -1,6 +1,4 @@
-
 from interface import *
-from canned_messages import *
 from prediction import *
 
 # Desc: Main entry point executable for docbot

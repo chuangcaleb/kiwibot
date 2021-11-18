@@ -5,7 +5,7 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-from utils import *
+from mathutils import *
 
 ########################################
 # Prediction function
