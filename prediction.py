@@ -1,23 +1,21 @@
 import pickle
 
-import nltk
 import numpy as np
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-
 from mathutils import *
 
 ########################################
-# Prediction function
+# Load variables
 ########################################
-
 
 data = pickle.load(open("training_data.pickle", "rb"))
 vocabulary = data['vocabulary']
 classes = data['classes']
 bow = data['w_bow']
 
-lemmatizer = WordNetLemmatizer()
+
+########################################
+# Function Defintions
+########################################
 
 
 def predictAllIntents(query):
@@ -26,19 +24,11 @@ def predictAllIntents(query):
     sim_data = dict.fromkeys(classes)
     vector_query = np.zeros(len(vocabulary))
 
-    # tokenize query
-    tok_query = nltk.word_tokenize(query)
-
-    # Remove stopwords, lowercase
-    english_stopwords = stopwords.words('english')
-    filtered_query = [word.lower() for word in tok_query
-                      if word.lower() not in english_stopwords]
-
-    # Stemming --> Lemmatising
-    stemmed_query = [lemmatizer.lemmatize(word) for word in filtered_query]
+    # Clean query
+    cleaned_query = clean_query(query)
 
     # Vectorize query according to our bag of words
-    for stem in stemmed_query:
+    for stem in cleaned_query:
         try:
             index = vocabulary.index(stem)
             vector_query[index] += 1

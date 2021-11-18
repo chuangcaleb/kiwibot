@@ -25,15 +25,16 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-from utils import *
+from mathutils import *
 
 ########################################
 # ## Loading Intents Data
 ########################################
 
 data_file = open('intents.json').read()
-intents = json.loads(data_file)
+intents_file = json.loads(data_file)
 tok_doc = {}
+intents = {}
 classes = []
 documents = []
 vocabulary = []
@@ -47,14 +48,17 @@ vocabulary = []
 """
 - tok_doc: class - tokenized phrases
 - documents: pattern - its class
-- classes: all classes 
+- classes: all classes
 """
 
-for intent in intents['intents']:
+for intent in intents_file['intents']:
 
     # Tokenize every word
-    tok_doc[intent['tag']] = list(chain.from_iterable(
-        [nltk.word_tokenize(pattern) for pattern in intent['patterns']]))
+    # tok_doc[intent['tag']] = list(chain.from_iterable(
+    #     [nltk.word_tokenize(pattern) for pattern in intent['patterns']]))
+
+    # Load every pattern
+    intents[intent['tag']] = [pattern for pattern in intent['patterns']]
 
     for pattern in intent['patterns']:
 
@@ -71,9 +75,12 @@ ignore_words.extend(english_stopwords)
 lemmatizer = WordNetLemmatizer()
 
 # lemmatize, lowercase and remove stopwords
-for intent in classes:
-    tok_doc[intent] = [lemmatizer.lemmatize(
-        word.lower()) for word in tok_doc[intent] if word not in ignore_words]
+for intent in intents:
+    tok_doc[intent] = list(chain.from_iterable(clean_query(
+        pattern) for pattern in intents[intent]))
+    # tok_doc[intent] = [clean_query(word) for word in tok_doc[intent]]
+
+print(tok_doc)
 
 # vocabulary: distinct set of all words in documents
 vocabulary = sorted(
@@ -99,10 +106,11 @@ training = []
 output_empty = [0] * len(classes)
 
 print("\nFirst 10 (alphabetical) words")
-print(f'VOCABULARY: {vocabulary[1:10]}\n')
+print(f'VOCABULARY: {vocabulary[1:10]}')
 
 # Fill bag of words
 bow = {}
+print("\nVectors of first 10 words")
 for intent in classes:
     bow[intent] = np.zeros(len(vocabulary))
     for stem in tok_doc[intent]:
