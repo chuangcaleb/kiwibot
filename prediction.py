@@ -35,11 +35,16 @@ def predictAllIntents(query):
         except ValueError:
             continue
 
-    # Apply term weighing to the vectorized query
+    # Catch zero-vectors, otherwise scipy.spatial.distance.cosine throws an error
+    if not np.any(vector_query):
+        zero_data = [(intent, 0) for intent in classes]
+        return zero_data
+
+    # Apply term weighting to the vectorized query
     vector_query = docbot_mu.logfreq_weighting(vector_query)
 
     # Calculate similarity measure against each class
-    for intent in bow.keys():
+    for intent in classes:
         sim_data[intent] = docbot_mu.sim_cosine(bow[intent], vector_query)
         # print(f'Similarity with {intent}: {sim_data[intent]}')
 
@@ -47,6 +52,7 @@ def predictAllIntents(query):
     sorted_sim_data = sorted(
         sim_data.items(), key=lambda item: item[1], reverse=True)
 
+    print(sorted_sim_data)
     return sorted_sim_data
 
 
