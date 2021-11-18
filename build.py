@@ -20,12 +20,11 @@ import json
 import pickle
 from itertools import chain
 
-import nltk
 import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-from mathutils import *
+import mathutils as docbot_mu
 
 ########################################
 # ## Loading Intents Data
@@ -76,7 +75,7 @@ lemmatizer = WordNetLemmatizer()
 
 # lemmatize, lowercase and remove stopwords
 for intent in intents:
-    tok_doc[intent] = list(chain.from_iterable(clean_query(
+    tok_doc[intent] = list(chain.from_iterable(docbot_mu.clean_query(
         pattern) for pattern in intents[intent]))
     # tok_doc[intent] = [clean_query(word) for word in tok_doc[intent]]
 
@@ -121,7 +120,7 @@ for intent in classes:
 
 # Weighing function the terms in our bag of words model
 for intent in bow:
-    bow[intent] = logfreq_weighting(bow[intent])
+    bow[intent] = docbot_mu.logfreq_weighting(bow[intent])
     # print(f'{intent}: {bow[intent][1:10]}')
 
 ########################################
@@ -131,6 +130,5 @@ for intent in bow:
 pickle.dump({
     'vocabulary': vocabulary,
     'classes': classes,
-    'w_bow': bow
-},
+    'w_bow': bow},
     open("training_data.pickle", "wb"))
