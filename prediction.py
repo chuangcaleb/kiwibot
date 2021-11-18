@@ -1,16 +1,16 @@
 import pickle
 
 import numpy as np
-from mathutils import *
+import mathutils as docbot_mu
 
 ########################################
 # Load variables
 ########################################
 
-data = pickle.load(open("training_data.pickle", "rb"))
-vocabulary = data['vocabulary']
-classes = data['classes']
-bow = data['w_bow']
+pickle_data = pickle.load(open("training_data.pickle", "rb"))
+vocabulary = pickle_data['vocabulary']
+classes = pickle_data['classes']
+bow = pickle_data['w_bow']
 
 
 ########################################
@@ -25,7 +25,7 @@ def predictAllIntents(query):
     vector_query = np.zeros(len(vocabulary))
 
     # Clean query
-    cleaned_query = clean_query(query)
+    cleaned_query = docbot_mu.clean_query(query)
 
     # Vectorize query according to our bag of words
     for stem in cleaned_query:
@@ -36,11 +36,11 @@ def predictAllIntents(query):
             continue
 
     # Apply term weighing to the vectorized query
-    vector_query = logfreq_weighting(vector_query)
+    vector_query = docbot_mu.logfreq_weighting(vector_query)
 
     # Calculate similarity measure against each class
     for intent in bow.keys():
-        sim_data[intent] = sim_cosine(bow[intent], vector_query)
+        sim_data[intent] = docbot_mu.sim_cosine(bow[intent], vector_query)
         print(f'Similarity with {intent}: {sim_data[intent]}')
 
     # Sort the predicted classes by similarity
@@ -52,4 +52,4 @@ def predictAllIntents(query):
 
 def predictLikeliestIntent(query):
     allIntents = predictAllIntents(query)
-    return list(allIntents)[1][0]
+    return list(allIntents)[0][0]

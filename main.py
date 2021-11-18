@@ -1,12 +1,13 @@
-from interface import *
-from prediction import *
+import interface as docbot_ui
+import response as docbot_resp
 
 # Desc: Main entry point executable for docbot
 
 global NAME
 NAME = "Caleb"
 
-print(green("\n###################################################################################"))
+print(docbot_ui.green(
+    "\n###################################################################################"))
 
 DOC_GREETING = [
     "Hello, my name is DocBot! I am a chatbot assistant for computer programmers.",
@@ -15,7 +16,7 @@ DOC_GREETING = [
     # "What's your name?"
 ]
 
-docbot_says(DOC_GREETING)
+docbot_ui.docbot_says(DOC_GREETING)
 
 # NAME = user_says()
 
@@ -27,5 +28,5 @@ terminate = False
 
 while not terminate:
 
-    query = user_says()
-    predictLikeliestIntent(query)
+    query = docbot_ui.user_says()
+    docbot_resp.genResponse(query)
