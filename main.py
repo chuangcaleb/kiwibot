@@ -30,4 +30,6 @@ terminate = False
 while not terminate:
 
     query = docbot_ui.user_says()
-    docbot_resp.genResponse(query)
+    terminate = docbot_resp.genResponse(query)
+
+print()

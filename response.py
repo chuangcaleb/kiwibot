@@ -36,3 +36,4 @@ def genResponse(query):
 
     # Return response to user
     docbot_ui.docbot_says(responses)
+    return (predictedClass == 'goodbye')
