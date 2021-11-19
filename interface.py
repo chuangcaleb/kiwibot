@@ -1,4 +1,6 @@
 import time
+import nltk
+from numpy.core.fromnumeric import var
 
 
 # Global Chat
@@ -10,6 +12,8 @@ colors = {
     'white': '\033[97m',
     'end': '\033[0m',
 }
+
+TIME_MULTIPLIER = 0.2
 
 
 def green(message):
@@ -35,13 +39,18 @@ def white(message):
 def docbot_says(message):
 
     print()
-    #! time.sleep(1.5)
-    print(green(f"[Doc] {message[0]}"))
 
-    for string in message[1:]:
+    for string in message:
         # print(green(f"{string}"))
-        #! time.sleep(1.5)
+        #! variable_sleep(string)
         print(green(f"[Doc] {string}"))
+
+
+def variable_sleep(string):
+
+    words = len(nltk.word_tokenize(string))
+    delay = words * TIME_MULTIPLIER
+    time.sleep(delay)
 
 
 def user_says():

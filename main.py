@@ -10,6 +10,10 @@ lemmatizer.lemmatize("hi")
 
 print(docbot_ui.green(
     "\n###################################################################################"))
+print(docbot_ui.green(
+    "################################### D O C B O T ###################################"))
+print(docbot_ui.green(
+    "###################################################################################"))
 
 DOC_GREETING = [
     "Hello, my name is DocBot! I am a chatbot assistant for computer programmers.",
