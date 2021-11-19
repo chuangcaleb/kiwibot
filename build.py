@@ -40,10 +40,10 @@ vocabulary = []
 
 for intent in intents_file['intents']:
 
-    # Load every pattern in every intent
-    intents[intent['tag']] = [pattern for pattern in intent['patterns']]
     # Only if intent has a pattern, then add it as a class for the classifier
-    if intent['patterns']:
+    if 'patterns' in intent:
+        # Load every pattern in every intent
+        intents[intent['tag']] = [pattern for pattern in intent['patterns']]
         classes.append(intent['tag'])
 
 # lemmatize, lowercase and remove stopwords
