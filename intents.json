@@ -57,7 +57,6 @@
 		},
 		{
 			"tag": "noanswer",
-			"patterns": [],
 			"responses_1": [
 				"Yes?",
 				"Did you say something?",
@@ -72,7 +71,6 @@
 		},
 		{
 			"tag": "undefined",
-			"patterns": [],
 			"responses_1": [
 				"Sorry, I don't get what you're saying?",
 				"Sorry, but I have no idea what you're saying.",
@@ -84,6 +82,22 @@
 			"responses_2": [
 				"I'm not smart enough to recognize typos!",
 				"I'm no good in understanding typos!",
+				"Try using synonyms and similar words!"
+			],
+			"context": [""]
+		},
+		{
+			"tag": "uncertain",
+			"responses_1": [
+				"I'm not *too* sure what you just said.",
+				"Uhhh... I don't want to wrongly assume what you want.",
+				"I recognize what you're saying, but I'm not sure what you mean.",
+				"Beep boop. Best estimated class is below error threshold beep boop."
+			],
+			"responses_2": [
+				"Try telling me again, but use different words.",
+				"Could you rephrase that for me?",
+				"Perhaps try using different key words.",
 				"Try using synonyms and similar words!"
 			],
 			"context": [""]
@@ -138,7 +152,6 @@
 		},
 		{
 			"tag": "search_blood_pressure_by_patient_id",
-			"patterns": [],
 			"responses_1": ["Loading Blood pressure result for Patient"],
 			"context": [""]
 		},
@@ -156,7 +169,6 @@
 		},
 		{
 			"tag": "search_pharmacy_by_name",
-			"patterns": [],
 			"responses_1": ["Loading pharmacy details"],
 			"context": [""]
 		},
@@ -174,13 +186,11 @@
 		},
 		{
 			"tag": "search_hospital_by_params",
-			"patterns": [],
 			"responses_1": ["Please provide hospital type"],
 			"context": ["search_hospital_by_type"]
 		},
 		{
 			"tag": "search_hospital_by_type",
-			"patterns": [],
 			"responses_1": ["Loading hospital details"],
 			"context": [""]
 		}

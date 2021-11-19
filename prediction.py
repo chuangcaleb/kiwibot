@@ -12,6 +12,8 @@ vocabulary = pickle_data['vocabulary']
 bow = pickle_data['w_bow']
 classes = bow.keys()
 
+ERROR_THRESHOLD = 0.25
+
 ########################################
 # Function Defintions
 ########################################
@@ -22,6 +24,8 @@ def predictAllIntents(query):
     # Catch empty strings
     if not query:
         return [('noanswer', 1)]
+
+    #! Handle stopwords
 
     # init
     sim_data = dict.fromkeys(classes)
@@ -55,6 +59,9 @@ def predictAllIntents(query):
         sim_data.items(), key=lambda item: item[1], reverse=True)
 
     #! Catch if highest prediction below error threshold
+    if list(sorted_sim_data)[0][1] < ERROR_THRESHOLD:
+        return [('uncertain', 1)]
+
     #! Catch close predictions
 
     # print(sorted_sim_data)
@@ -63,7 +70,7 @@ def predictAllIntents(query):
 
 def predictLikeliestIntent(query):
     allIntents = predictAllIntents(query)
-
+    topResult = list(allIntents)[0]
     # CONTEXT SWITCHING HERE
 
-    return list(allIntents)[0][0]
+    return topResult[0]
