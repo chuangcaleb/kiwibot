@@ -25,14 +25,16 @@ def predictAllIntents(query):
     if not query:
         return [('noanswer', 1)]
 
-    #! Handle stopwords
-
     # init
     sim_data = dict.fromkeys(classes)
     vector_query = np.zeros(len(vocabulary))
 
     # Clean query
     cleaned_query = docbot_mu.clean_query(query)
+
+    #! Handle stopwords
+    if not cleaned_query:
+        return [('stopwords', 1)]
 
     # Vectorize query according to our bag of words
     for stem in cleaned_query:

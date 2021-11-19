@@ -34,7 +34,6 @@ def sim_cosine(vector_1, vector_2):
 #   - lowercase
 #   - stopwords
 #   - lemmatize
-#
 def clean_query(query):
 
     # tokenize query

@@ -76,8 +76,7 @@
 				"Sorry, but I have no idea what you're saying.",
 				"There is nothing about what you just said that I understand.",
 				"There is nothing about what you just said that makes sense.",
-				"What? Is there a spelling error somewhere?",
-				"Hmmm, I'm not sure you're even speaking English."
+				"What? Is there a spelling error somewhere?"
 			],
 			"responses_2": [
 				"I'm not smart enough to recognize typos!",
@@ -99,6 +98,21 @@
 				"Could you rephrase that for me?",
 				"Perhaps try using different key words.",
 				"Try using synonyms and similar words!"
+			],
+			"context": [""]
+		},
+		{
+			"tag": "stopwords",
+			"responses_1": [
+				"I can't draw enough meaning from what you just said!",
+				"I need to be told more than that to understand you.",
+				"I need more contextual words. More!!"
+			],
+			"responses_2": [
+				"Try using more specific words!",
+				"I could use more context!",
+				"Perhaps try using key words.",
+				"I think you are missing some key words."
 			],
 			"context": [""]
 		},
