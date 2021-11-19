@@ -12,7 +12,7 @@ vocabulary = pickle_data['vocabulary']
 bow = pickle_data['w_bow']
 classes = bow.keys()
 
-ERROR_THRESHOLD = 0.25
+ERROR_THRESHOLD = 0.2
 
 ########################################
 # Function Defintions
@@ -32,7 +32,7 @@ def predictAllIntents(query):
     # Clean query
     cleaned_query = docbot_mu.clean_query(query)
 
-    #! Handle stopwords
+    # Handle stopwords
     if not cleaned_query:
         return [('stopwords', 1)]
 
@@ -60,11 +60,15 @@ def predictAllIntents(query):
     sorted_sim_data = sorted(
         sim_data.items(), key=lambda item: item[1], reverse=True)
 
-    #! Catch if highest prediction below error threshold
+    # Catch if highest prediction below error threshold
     if list(sorted_sim_data)[0][1] < ERROR_THRESHOLD:
         return [('uncertain', 1)]
 
-    #! Catch close predictions
+    # Catch close predictions [Not very important to catch]
+    # closest_pred_d = abs(sorted_sim_data[0][1] - sorted_sim_data[1][1])
+    # if closest_pred_d < ERROR_THRESHOLD:
+    #     print(closest_pred_d)
+    #     return [('close_predictions', 1)]
 
     # print(sorted_sim_data)
     return sorted_sim_data

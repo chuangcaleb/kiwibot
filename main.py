@@ -5,8 +5,9 @@ import response as docbot_resp
 # Desc: Main entry point executable for docbot
 
 # Run lemmatizer once at init; if not, then there is noticeable delay on the first response only. Weird.
+# Run a print statement before and after this code block, you can see the time delay.
 lemmatizer = WordNetLemmatizer()
-lemmatizer.lemmatize("hi")
+lemmatizer.lemmatize("")
 
 print(docbot_ui.green(
     "\n###################################################################################"))

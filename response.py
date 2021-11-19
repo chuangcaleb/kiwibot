@@ -29,6 +29,10 @@ def genResponse(query):
             responses.append(random.choice(intent['responses_1']))
             if 'responses_2' in intent:
                 responses.append(random.choice(intent['responses_2']))
+            if 'responses_3' in intent:
+                responses.append(random.choice(intent['responses_3']))
+            # if 'responses_4' in intent:
+            #     responses.append(random.choice(intent['responses_2']))
 
     # Return response to user
     docbot_ui.docbot_says(responses)

@@ -5,15 +5,23 @@
 			"patterns": [
 				"Hi there",
 				"How are you",
-				"Is anyone there?",
 				"Hey",
-				"Hola",
 				"Hello there",
-				"Good day"
+				"Good day",
+				"Good morning",
+				"Good afternoon",
+				"Good evening",
+				"What's up",
+				"Ola",
+				"Sup",
+				"Yo"
 			],
 			"responses_1": [
 				"Hello!",
-				"Good to see you again",
+				"Halloooo!",
+				"Good to see you!",
+				"Top of the morning, what can I do for you?",
+				"Welcome to McDonald's, how can I take your order? Just kidding. I don't *actually* work at McDonald's.",
 				"Hi there, how can I help?"
 			],
 			"context": {
@@ -29,11 +37,14 @@
 				"See you later",
 				"Goodbye",
 				"Nice chatting to you, bye",
-				"Till next time"
+				"Till next time",
+				"That's all, thank you",
+				"I'm done for the day",
+				"I'd like to quit"
 			],
 			"responses_1": [
 				"See you!",
-				"Have a nice day",
+				"Alright, bye!",
 				"Bye! Come back again soon."
 			],
 			"function": "terminate",
@@ -44,15 +55,42 @@
 			}
 		},
 		{
+			"tag": "status",
+			"patterns": [
+				"How are you feeling today?",
+				"You alright?",
+				"Are you okay?",
+				"What's up?"
+			],
+			"responses_1": [
+				"I'm feeling great!",
+				"Today's been a pretty okay day. So far.",
+				"A little sleepy.",
+				"I wish I were a real boy.",
+				"Same old, same old. I wonder if my developer will upgrade me after his deadline.",
+				"Same old, same old. I wonder if my developer will come back to me after his deadline.",
+				"Same old, same old. I wonder if my developer will abandon me after his deadline."
+			]
+		},
+		{
 			"tag": "thanks",
 			"patterns": [
 				"Thanks",
 				"Thank you",
 				"That's helpful",
 				"Awesome, thanks",
-				"Thanks for helping me"
+				"Thanks for helping me",
+				"I really appreciate the help",
+				"You rock!"
 			],
-			"responses_1": ["Happy to help!", "Any time!", "My pleasure"],
+			"responses_1": [
+				"Happy to help!",
+				"Any time!",
+				"My pleasure!",
+				"No problem!",
+				"Don't thank me!",
+				"Glad to fulfill my purpose!"
+			],
 			"context": [""]
 		},
 		{
@@ -121,11 +159,19 @@
 			"patterns": [
 				"How you could help me?",
 				"What you can do?",
+				"What do you do?",
 				"What help you provide?",
 				"How you can be helpful?",
-				"What support is offered"
+				"What support is offered?",
+				"What are you made to do?"
 			],
 			"responses_1": ["I am a chatbot assistant for computer programmers!"],
+			"responses_2": [
+				"I can search for documentation across different languages."
+			],
+			"responses_3": [
+				"If you get stuck, just say 'Now what?' and I can try to give you some options!"
+			],
 			"context": [""]
 		},
 		{
