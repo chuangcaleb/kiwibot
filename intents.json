@@ -26,8 +26,7 @@
 			],
 			"context": {
 				"filter": "",
-				"set": "",
-				"clear": true
+				"set": ""
 			}
 		},
 		{
@@ -50,8 +49,7 @@
 			"function": "terminate",
 			"context": {
 				"filter": "",
-				"set": "",
-				"clear": true
+				"set": ""
 			}
 		},
 		{

@@ -12,6 +12,9 @@ import random
 data_file = open('intents.json').read()
 intents_file = json.loads(data_file)
 
+# On startup, set context to prompt name
+context = 'prompt_name'
+
 
 ########################################
 # Response Management

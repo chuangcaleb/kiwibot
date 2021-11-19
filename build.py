@@ -61,9 +61,9 @@ classes = sorted(list(set(classes)))
 
 print("\n\nDataset statistics:\n")
 # classes = intents
-print(len(classes), "classes", classes)
+# ? print(len(classes), "classes", classes)
 # words = all words, vocabulary
-print(len(vocabulary), "unique lemmatized words", vocabulary)
+# ? print(len(vocabulary), "unique lemmatized words", vocabulary)
 
 ########################################
 # ### Create the bag-of-word model

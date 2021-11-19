@@ -1,12 +1,12 @@
 # Utils file for calculation function definitions that are shared by many files
 
 from math import log10
-import numpy as np
-from scipy import spatial
 
 import nltk
+import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from scipy import spatial
 
 lemmatizer = WordNetLemmatizer()
 # Remove stopwords, lowercase
