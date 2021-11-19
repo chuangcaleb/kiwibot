@@ -19,6 +19,10 @@ classes = bow.keys()
 
 def predictAllIntents(query):
 
+    # Catch empty strings
+    if not query:
+        return [('noanswer', 1)]
+
     # init
     sim_data = dict.fromkeys(classes)
     vector_query = np.zeros(len(vocabulary))
@@ -50,10 +54,16 @@ def predictAllIntents(query):
     sorted_sim_data = sorted(
         sim_data.items(), key=lambda item: item[1], reverse=True)
 
+    #! Catch if highest prediction below error threshold
+    #! Catch close predictions
+
     # print(sorted_sim_data)
     return sorted_sim_data
 
 
 def predictLikeliestIntent(query):
     allIntents = predictAllIntents(query)
+
+    # CONTEXT SWITCHING HERE
+
     return list(allIntents)[0][0]

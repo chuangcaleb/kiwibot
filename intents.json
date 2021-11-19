@@ -59,9 +59,14 @@
 			"tag": "noanswer",
 			"patterns": [],
 			"responses_1": [
-				"Sorry, can't understand you",
-				"Please give me more info",
-				"Not sure I understand"
+				"Yes?",
+				"Did you say something?",
+				"Could you repeat that a little louder?",
+				"Did you forget to unmute your mic?",
+				"*stares blankly back at you*",
+				"Ooh! I love the quiet game!",
+				"I'm not detecting any query from the prompt!",
+				"Your input looks empty to me..."
 			],
 			"context": [""]
 		},
@@ -73,8 +78,6 @@
 				"Sorry, but I have no idea what you're saying.",
 				"There is nothing about what you just said that I understand.",
 				"There is nothing about what you just said that makes sense.",
-				"Sorry, English is the only language I understand! Besides all these coding languages, hehe. Sort of. Not really.",
-				"Are you speaking English? Sorry, I only understand English! Besides all these coding languages, hehe. Sort of. Not really.",
 				"What? Is there a spelling error somewhere?",
 				"Hmmm, I'm not sure you're even speaking English."
 			],

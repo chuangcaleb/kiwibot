@@ -32,9 +32,10 @@ def white(message):
 def docbot_says(message):
     print()
     for string in message:
-        print(green(f"[Doc] {string}"))
+        print(green(f"{string}"))
+        # print(green(f"[Doc] {string}"))
 
 
 def user_says():
     print()
-    return input("> ")
+    return input(yellow("> "))
