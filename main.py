@@ -32,4 +32,8 @@ while not terminate:
     query = docbot_ui.user_says()
     terminate = docbot_resp.genResponse(query)
 
-print()
+
+print(docbot_ui.green(
+    "\n###################################################################################"))
+print(docbot_ui.green(
+    "############################################################################ docbot\n"))
