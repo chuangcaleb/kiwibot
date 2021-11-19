@@ -1,3 +1,6 @@
+import time
+
+
 # Global Chat
 colors = {
     'green': '\033[92m',
@@ -30,10 +33,15 @@ def white(message):
 
 
 def docbot_says(message):
+
     print()
-    for string in message:
-        print(green(f"{string}"))
-        # print(green(f"[Doc] {string}"))
+    #! time.sleep(1.5)
+    print(green(f"[Doc] {message[0]}"))
+
+    for string in message[1:]:
+        # print(green(f"{string}"))
+        #! time.sleep(1.5)
+        print(green(f"[Doc] {string}"))
 
 
 def user_says():
