@@ -11,7 +11,7 @@
 				"Hello there",
 				"Good day"
 			],
-			"responses": [
+			"responses_1": [
 				"Hello!",
 				"Good to see you again",
 				"Hi there, how can I help?"
@@ -31,7 +31,7 @@
 				"Nice chatting to you, bye",
 				"Till next time"
 			],
-			"responses": [
+			"responses_1": [
 				"See you!",
 				"Have a nice day",
 				"Bye! Come back again soon."
@@ -52,16 +52,36 @@
 				"Awesome, thanks",
 				"Thanks for helping me"
 			],
-			"responses": ["Happy to help!", "Any time!", "My pleasure"],
+			"responses_1": ["Happy to help!", "Any time!", "My pleasure"],
 			"context": [""]
 		},
 		{
 			"tag": "noanswer",
 			"patterns": [],
-			"responses": [
+			"responses_1": [
 				"Sorry, can't understand you",
 				"Please give me more info",
 				"Not sure I understand"
+			],
+			"context": [""]
+		},
+		{
+			"tag": "undefined",
+			"patterns": [],
+			"responses_1": [
+				"Sorry, I don't get what you're saying?",
+				"Sorry, but I have no idea what you're saying.",
+				"There is nothing about what you just said that I understand.",
+				"There is nothing about what you just said that makes sense.",
+				"Sorry, English is the only language I understand! Besides all these coding languages, hehe. Sort of. Not really.",
+				"Are you speaking English? Sorry, I only understand English! Besides all these coding languages, hehe. Sort of. Not really.",
+				"What? Is there a spelling error somewhere?",
+				"Hmmm, I'm not sure you're even speaking English."
+			],
+			"responses_2": [
+				"I'm not smart enough to recognize typos!",
+				"I'm no good in understanding typos!",
+				"Try using synonyms and similar words!"
 			],
 			"context": [""]
 		},
@@ -74,7 +94,7 @@
 				"How you can be helpful?",
 				"What support is offered"
 			],
-			"responses": ["I am a chatbot assistant for computer programmers!"],
+			"responses_1": ["I am a chatbot assistant for computer programmers!"],
 			"context": [""]
 		},
 		{
@@ -86,7 +106,7 @@
 				"List all drugs suitable for patient with adverse reaction",
 				"Which drugs dont have adverse reaction?"
 			],
-			"responses": ["Navigating to Adverse drug reaction module"],
+			"responses_1": ["Navigating to Adverse drug reaction module"],
 			"context": [""]
 		},
 		{
@@ -98,7 +118,7 @@
 				"I want to log blood pressure results",
 				"Blood pressure data management"
 			],
-			"responses": ["Navigating to Blood Pressure module"],
+			"responses_1": ["Navigating to Blood Pressure module"],
 			"context": [""]
 		},
 		{
@@ -110,13 +130,13 @@
 				"Show blood pressure results for patient",
 				"Find blood pressure results by ID"
 			],
-			"responses": ["Please provide Patient ID", "Patient ID?"],
+			"responses_1": ["Please provide Patient ID", "Patient ID?"],
 			"context": ["search_blood_pressure_by_patient_id"]
 		},
 		{
 			"tag": "search_blood_pressure_by_patient_id",
 			"patterns": [],
-			"responses": ["Loading Blood pressure result for Patient"],
+			"responses_1": ["Loading Blood pressure result for Patient"],
 			"context": [""]
 		},
 		{
@@ -128,13 +148,13 @@
 				"Locate pharmacy",
 				"Search pharmacy"
 			],
-			"responses": ["Please provide pharmacy name"],
+			"responses_1": ["Please provide pharmacy name"],
 			"context": ["search_pharmacy_by_name"]
 		},
 		{
 			"tag": "search_pharmacy_by_name",
 			"patterns": [],
-			"responses": ["Loading pharmacy details"],
+			"responses_1": ["Loading pharmacy details"],
 			"context": [""]
 		},
 		{
@@ -146,19 +166,19 @@
 				"Hospital lookup for patient",
 				"Looking up hospital details"
 			],
-			"responses": ["Please provide hospital name or location"],
+			"responses_1": ["Please provide hospital name or location"],
 			"context": ["search_hospital_by_params"]
 		},
 		{
 			"tag": "search_hospital_by_params",
 			"patterns": [],
-			"responses": ["Please provide hospital type"],
+			"responses_1": ["Please provide hospital type"],
 			"context": ["search_hospital_by_type"]
 		},
 		{
 			"tag": "search_hospital_by_type",
 			"patterns": [],
-			"responses": ["Loading hospital details"],
+			"responses_1": ["Loading hospital details"],
 			"context": [""]
 		}
 	]

@@ -36,8 +36,7 @@ def predictAllIntents(query):
 
     # Catch zero-vectors, otherwise scipy.spatial.distance.cosine throws an error
     if not np.any(vector_query):
-        zero_data = [(intent, 0) for intent in classes]
-        return zero_data
+        return [('undefined', 1)]
 
     # Apply term weighting to the vectorized query
     vector_query = docbot_mu.logfreq_weighting(vector_query)

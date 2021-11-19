@@ -22,13 +22,13 @@ def genResponse(query):
     # Predict the class with the query
     predictedClass = docbot_pred.predictLikeliestIntent(query)
 
+    responses = []
     # Obtain the possible responses from the json data
     for intent in intents_file['intents']:
         if intent['tag'] == predictedClass:
-            all_responses = intent['responses']
-
-    # Pick a random response from the list
-    response = [random.choice(all_responses)]
+            responses.append(random.choice(intent['responses_1']))
+            if 'responses_2' in intent:
+                responses.append(random.choice(intent['responses_2']))
 
     # Return response to user
-    docbot_ui.docbot_says(response)
+    docbot_ui.docbot_says(responses)
