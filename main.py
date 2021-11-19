@@ -1,10 +1,12 @@
+from nltk.stem import WordNetLemmatizer
 import interface as docbot_ui
 import response as docbot_resp
 
 # Desc: Main entry point executable for docbot
 
-global NAME
-NAME = "Caleb"
+# Run lemmatizer once at init; if not, then there is noticeable delay on the first response only. Weird.
+lemmatizer = WordNetLemmatizer()
+lemmatizer.lemmatize("hi")
 
 print(docbot_ui.green(
     "\n###################################################################################"))
@@ -17,12 +19,6 @@ DOC_GREETING = [
 ]
 
 docbot_ui.docbot_says(DOC_GREETING)
-
-# NAME = user_says()
-
-# NAME_RESPONSE = [f"Your name is: {NAME}"]
-
-# docbot_says(NAME_RESPONSE)
 
 terminate = False
 
