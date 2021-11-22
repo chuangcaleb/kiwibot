@@ -23,11 +23,7 @@
 				"Top of the morning, what can I do for you?",
 				"Welcome to McDonald's, how can I take your order? Just kidding. I don't *actually* work at McDonald's.",
 				"Hi there, how can I help?"
-			],
-			"context": {
-				"filter": "",
-				"set": ""
-			}
+			]
 		},
 		{
 			"tag": "goodbye",
@@ -46,11 +42,7 @@
 				"Alright, bye!",
 				"Bye! Come back again soon."
 			],
-			"function": "terminate",
-			"context": {
-				"filter": "",
-				"set": ""
-			}
+			"function": "terminate"
 		},
 		{
 			"tag": "status",
@@ -88,8 +80,7 @@
 				"No problem!",
 				"Don't thank me!",
 				"Glad to fulfill my purpose!"
-			],
-			"context": [""]
+			]
 		},
 		{
 			"tag": "noanswer",
@@ -102,8 +93,7 @@
 				"Ooh! I love the quiet game!",
 				"I'm not detecting any query from the prompt!",
 				"Your input looks empty to me..."
-			],
-			"context": [""]
+			]
 		},
 		{
 			"tag": "undefined",
@@ -118,8 +108,7 @@
 				"I'm not smart enough to recognize typos!",
 				"I'm no good in understanding typos!",
 				"Try using synonyms and similar words!"
-			],
-			"context": [""]
+			]
 		},
 		{
 			"tag": "uncertain",
@@ -134,8 +123,7 @@
 				"Could you rephrase that for me?",
 				"Perhaps try using different key words.",
 				"Try using synonyms and similar words!"
-			],
-			"context": [""]
+			]
 		},
 		{
 			"tag": "stopwords",
@@ -149,8 +137,7 @@
 				"I could use more context!",
 				"Perhaps try using key words.",
 				"I think you are missing some key words."
-			],
-			"context": [""]
+			]
 		},
 		{
 			"tag": "options",
@@ -169,8 +156,7 @@
 			],
 			"responses_3": [
 				"If you get stuck, just say 'Now what?' and I can try to give you some options!"
-			],
-			"context": [""]
+			]
 		},
 		{
 			"tag": "adverse_drug",
@@ -181,8 +167,7 @@
 				"List all drugs suitable for patient with adverse reaction",
 				"Which drugs dont have adverse reaction?"
 			],
-			"responses_1": ["Navigating to Adverse drug reaction module"],
-			"context": [""]
+			"responses_1": ["Navigating to Adverse drug reaction module"]
 		},
 		{
 			"tag": "blood_pressure",
@@ -193,8 +178,7 @@
 				"I want to log blood pressure results",
 				"Blood pressure data management"
 			],
-			"responses_1": ["Navigating to Blood Pressure module"],
-			"context": [""]
+			"responses_1": ["Navigating to Blood Pressure module"]
 		},
 		{
 			"tag": "blood_pressure_search",
@@ -205,13 +189,11 @@
 				"Show blood pressure results for patient",
 				"Find blood pressure results by ID"
 			],
-			"responses_1": ["Please provide Patient ID", "Patient ID?"],
-			"context": ["search_blood_pressure_by_patient_id"]
+			"responses_1": ["Please provide Patient ID", "Patient ID?"]
 		},
 		{
 			"tag": "search_blood_pressure_by_patient_id",
-			"responses_1": ["Loading Blood pressure result for Patient"],
-			"context": [""]
+			"responses_1": ["Loading Blood pressure result for Patient"]
 		},
 		{
 			"tag": "pharmacy_search",
@@ -222,13 +204,11 @@
 				"Locate pharmacy",
 				"Search pharmacy"
 			],
-			"responses_1": ["Please provide pharmacy name"],
-			"context": ["search_pharmacy_by_name"]
+			"responses_1": ["Please provide pharmacy name"]
 		},
 		{
 			"tag": "search_pharmacy_by_name",
-			"responses_1": ["Loading pharmacy details"],
-			"context": [""]
+			"responses_1": ["Loading pharmacy details"]
 		},
 		{
 			"tag": "hospital_search",
@@ -239,18 +219,42 @@
 				"Hospital lookup for patient",
 				"Looking up hospital details"
 			],
-			"responses_1": ["Please provide hospital name or location"],
-			"context": ["search_hospital_by_params"]
+			"responses_1": ["Please provide hospital name or location"]
 		},
 		{
 			"tag": "search_hospital_by_params",
-			"responses_1": ["Please provide hospital type"],
-			"context": ["search_hospital_by_type"]
+			"responses_1": ["Please provide hospital type"]
 		},
 		{
 			"tag": "search_hospital_by_type",
-			"responses_1": ["Loading hospital details"],
-			"context": [""]
+			"responses_1": ["Loading hospital details"]
+		},
+		{
+			"tag": "greet_name",
+			"patterns": ["potato"],
+			"responses_1": ["Nice name!"],
+			"context": {
+				"filter": "prompt_name",
+				"set": ""
+			}
+		},
+		{
+			"tag": "deny_name",
+			"patterns": ["wrong"],
+			"responses_1": ["Nice name!"],
+			"context": {
+				"filter": "prompt_name",
+				"set": ""
+			}
+		},
+		{
+			"tag": "fake_intent",
+			"patterns": ["tomato"],
+			"responses_1": ["Fake name!"],
+			"context": {
+				"filter": "fake_filter",
+				"set": ""
+			}
 		}
 	]
 }

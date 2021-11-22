@@ -76,7 +76,4 @@ def predictAllIntents(query):
 
 def predictLikeliestIntent(query):
     allIntents = predictAllIntents(query)
-    topResult = list(allIntents)[0]
-    # CONTEXT SWITCHING HERE
-
-    return topResult[0]
+    return list(allIntents)[0][0]
