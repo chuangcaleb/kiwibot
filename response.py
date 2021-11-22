@@ -50,6 +50,31 @@ class DocBot():
                 query, filtered_intents)
         print("Predicted intent: ", predicted_intent)
 
+        responses = []
+        responses = self.pull_responses(predicted_intent)
+
+        # Apply current context's function on the response
+        new_responses = self.context_switch(responses, query)
+
+        # Return response to user
+        docbot_ui.docbot_says(new_responses)
+
+        # function application
+
+        return (predicted_intent == 'goodbye')
+
+    ########################################
+    # Helper functions
+    ########################################
+
+    # Switch function to apply based on query
+    def context_switch(self, responses, query):
+        switch = {
+            'prompt_name': prompt_name(responses, query),
+        }
+        return switch.get(self.context, 'Not a valid context')
+
+    def pull_responses(self, predicted_intent):
         # Obtain the corresponding data from the json data
         responses = []
         for intent in self.intents_file['intents']:
@@ -63,22 +88,7 @@ class DocBot():
                     intent_context = intent['context']
                 # if 'responses_4' in intent:
                 #     responses.append(random.choice(intent['responses_2']))
-
-        # Apply current context's function on the response
-        new_responses = self.context_switch(responses, query)
-
-        # Return response to user
-        docbot_ui.docbot_says(new_responses)
-
-        # function application
-
-        return (predicted_intent == 'goodbye')
-
-    def context_switch(self, responses, query):
-        switch = {
-            'prompt_name': prompt_name(responses, query),
-        }
-        return switch.get(self.context, 'Not a valid context')
+        return responses
 
 
 ########################################
@@ -87,9 +97,17 @@ class DocBot():
 
 def prompt_name(responses, query):
 
+    # test query for invalid input
+    # noanswer
+    # invalid symbols
+
+    # pull old responses
+
+    # Apply regex on response
     new_responses = []
     for response in responses:
         new_responses.append(re.sub(r'\$NAME', query, response))
+
     return new_responses
 
 

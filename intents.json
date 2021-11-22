@@ -238,6 +238,10 @@
 				"Pleasure to meet you, $NAME!",
 				"$NAME! I know someone with the same name! Cool!"
 			],
+			"responses_2": [
+				"Which programming languages do you want to talk about?",
+				"Which coding languages do you want to talk about?"
+			],
 			"context": {
 				"filter": "prompt_name",
 				"set": ""
