@@ -9,6 +9,7 @@ import response as docbot_resp
 lemmatizer = WordNetLemmatizer()
 lemmatizer.lemmatize("")
 
+# Header
 print(docbot_ui.green(
     "\n###################################################################################"))
 print(docbot_ui.green(
@@ -16,25 +17,25 @@ print(docbot_ui.green(
 print(docbot_ui.green(
     "###################################################################################"))
 
+# Greet user
 DOC_GREETING = [
     "Hello, my name is DocBot! I am a chatbot assistant for computer programmers.",
     "I know a lot about your favorite programming languages!",
     # "For example, ask me about the 'random' module in Python..."
     "What's your name?"
 ]
-
 docbot_ui.docbot_says(DOC_GREETING)
 
+# Initialize
 terminate = False
+my_docbot = docbot_resp.DocBot()
 
-docbot = docbot_resp.DocBot()
-
+# Main while loop
 while not terminate:
-
     query = docbot_ui.user_says()
-    terminate = docbot.gen_response(query)
+    terminate = my_docbot.gen_response(query)
 
-
+# Footer
 print(docbot_ui.green(
     "\n###################################################################################"))
 print(docbot_ui.green(
