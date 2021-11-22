@@ -35,7 +35,7 @@ class DocBot():
     ########################################
     # Context switching
     ########################################
-    def contextSwitch(self, context):
+    def context_switch(self, context):
         switch = {
             'prompt_name': self.prompt_name(),
         }
@@ -47,7 +47,7 @@ class DocBot():
     ########################################
     # Main Method
     ########################################
-    def genResponse(self, query):
+    def gen_response(self, query):
         print("Current context: ", self.context)
 
         # Get intents with matching context
@@ -82,6 +82,7 @@ class DocBot():
                 #     responses.append(random.choice(intent['responses_2']))
 
         #! CONTEXT SWITCHING HERE
+        # self.contextSwitch
 
         # Return response to user
         docbot_ui.docbot_says(responses)

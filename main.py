@@ -32,7 +32,7 @@ docbot = docbot_resp.DocBot()
 while not terminate:
 
     query = docbot_ui.user_says()
-    terminate = docbot.genResponse(query)
+    terminate = docbot.gen_response(query)
 
 
 print(docbot_ui.green(
