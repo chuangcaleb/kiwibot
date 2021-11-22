@@ -27,10 +27,12 @@ docbot_ui.docbot_says(DOC_GREETING)
 
 terminate = False
 
+docbot = docbot_resp.DocBot()
+
 while not terminate:
 
     query = docbot_ui.user_says()
-    terminate = docbot_resp.genResponse(query)
+    terminate = docbot.genResponse(query)
 
 
 print(docbot_ui.green(

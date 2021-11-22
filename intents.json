@@ -241,7 +241,7 @@
 		{
 			"tag": "deny_name",
 			"patterns": ["wrong"],
-			"responses_1": ["Nice name!"],
+			"responses_1": ["Wrong name!"],
 			"context": {
 				"filter": "prompt_name",
 				"set": ""

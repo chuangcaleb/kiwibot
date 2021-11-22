@@ -19,14 +19,14 @@ ERROR_THRESHOLD = 0.2
 ########################################
 
 
-def predictAllIntents(query):
+def predictAllIntents(query, filtered_intents):
 
     # Catch empty strings
     if not query:
         return [('noanswer', 1)]
 
     # init
-    sim_data = dict.fromkeys(classes)
+    sim_data = dict.fromkeys(filtered_intents)
     vector_query = np.zeros(len(vocabulary))
 
     # Clean query
@@ -52,9 +52,9 @@ def predictAllIntents(query):
     vector_query = docbot_mu.logfreq_weighting(vector_query)
 
     # Calculate similarity measure against each class
-    for intent in classes:
+    for intent in filtered_intents:
         sim_data[intent] = docbot_mu.sim_cosine(bow[intent], vector_query)
-        # print(f'Similarity with {intent}: {sim_data[intent]}')
+        print(f'Similarity with {intent}: {sim_data[intent]}')
 
     # Sort the predicted classes by similarity
     sorted_sim_data = sorted(
@@ -74,6 +74,6 @@ def predictAllIntents(query):
     return sorted_sim_data
 
 
-def predictLikeliestIntent(query):
-    allIntents = predictAllIntents(query)
+def predictLikeliestIntent(query, filtered_intents):
+    allIntents = predictAllIntents(query, filtered_intents)
     return list(allIntents)[0][0]
