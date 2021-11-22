@@ -5,10 +5,6 @@ import interface as docbot_ui
 import json
 import random
 
-########################################
-# Load variables
-########################################
-
 
 ########################################
 # Response Management
@@ -17,7 +13,9 @@ import random
 
 class DocBot():
 
+    ########################################
     # Init variables
+    ########################################
     def __init__(self):
         self.data_file = open('intents.json').read()
         self.intents_file = json.loads(self.data_file)
@@ -34,7 +32,9 @@ class DocBot():
                 self.filter_list[intent['tag']] = intent.get(
                     'context').get('filter')
 
-    # context switcher
+    ########################################
+    # Context switching
+    ########################################
     def contextSwitch(self, context):
         switch = {
             'prompt_name': self.prompt_name(),
@@ -44,7 +44,9 @@ class DocBot():
     def prompt_name(message):
         return print(message)
 
-    # Main method
+    ########################################
+    # Main Method
+    ########################################
     def genResponse(self, query):
         print("Current context: ", self.context)
 
@@ -87,11 +89,3 @@ class DocBot():
         # function application
 
         return (predictedClass == 'goodbye')
-
-    # genResponse("hello")
-    # contextSwitch('prompt_name')
-
-    # print(next(key for key, value in intent.iteritems() if value == "prompt_name"))
-
-
-me = DocBot()
