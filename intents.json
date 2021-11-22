@@ -231,8 +231,13 @@
 		},
 		{
 			"tag": "greet_name",
-			"patterns": ["potato"],
-			"responses_1": ["Nice name!"],
+			"responses_1": [
+				"Nice name, $NAME!",
+				"$NAME. That's a nice name!",
+				"Good to meet you, $NAME!",
+				"Pleasure to meet you, $NAME!",
+				"$NAME! I know someone with the same name! Cool!"
+			],
 			"context": {
 				"filter": "prompt_name",
 				"set": ""
@@ -243,7 +248,7 @@
 			"patterns": ["wrong"],
 			"responses_1": ["Wrong name!"],
 			"context": {
-				"filter": "prompt_name",
+				"filter": "prompt_languages",
 				"set": ""
 			}
 		},
@@ -252,7 +257,7 @@
 			"patterns": ["tomato"],
 			"responses_1": ["Fake name!"],
 			"context": {
-				"filter": "fake_filter",
+				"filter": "prompt_languages",
 				"set": ""
 			}
 		}

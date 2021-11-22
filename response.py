@@ -4,11 +4,7 @@ import prediction as docbot_pred
 import interface as docbot_ui
 import json
 import random
-
-
-########################################
-# Response Management
-########################################
+import re
 
 
 class DocBot():
@@ -33,18 +29,6 @@ class DocBot():
                     'context').get('filter')
 
     ########################################
-    # Context switching
-    ########################################
-    def context_switch(self, context):
-        switch = {
-            'prompt_name': self.prompt_name(),
-        }
-        return switch.get(context, 'Not a valid context')
-
-    def prompt_name(message):
-        return print(message)
-
-    ########################################
     # Main Method
     ########################################
     def gen_response(self, query):
@@ -59,18 +43,17 @@ class DocBot():
 
         # If only one matching intent/context, then force it
         if len(filtered_intents) == 1:
-            predictedClass = [x for x in self.intents_file.get(
-                'tag').get('filter') if x == filtered_intents.item()]
-        # Else, predict classes with the query, but only the subset filtered intent classes
+            predicted_intent = filtered_intents[0]
+        # Else, predict intent with the query, but only the subset filtered intent classes
         else:
-            predictedClass = docbot_pred.predictLikeliestIntent(
+            predicted_intent = docbot_pred.predictLikeliestIntent(
                 query, filtered_intents)
-        # print("Predicted class: ", predictedClass)
+        print("Predicted intent: ", predicted_intent)
 
         # Obtain the corresponding data from the json data
         responses = []
         for intent in self.intents_file['intents']:
-            if intent['tag'] == predictedClass:
+            if intent['tag'] == predicted_intent:
                 responses.append(random.choice(intent['responses_1']))
                 if 'responses_2' in intent:
                     responses.append(random.choice(intent['responses_2']))
@@ -81,12 +64,37 @@ class DocBot():
                 # if 'responses_4' in intent:
                 #     responses.append(random.choice(intent['responses_2']))
 
-        #! CONTEXT SWITCHING HERE
-        # self.contextSwitch
+        # Apply current context's function on the response
+        new_responses = self.context_switch(responses, query)
 
         # Return response to user
-        docbot_ui.docbot_says(responses)
+        docbot_ui.docbot_says(new_responses)
 
         # function application
 
-        return (predictedClass == 'goodbye')
+        return (predicted_intent == 'goodbye')
+
+    def context_switch(self, responses, query):
+        switch = {
+            'prompt_name': prompt_name(responses, query),
+        }
+        return switch.get(self.context, 'Not a valid context')
+
+
+########################################
+# Context switching helper functions
+########################################
+
+def prompt_name(responses, query):
+
+    new_responses = []
+    for response in responses:
+        new_responses.append(re.sub(r'\$NAME', query, response))
+    return new_responses
+
+
+# my_docbot = DocBot()
+# # my_docbot.gen_response("Caleb")
+# filtered_intents = ['greet_name']
+# thing = my_docbot.filter_list.get(filtered_intents[0])
+# print(thing)
