@@ -16,24 +16,26 @@ class DocBot():
     ########################################
     # Init variables
     ########################################
+
+    # Load context filters and all filters
+    filter_list = {}
+    for intent in intents_file['intents']:
+        # self.all_intents.append(intent.get('context').get('filter'))
+        if ('context' in intent):
+            filter_list[intent['tag']] = intent.get(
+                'context').get('filter')
+
     def __init__(self):
 
         # On startup, set context to prompt name
         self.context = 'prompt_name'
 
-        # Load context filters and all filters
-        # self.non_filtered = []
-        self.filter_list = {}
-        for intent in intents_file['intents']:
-            # self.all_intents.append(intent.get('context').get('filter'))
-            if ('context' in intent):
-                self.filter_list[intent['tag']] = intent.get(
-                    'context').get('filter')
-
     ########################################
     # Main Method
     ########################################
+
     def gen_response(self, query):
+
         print("Current context: ", self.context)
 
         # Get intents with matching context
@@ -43,6 +45,7 @@ class DocBot():
                 filtered_intents.append(intent)
         print("Possible intents: ", filtered_intents)
 
+        # >> Retrieving appropriate intents
         # If only one matching intent/context, then force it
         if len(filtered_intents) == 1:
             predicted_intent = filtered_intents[0]
@@ -57,8 +60,6 @@ class DocBot():
 
         # Return response to user
         docbot_ui.docbot_says(responses)
-
-        # function application
 
         return (predicted_intent == 'goodbye')
 
@@ -84,10 +85,16 @@ class DocBot():
 
     # Switch function to apply based on query
     def context_switch(self, predicted_intent, query):
+
+        # if query is empty, force 'noanswer'
+        if not query:
+            return self.pull_responses('noanswer')
+
         switch = {
             'prompt_name': self.prompt_name(predicted_intent, query),
         }
-        return switch.get(self.context, 'Not a valid context')
+
+        return switch.get(self.context)
 
     ########################################
     # Helper functions
@@ -97,19 +104,20 @@ class DocBot():
 
         # test query for invalid input
         # noanswer
-        # invalid symbols
-        if not re.match(r"^[a-zA-Z]+$", query):
-            return self.pull_responses('invalid_name')
-
-        # pull old responses
-        responses = self.pull_responses(predicted_intent)
+        if not query:
+            responses = self.pull_responses('noanswer')
+        if not re.match(r"^[a-zA-Z]+$", query):  # If invalid symbols
+            responses = self.pull_responses('invalid_name')
+        else:  # Else if a legit name input
+            # pull old responses
+            responses = self.pull_responses(predicted_intent)
 
         # Apply regex on response
-        new_responses = []
+        formatted_responses = []
         for response in responses:
-            new_responses.append(re.sub(r'\$NAME', query, response))
+            formatted_responses.append(re.sub(r'\$NAME', query, response))
 
-        return new_responses
+        return formatted_responses
 
 
 # my_docbot = DocBot()

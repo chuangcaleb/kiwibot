@@ -21,7 +21,7 @@ ERROR_THRESHOLD = 0.2
 
 def predictAllIntents(query, filtered_intents):
 
-    # Catch empty strings
+    # Catch empty strings (Dead code, but should catch new implementations)
     if not query:
         return [('noanswer', 1)]
 
