@@ -253,12 +253,13 @@
 		{
 			"tag": "invalid_name",
 			"responses_1": [
+				"Looks like '$NAME' has some illegal characters in it.",
 				"Names should only be made up of alphabetical characters!",
 				"I'm pretty sure names only have alphabetical characters!",
 				"Beep boop. I don't think real names have numbers and symbols!"
 			],
 			"responses_2": [
-				"Maybe it's a typo. Could you repeat your name for me?",
+				"Maybe '$NAME' is a typo. Could you repeat your name for me?",
 				"Can I have your name again?"
 			],
 			"context": {

@@ -108,9 +108,10 @@ class DocBot():
         # filter name out of query
         names = [word.strip(".,!") for word in query.split(
             " ") if word.lower() not in name_stopwords]
-        filtered_query = " ".join(names)
+        processed_query = " ".join(names)
+        print(processed_query)
 
-        if not re.match(r"^[a-zA-Z\ ]+$", filtered_query):  # If invalid symbols
+        if not re.match(r"^[a-zA-Z\ ]+$", processed_query):  # If invalid symbols
             responses = self.pull_responses('invalid_name')
         else:  # Else, a legit name input
             # pull old responses
@@ -120,7 +121,7 @@ class DocBot():
         formatted_responses = []
         for response in responses:
             formatted_responses.append(
-                re.sub(r'\$NAME', filtered_query, response))
+                re.sub(r'\$NAME', processed_query, response))
 
         return formatted_responses
 
