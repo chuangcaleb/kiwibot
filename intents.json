@@ -198,6 +198,26 @@
 			}
 		},
 		{
+			"tag": "laugh",
+			"patterns": [
+				"ha",
+				"haha",
+				"hahaha",
+				"lol",
+				"That's funny!",
+				"You're funny!"
+			],
+			"responses_1": [
+				"Did I make you laugh? That's great!",
+				"LOL!",
+				"lol",
+				"Glad I could make you laugh, $NAME!"
+			],
+			"context": {
+				"filter": ["general"]
+			}
+		},
+		{
 			"tag": "greet_name",
 			"responses_1": [
 				"Nice name, $NAME!",
