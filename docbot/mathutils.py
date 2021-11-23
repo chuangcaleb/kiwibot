@@ -11,7 +11,12 @@ from scipy import spatial
 lemmatizer = WordNetLemmatizer()
 # Remove stopwords, lowercase
 ignore_words = [',', "!"]
+
 english_stopwords = stopwords.words('english')
+meaningful_stopwords = ["my", "your", "i", "you"]
+for word in meaningful_stopwords:
+    english_stopwords.remove(word)
+
 ignore_words.extend(english_stopwords)
 
 
