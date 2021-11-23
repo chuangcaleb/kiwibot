@@ -54,7 +54,7 @@ def predictAllIntents(query, filtered_intents):
     # Calculate similarity measure against each class
     for intent in filtered_intents:
         sim_data[intent] = docbot_mu.sim_cosine(bow[intent], vector_query)
-        print(f'Similarity with {intent}: {sim_data[intent]}')
+        # print(f'Similarity with {intent}: {sim_data[intent]}')
 
     # Sort the predicted classes by similarity
     sorted_sim_data = sorted(

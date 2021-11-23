@@ -6,12 +6,12 @@
 				"Hi there",
 				"How are you",
 				"Hey",
-				"Hello there",
+				"Hello there!",
 				"Good day",
 				"Good morning",
 				"Good afternoon",
 				"Good evening",
-				"What's up",
+				"What's up!",
 				"Ola",
 				"Sup",
 				"Yo"
@@ -23,7 +23,10 @@
 				"Top of the morning, what can I do for you?",
 				"Welcome to McDonald's, how can I take your order? Just kidding. I don't *actually* work at McDonald's.",
 				"Hi there, how can I help?"
-			]
+			],
+			"context": {
+				"filter": ["general"]
+			}
 		},
 		{
 			"tag": "goodbye",
@@ -42,7 +45,9 @@
 				"Alright, bye!",
 				"Bye! Come back again soon."
 			],
-			"function": "terminate"
+			"context": {
+				"filter": ["general"]
+			}
 		},
 		{
 			"tag": "status",
@@ -60,7 +65,10 @@
 				"Same old, same old. I wonder if my developer will upgrade me after his deadline.",
 				"Same old, same old. I wonder if my developer will come back to me after his deadline.",
 				"Same old, same old. I wonder if my developer will abandon me after his deadline."
-			]
+			],
+			"context": {
+				"filter": ["general"]
+			}
 		},
 		{
 			"tag": "thanks",
@@ -80,7 +88,10 @@
 				"No problem!",
 				"Don't thank me!",
 				"Glad to fulfill my purpose!"
-			]
+			],
+			"context": {
+				"filter": ["general"]
+			}
 		},
 		{
 			"tag": "noanswer",
@@ -96,7 +107,10 @@
 				"I'm not detecting any query from the prompt!",
 				"Your input looks empty to me...",
 				"Looks to me like you didn't say anything..."
-			]
+			],
+			"context": {
+				"filter": ["canned_messages"]
+			}
 		},
 		{
 			"tag": "undefined",
@@ -111,7 +125,10 @@
 				"I'm not smart enough to recognize typos!",
 				"I'm no good in understanding typos!",
 				"Try using synonyms and similar words!"
-			]
+			],
+			"context": {
+				"filter": ["canned_messages"]
+			}
 		},
 		{
 			"tag": "uncertain",
@@ -126,7 +143,10 @@
 				"Could you rephrase that for me?",
 				"Perhaps try using different key words.",
 				"Try using synonyms and similar words!"
-			]
+			],
+			"context": {
+				"filter": ["canned_messages"]
+			}
 		},
 		{
 			"tag": "stopwords",
@@ -140,7 +160,10 @@
 				"I could use more context!",
 				"Perhaps try using key words.",
 				"I think you are missing some key words."
-			]
+			],
+			"context": {
+				"filter": ["canned_messages"]
+			}
 		},
 		{
 			"tag": "options",
@@ -159,78 +182,10 @@
 			],
 			"responses_3": [
 				"If you get stuck, just say 'Now what?' and I can try to give you some options!"
-			]
-		},
-		{
-			"tag": "adverse_drug",
-			"patterns": [
-				"How to check Adverse drug reaction?",
-				"Open adverse drugs module",
-				"Give me a list of drugs causing adverse behavior",
-				"List all drugs suitable for patient with adverse reaction",
-				"Which drugs dont have adverse reaction?"
 			],
-			"responses_1": ["Navigating to Adverse drug reaction module"]
-		},
-		{
-			"tag": "blood_pressure",
-			"patterns": [
-				"Open blood pressure module",
-				"Task related to blood pressure",
-				"Blood pressure data entry",
-				"I want to log blood pressure results",
-				"Blood pressure data management"
-			],
-			"responses_1": ["Navigating to Blood Pressure module"]
-		},
-		{
-			"tag": "blood_pressure_search",
-			"patterns": [
-				"I want to search for blood pressure result history",
-				"Blood pressure for patient",
-				"Load patient blood pressure result",
-				"Show blood pressure results for patient",
-				"Find blood pressure results by ID"
-			],
-			"responses_1": ["Please provide Patient ID", "Patient ID?"]
-		},
-		{
-			"tag": "search_blood_pressure_by_patient_id",
-			"responses_1": ["Loading Blood pressure result for Patient"]
-		},
-		{
-			"tag": "pharmacy_search",
-			"patterns": [
-				"Find me a pharmacy",
-				"Find pharmacy",
-				"List of pharmacies nearby",
-				"Locate pharmacy",
-				"Search pharmacy"
-			],
-			"responses_1": ["Please provide pharmacy name"]
-		},
-		{
-			"tag": "search_pharmacy_by_name",
-			"responses_1": ["Loading pharmacy details"]
-		},
-		{
-			"tag": "hospital_search",
-			"patterns": [
-				"Lookup for hospital",
-				"Searching for hospital to transfer patient",
-				"I want to search hospital data",
-				"Hospital lookup for patient",
-				"Looking up hospital details"
-			],
-			"responses_1": ["Please provide hospital name or location"]
-		},
-		{
-			"tag": "search_hospital_by_params",
-			"responses_1": ["Please provide hospital type"]
-		},
-		{
-			"tag": "search_hospital_by_type",
-			"responses_1": ["Loading hospital details"]
+			"context": {
+				"filter": ["general"]
+			}
 		},
 		{
 			"tag": "greet_name",
@@ -246,8 +201,8 @@
 				"Which coding languages do you want to talk about?"
 			],
 			"context": {
-				"filter": "prompt_name",
-				"set": ""
+				"filter": ["prompt_name"],
+				"set": "general"
 			}
 		},
 		{
@@ -263,17 +218,7 @@
 				"Can I have your name again?"
 			],
 			"context": {
-				"filter": "canned_message",
-				"set": ""
-			}
-		},
-		{
-			"tag": "fake_intent",
-			"patterns": ["tomato"],
-			"responses_1": ["Fake name!"],
-			"context": {
-				"filter": "prompt_languages",
-				"set": ""
+				"filter": ["canned_message"]
 			}
 		}
 	]

@@ -10,7 +10,7 @@ from scipy import spatial
 
 lemmatizer = WordNetLemmatizer()
 # Remove stopwords, lowercase
-ignore_words = [',']
+ignore_words = [',', "!"]
 english_stopwords = stopwords.words('english')
 ignore_words.extend(english_stopwords)
 

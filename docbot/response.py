@@ -5,17 +5,15 @@ from docbot import interface as docbot_ui
 import json
 import random
 import re
-import string
 
 
 data_file = open('intents.json').read()
 intents_file = json.loads(data_file)
 
-# Load context filters and all filters
+# Load context filters
 filter_list = {}
 for intent in intents_file['intents']:
-    # self.all_intents.append(intent.get('context').get('filter'))
-    if ('context' in intent):
+    if 'context' in intent:
         filter_list[intent['tag']] = intent.get(
             'context').get('filter')
 
@@ -42,7 +40,7 @@ class DocBot():
         # Get intents with matching context
         filtered_intents = []
         for intent in filter_list:
-            if self.context == filter_list[intent]:
+            if self.context in filter_list[intent]:
                 filtered_intents.append(intent)
         print("Possible intents: ", filtered_intents)
 
@@ -79,7 +77,10 @@ class DocBot():
                 if 'responses_3' in intent:
                     responses.append(random.choice(intent['responses_3']))
                 if 'context' in intent:
-                    intent_context = intent['context']
+                    # ew such an ugly way to access
+                    if 'set' in intent.get('context'):
+                        self.context = intent.get('context').get('set')
+                        print("changed context to", self.context)
                 # if 'responses_4' in intent:
                 #     responses.append(random.choice(intent['responses_2']))
         return responses
@@ -91,11 +92,14 @@ class DocBot():
         if not query:
             return self.pull_responses('noanswer')
 
-        switch = {
-            'prompt_name': self.prompt_name(predicted_intent, query),
+        # Switch dictionary of all possible context functions
+        context_switcher = {
+            'prompt_name': lambda: self.prompt_name(predicted_intent, query),
         }
 
-        return switch.get(self.context)
+        # Run the appropriate function
+        # -> if context function doesn't exist, then just pull appropriate responses
+        return context_switcher.get(self.context, lambda: self.pull_responses(predicted_intent))()
 
     ########################################
     # Context functions
@@ -109,14 +113,12 @@ class DocBot():
         names = [word.strip(".,!") for word in query.split(
             " ") if word.lower() not in name_stopwords]
         processed_query = " ".join(names)
-        print(processed_query)
 
         if not re.match(r"^[a-zA-Z\ ]+$", processed_query):  # If invalid symbols
             responses = self.pull_responses('invalid_name')
         else:  # Else, a legit name input
             # pull old responses
             responses = self.pull_responses(predicted_intent)
-
         # Apply regex on response
         formatted_responses = []
         for response in responses:

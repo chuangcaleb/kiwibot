@@ -20,7 +20,7 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-import mathutils as docbot_mu
+from docbot import mathutils as docbot_mu
 
 ########################################
 # ## Loading Intents Data
