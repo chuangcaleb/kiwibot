@@ -1,13 +1,16 @@
 from nltk.stem import WordNetLemmatizer
-import interface as docbot_ui
-import response as docbot_resp
+from docbot import interface as docbot_ui
+from docbot import response as docbot_resp
 
 # Desc: Main entry point executable for docbot
 
-# Run lemmatizer once at init; if not, then there is noticeable delay on the first response only. Weird.
+# Run lemmatizer once at init; if not, then there is noticeable delay only on Docbot's first response. Weird.
 # Run a print statement before and after this code block, you can see the time delay.
+# print("before instantiation")
 lemmatizer = WordNetLemmatizer()
+# print("after instantiation")
 lemmatizer.lemmatize("")
+# print("after lemma")
 
 # Header
 print(docbot_ui.green(

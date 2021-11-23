@@ -1,7 +1,7 @@
 # Mangages the response of the chatbot according to the predicted class
 
-import prediction as docbot_pred
-import interface as docbot_ui
+from docbot import prediction as docbot_pred
+from docbot import interface as docbot_ui
 import json
 import random
 import re
@@ -10,20 +10,20 @@ import re
 data_file = open('intents.json').read()
 intents_file = json.loads(data_file)
 
+# Load context filters and all filters
+filter_list = {}
+for intent in intents_file['intents']:
+    # self.all_intents.append(intent.get('context').get('filter'))
+    if ('context' in intent):
+        filter_list[intent['tag']] = intent.get(
+            'context').get('filter')
+
 
 class DocBot():
 
     ########################################
     # Init variables
     ########################################
-
-    # Load context filters and all filters
-    filter_list = {}
-    for intent in intents_file['intents']:
-        # self.all_intents.append(intent.get('context').get('filter'))
-        if ('context' in intent):
-            filter_list[intent['tag']] = intent.get(
-                'context').get('filter')
 
     def __init__(self):
 
@@ -40,8 +40,8 @@ class DocBot():
 
         # Get intents with matching context
         filtered_intents = []
-        for intent in self.filter_list:
-            if self.context == self.filter_list[intent]:
+        for intent in filter_list:
+            if self.context == filter_list[intent]:
                 filtered_intents.append(intent)
         print("Possible intents: ", filtered_intents)
 
@@ -102,13 +102,9 @@ class DocBot():
 
     def prompt_name(self, predicted_intent, query):
 
-        # test query for invalid input
-        # noanswer
-        if not query:
-            responses = self.pull_responses('noanswer')
         if not re.match(r"^[a-zA-Z]+$", query):  # If invalid symbols
             responses = self.pull_responses('invalid_name')
-        else:  # Else if a legit name input
+        else:  # Else, a legit name input
             # pull old responses
             responses = self.pull_responses(predicted_intent)
 
@@ -118,7 +114,6 @@ class DocBot():
             formatted_responses.append(re.sub(r'\$NAME', query, response))
 
         return formatted_responses
-
 
 # my_docbot = DocBot()
 # # my_docbot.gen_response("Caleb")

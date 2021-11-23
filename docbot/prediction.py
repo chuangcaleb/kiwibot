@@ -1,7 +1,7 @@
 import pickle
 
 import numpy as np
-import mathutils as docbot_mu
+from docbot import mathutils as docbot_mu
 
 ########################################
 # Load variables
