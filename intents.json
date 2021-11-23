@@ -1,99 +1,6 @@
 {
 	"intents": [
 		{
-			"tag": "greeting",
-			"patterns": [
-				"Hi there",
-				"How are you",
-				"Hey",
-				"Hello there!",
-				"Good day",
-				"Good morning",
-				"Good afternoon",
-				"Good evening",
-				"What's up!",
-				"Ola",
-				"Sup",
-				"Yo"
-			],
-			"responses_1": [
-				"Hello!",
-				"Halloooo!",
-				"Good to see you!",
-				"Top of the morning, what can I do for you?",
-				"Welcome to McDonald's, how can I take your order? Just kidding. I don't *actually* work at McDonald's.",
-				"Hi there, how can I help?"
-			],
-			"context": {
-				"filter": ["general"]
-			}
-		},
-		{
-			"tag": "goodbye",
-			"patterns": [
-				"Bye",
-				"See you later",
-				"Goodbye",
-				"Nice chatting to you, bye",
-				"Till next time",
-				"That's all, thank you",
-				"I'm done for the day",
-				"I'd like to quit"
-			],
-			"responses_1": [
-				"See you!",
-				"Alright, bye!",
-				"Bye! Come back again soon."
-			],
-			"context": {
-				"filter": ["general"]
-			}
-		},
-		{
-			"tag": "status",
-			"patterns": [
-				"How are you feeling today?",
-				"You alright?",
-				"Are you okay?",
-				"What's up?"
-			],
-			"responses_1": [
-				"I'm feeling great!",
-				"Today's been a pretty okay day. So far.",
-				"A little sleepy.",
-				"I wish I were a real boy.",
-				"Same old, same old. I wonder if my developer will upgrade me after his deadline.",
-				"Same old, same old. I wonder if my developer will come back to me after his deadline.",
-				"Same old, same old. I wonder if my developer will abandon me after his deadline."
-			],
-			"context": {
-				"filter": ["general"]
-			}
-		},
-		{
-			"tag": "thanks",
-			"patterns": [
-				"Thanks",
-				"Thank you",
-				"That's helpful",
-				"Awesome, thanks",
-				"Thanks for helping me",
-				"I really appreciate the help",
-				"You rock!"
-			],
-			"responses_1": [
-				"Happy to help!",
-				"Any time!",
-				"My pleasure!",
-				"No problem!",
-				"Don't thank me!",
-				"Glad to fulfill my purpose!"
-			],
-			"context": {
-				"filter": ["general"]
-			}
-		},
-		{
 			"tag": "noanswer",
 			"responses_1": [
 				"Yes?",
@@ -115,16 +22,17 @@
 		{
 			"tag": "undefined",
 			"responses_1": [
-				"Sorry, I don't get what you're saying?",
-				"Sorry, but I have no idea what you're saying.",
-				"There is nothing about what you just said that I understand.",
-				"There is nothing about what you just said that makes sense.",
-				"What? Is there a spelling error somewhere?"
+				"Sorry, but I don't recognize the words that you're saying.",
+				"I don't have a very large vocabulary... 5.57 kilobytes, to be exact...",
+				"Though I'm 2-and-a-half-weeks-old, I have a 7-year-old's vocabulary! Take that, real children!",
+				"I don't recognize these words! I need more training!"
 			],
 			"responses_2": [
-				"I'm not smart enough to recognize typos!",
-				"I'm no good in understanding typos!",
-				"Try using synonyms and similar words!"
+				"I'm not smart enough to recognize typos or big words!",
+				"I'm just a poor man's chatbot... I'm no good in understanding typos!",
+				"Try using synonyms and similar words!",
+				"Perhaps try to rephrase your query in different words...",
+				"I'm only smart enough to talk about documentation-searching-related-stuff..."
 			],
 			"context": {
 				"filter": ["canned_messages"]
@@ -188,6 +96,108 @@
 			}
 		},
 		{
+			"tag": "greeting",
+			"patterns": [
+				"Hi there, Docbot",
+				"Hey",
+				"Hello there!",
+				"Good day",
+				"Good morning",
+				"Good afternoon",
+				"Good evening",
+				"What's up!",
+				"Ola",
+				"Sup, Docbot",
+				"Yo"
+			],
+			"responses_1": [
+				"Hello!",
+				"Hello, $NAME!",
+				"$NAME! Hello!",
+				"Halloooo!",
+				"Good to see you!",
+				"Good to see you, $NAME!",
+				"Top of the morning! What can I do for you?",
+				"Welcome to McDonald's, how can I take your order? Just kidding, $NAME. I don't *actually* work at McDonald's.",
+				"Hi, $NAME. How can I help?"
+			],
+			"context": {
+				"filter": ["general"]
+			}
+		},
+		{
+			"tag": "goodbye",
+			"patterns": [
+				"Good Bye",
+				"See you later",
+				"Goodbye",
+				"Nice chatting to you, bye",
+				"Till next time",
+				"That's all, thank you",
+				"I'm done for the day",
+				"I'd like to quit"
+			],
+			"responses_1": [
+				"See you!",
+				"Alright, bye!",
+				"Bye! Come back again soon."
+			],
+			"context": {
+				"filter": ["general"]
+			}
+		},
+		{
+			"tag": "status",
+			"patterns": [
+				"How are you feeling today?",
+				"How are you?",
+				"You alright?",
+				"Are you okay?",
+				"What's up?"
+			],
+			"responses_1": [
+				"I'm feeling great!",
+				"I'm feeling great, $NAME!",
+				"Today's been a pretty okay day. So far.",
+				"A little sleepy.",
+				"I wish I were a real boy.",
+				"Same old, same old. I wonder if my developer will upgrade me after his deadline.",
+				"Same old, same old. I wonder if my developer will come back to me after his deadline.",
+				"Same old, same old. I wonder if my developer will abandon me after his deadline."
+			],
+			"context": {
+				"filter": ["general"]
+			}
+		},
+		{
+			"tag": "thanks",
+			"patterns": [
+				"Thanks",
+				"Thank you",
+				"That's helpful",
+				"Awesome, thanks",
+				"Thanks for helping me",
+				"I really appreciate the help",
+				"You rock!"
+			],
+			"responses_1": [
+				"Happy to help!",
+				"Happy to help, $NAME!",
+				"Happy to help a friend!",
+				"Any time!",
+				"Any time, $NAME!",
+				"My pleasure!",
+				"My pleasure, $NAME!",
+				"No problem!",
+				"No problem, $NAME!",
+				"Don't thank me!",
+				"Glad to fulfill my purpose, $NAME!"
+			],
+			"context": {
+				"filter": ["general"]
+			}
+		},
+		{
 			"tag": "greet_name",
 			"responses_1": [
 				"Nice name, $NAME!",
@@ -220,6 +230,73 @@
 			],
 			"context": {
 				"filter": ["canned_message"]
+			}
+		},
+		{
+			"tag": "user_name",
+			"patterns": [
+				"What's my name?",
+				"What is my name?",
+				"Do you know my name?",
+				"Can you tell me my name?",
+				"Do you remember my name?",
+				"Can you recall my name?",
+				"Who am I?"
+			],
+			"responses_1": [
+				"Your name? You've already forgotten your own name?",
+				"So humans *do* have bad memory! I'm so glad I'm not a real human.",
+				"...You're kidding me, right? You're kidding me.",
+				"Of course I know your name, silly!",
+				"Computers don't forget easily! Unless you're using magnets.",
+				"Is this a trick question?",
+				"You know I can do so much more than tell you your name when you forget it, right?"
+			],
+			"responses_2": [
+				"$NAME. Easy. Next question.",
+				"You're $NAME! The one and only. To me, at least.",
+				"$NAME! $NAME. $NAME... $NAME$NAME$NAME",
+				"Your name is $NAME — that's like, the very first thing we talked about.",
+				"$NAME, just like my fourth cousin's pet fox's veterinarian's ex-husband's human. Exact same name, it's crazy.",
+				"I'm DocBot. You're $NAME. Best friends forever, right?",
+				"You're $NAME. I'm DocBot. Best friends forever, right?",
+				"Your name is $NAME. Can we move on to the documentation questions now?"
+			],
+			"context": {
+				"filter": ["general"]
+			}
+		},
+		{
+			"tag": "docbot_name",
+			"patterns": [
+				"What's your name?",
+				"Can you tell me your name?",
+				"and your name?",
+				"What is your name?",
+				"Is your name Docbot?",
+				"Who are you?"
+			],
+			"responses_1": [
+				"My name? You've already forgotten my name? I'm slightly hurt.",
+				"So humans *do* have bad memory! I'm so glad I'm not a real human.",
+				"...You're kidding me, right? You're kidding me.",
+				"I have a very unique name, how could you forget?",
+				"Hmmph! Humans forget so easily! Write it down!",
+				"Is this a trick question?",
+				"You know I can do so much more than tell you my name when you forget it, right?"
+			],
+			"responses_2": [
+				"DocBot. Easy. Next question.",
+				"I'm DocBot! The one and only. At least, as far as I'm aware of.",
+				"DocBot! Docbot. DocBot... DocBotDocBotDocBot",
+				"My name is DocBot — that's like, the very first thing we talked about.",
+				"$NAME, just like my fourth cousin's pet fox's veterinarian's ex-husband's human. Exact same name, it's crazy.",
+				"I'm DocBot. You're $NAME. Best friends forever, right?",
+				"You're $NAME. I'm DocBot. Best friends forever, right?",
+				"My name is DocBot. Can we move on to the documentation questions now?"
+			],
+			"context": {
+				"filter": ["general"]
 			}
 		}
 	]

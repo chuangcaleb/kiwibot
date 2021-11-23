@@ -28,6 +28,7 @@ class DocBot():
 
         # On startup, set context to prompt name
         self.context = 'prompt_name'
+        self.NAME = ''
 
     ########################################
     # Main Method
@@ -37,7 +38,7 @@ class DocBot():
 
         print("Current context: ", self.context)
 
-        # Get intents with matching context
+        # >> Get intents with matching context
         filtered_intents = []
         for intent in filter_list:
             if self.context in filter_list[intent]:
@@ -54,10 +55,10 @@ class DocBot():
                 query, filtered_intents)
         print("Predicted intent: ", predicted_intent)
 
-        # Apply current context's function on the response
+        # >> Apply current context's function on the response
         responses = self.context_switch(predicted_intent, query)
 
-        # Return response to user
+        # >> Return response to user
         docbot_ui.docbot_says(responses)
 
         return (predicted_intent == 'goodbye')
@@ -65,25 +66,6 @@ class DocBot():
     ########################################
     # Context switching helper functions
     ########################################
-
-    def pull_responses(self, predicted_intent):
-        # Obtain the corresponding data from the json data
-        responses = []
-        for intent in intents_file['intents']:
-            if intent['tag'] == predicted_intent:
-                responses.append(random.choice(intent['responses_1']))
-                if 'responses_2' in intent:
-                    responses.append(random.choice(intent['responses_2']))
-                if 'responses_3' in intent:
-                    responses.append(random.choice(intent['responses_3']))
-                if 'context' in intent:
-                    # ew such an ugly way to access
-                    if 'set' in intent.get('context'):
-                        self.context = intent.get('context').get('set')
-                        print("changed context to", self.context)
-                # if 'responses_4' in intent:
-                #     responses.append(random.choice(intent['responses_2']))
-        return responses
 
     # Switch function to apply based on query
     def context_switch(self, predicted_intent, query):
@@ -100,6 +82,32 @@ class DocBot():
         # Run the appropriate function
         # -> if context function doesn't exist, then just pull appropriate responses
         return context_switcher.get(self.context, lambda: self.pull_responses(predicted_intent))()
+
+    def pull_responses(self, predicted_intent):
+
+        # >> Obtain the corresponding data from the json data
+        responses = []
+        for intent in intents_file['intents']:
+            if intent['tag'] == predicted_intent:
+                responses.append(random.choice(intent['responses_1']))
+                if 'responses_2' in intent:
+                    responses.append(random.choice(intent['responses_2']))
+                if 'responses_3' in intent:
+                    responses.append(random.choice(intent['responses_3']))
+                if 'context' in intent:
+                    # ew such an ugly way to access
+                    if 'set' in intent.get('context'):
+                        self.context = intent.get('context').get('set')
+                        print("changed context to", self.context)
+
+        # >> Apply regex on response
+        formatted_responses = []
+        for response in responses:
+            # $NAME
+            formatted_responses.append(
+                re.sub(r'\$NAME', self.NAME, response))
+
+        return formatted_responses
 
     ########################################
     # Context functions
@@ -118,15 +126,12 @@ class DocBot():
         if not re.match(r"(?i)^(?:(?![×Þß÷þø])[-'0-9a-zÀ-ÿ\ \-])+$", processed_query):
             responses = self.pull_responses('invalid_name')
         else:  # Else, a legit name input
-            # pull old responses
+            # Save user's name in instance's variable
+            self.NAME = processed_query
+            # pull responses as planned
             responses = self.pull_responses(predicted_intent)
-        # Apply regex on response
-        formatted_responses = []
-        for response in responses:
-            formatted_responses.append(
-                re.sub(r'\$NAME', processed_query, response))
 
-        return formatted_responses
+        return responses
 
 # my_docbot = DocBot()
 # # my_docbot.gen_response("Caleb")
