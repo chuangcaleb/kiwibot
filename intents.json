@@ -248,11 +248,12 @@
 			}
 		},
 		{
-			"tag": "deny_name",
-			"patterns": ["wrong"],
-			"responses_1": ["Wrong name!"],
+			"tag": "invalid_name",
+			"responses_1": [
+				"Names should only be made up of alphabetical characters!"
+			],
 			"context": {
-				"filter": "prompt_languages",
+				"filter": "canned_message",
 				"set": ""
 			}
 		},

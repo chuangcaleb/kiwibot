@@ -7,14 +7,16 @@ import random
 import re
 
 
+data_file = open('intents.json').read()
+intents_file = json.loads(data_file)
+
+
 class DocBot():
 
     ########################################
     # Init variables
     ########################################
     def __init__(self):
-        self.data_file = open('intents.json').read()
-        self.intents_file = json.loads(self.data_file)
 
         # On startup, set context to prompt name
         self.context = 'prompt_name'
@@ -22,7 +24,7 @@ class DocBot():
         # Load context filters and all filters
         # self.non_filtered = []
         self.filter_list = {}
-        for intent in self.intents_file['intents']:
+        for intent in intents_file['intents']:
             # self.all_intents.append(intent.get('context').get('filter'))
             if ('context' in intent):
                 self.filter_list[intent['tag']] = intent.get(
@@ -39,7 +41,7 @@ class DocBot():
         for intent in self.filter_list:
             if self.context == self.filter_list[intent]:
                 filtered_intents.append(intent)
-        print("Current intents: ", filtered_intents)
+        print("Possible intents: ", filtered_intents)
 
         # If only one matching intent/context, then force it
         if len(filtered_intents) == 1:
@@ -50,34 +52,24 @@ class DocBot():
                 query, filtered_intents)
         print("Predicted intent: ", predicted_intent)
 
-        responses = []
-        responses = self.pull_responses(predicted_intent)
-
         # Apply current context's function on the response
-        new_responses = self.context_switch(responses, query)
+        responses = self.context_switch(predicted_intent, query)
 
         # Return response to user
-        docbot_ui.docbot_says(new_responses)
+        docbot_ui.docbot_says(responses)
 
         # function application
 
         return (predicted_intent == 'goodbye')
 
     ########################################
-    # Helper functions
+    # Context switching helper functions
     ########################################
-
-    # Switch function to apply based on query
-    def context_switch(self, responses, query):
-        switch = {
-            'prompt_name': prompt_name(responses, query),
-        }
-        return switch.get(self.context, 'Not a valid context')
 
     def pull_responses(self, predicted_intent):
         # Obtain the corresponding data from the json data
         responses = []
-        for intent in self.intents_file['intents']:
+        for intent in intents_file['intents']:
             if intent['tag'] == predicted_intent:
                 responses.append(random.choice(intent['responses_1']))
                 if 'responses_2' in intent:
@@ -90,25 +82,34 @@ class DocBot():
                 #     responses.append(random.choice(intent['responses_2']))
         return responses
 
+    # Switch function to apply based on query
+    def context_switch(self, predicted_intent, query):
+        switch = {
+            'prompt_name': self.prompt_name(predicted_intent, query),
+        }
+        return switch.get(self.context, 'Not a valid context')
 
-########################################
-# Context switching helper functions
-########################################
+    ########################################
+    # Helper functions
+    ########################################
 
-def prompt_name(responses, query):
+    def prompt_name(self, predicted_intent, query):
 
-    # test query for invalid input
-    # noanswer
-    # invalid symbols
+        # test query for invalid input
+        # noanswer
+        # invalid symbols
+        if not re.match(r"^[a-zA-Z]+$", query):
+            return self.pull_responses('invalid_name')
 
-    # pull old responses
+        # pull old responses
+        responses = self.pull_responses(predicted_intent)
 
-    # Apply regex on response
-    new_responses = []
-    for response in responses:
-        new_responses.append(re.sub(r'\$NAME', query, response))
+        # Apply regex on response
+        new_responses = []
+        for response in responses:
+            new_responses.append(re.sub(r'\$NAME', query, response))
 
-    return new_responses
+        return new_responses
 
 
 # my_docbot = DocBot()
