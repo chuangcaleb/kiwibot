@@ -5,6 +5,7 @@ from docbot import interface as docbot_ui
 import json
 import random
 import re
+import string
 
 
 data_file = open('intents.json').read()
@@ -97,12 +98,19 @@ class DocBot():
         return switch.get(self.context)
 
     ########################################
-    # Helper functions
+    # Context functions
     ########################################
 
     def prompt_name(self, predicted_intent, query):
 
-        if not re.match(r"^[a-zA-Z]+$", query):  # If invalid symbols
+        name_stopwords = ["my", "name", "is",
+                          "the", " ", "i'm", "i", "am", "me", "name's", "they", "call"]
+        # filter name out of query
+        names = [word.strip(".,!") for word in query.split(
+            " ") if word.lower() not in name_stopwords]
+        filtered_query = " ".join(names)
+
+        if not re.match(r"^[a-zA-Z\ ]+$", filtered_query):  # If invalid symbols
             responses = self.pull_responses('invalid_name')
         else:  # Else, a legit name input
             # pull old responses
@@ -111,7 +119,8 @@ class DocBot():
         # Apply regex on response
         formatted_responses = []
         for response in responses:
-            formatted_responses.append(re.sub(r'\$NAME', query, response))
+            formatted_responses.append(
+                re.sub(r'\$NAME', filtered_query, response))
 
         return formatted_responses
 
