@@ -146,4 +146,4 @@ cython_debug/
 
 
 # Coursework sheet says to not include .pickle files in submisison
-.pickle
+*.pickle
