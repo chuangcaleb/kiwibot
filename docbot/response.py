@@ -114,7 +114,8 @@ class DocBot():
             " ") if word.lower() not in name_stopwords]
         processed_query = " ".join(names)
 
-        if not re.match(r"^[a-zA-Z\ ]+$", processed_query):  # If invalid symbols
+        # If invalid symbols
+        if not re.match(r"(?i)^(?:(?![×Þß÷þø])[-'0-9a-zÀ-ÿ\ \-])+$", processed_query):
             responses = self.pull_responses('invalid_name')
         else:  # Else, a legit name input
             # pull old responses

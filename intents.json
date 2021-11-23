@@ -211,7 +211,8 @@
 				"Looks like '$NAME' has some illegal characters in it.",
 				"Names should only be made up of alphabetical characters!",
 				"I'm pretty sure names only have alphabetical characters!",
-				"Beep boop. I don't think real names have numbers and symbols!"
+				"Beep boop. I don't think real names have numbers and symbols!",
+				"I can handle accented alphabets... but what is this?"
 			],
 			"responses_2": [
 				"Maybe '$NAME' is a typo. Could you repeat your name for me?",
