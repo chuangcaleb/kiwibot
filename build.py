@@ -17,8 +17,6 @@ import pickle
 from itertools import chain
 
 import numpy as np
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
 
 from docbot import mathutils as docbot_mu
 
