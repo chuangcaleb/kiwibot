@@ -12,7 +12,7 @@ colors = {
     'end': '\033[0m',
 }
 
-TIME_MULTIPLIER = 0.2
+TIME_MULTIPLIER = 0.15
 
 
 def green(message):
@@ -40,7 +40,7 @@ def docbot_says(message):
     print()
 
     for string in message:
-        #! variable_sleep(string)
+        # ! variable_sleep(string)
         print(green(f"[Doc] {string}"))
 
 

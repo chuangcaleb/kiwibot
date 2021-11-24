@@ -244,8 +244,9 @@
 		{
 			"tag": "greet_name",
 			"responses_1": [
-				"Nice name, $NAME!",
-				"$NAME. That's a nice name!",
+				"I like your name, $NAME!",
+				"I like you already, $NAME!",
+				"$NAME. That's a cool name!",
 				"Good to meet you, $NAME!",
 				"Pleasure to meet you, $NAME!",
 				"$NAME! I know someone with the same name! Cool!"
@@ -407,13 +408,7 @@
 		},
 		{
 			"tag": "search_result",
-			"responses_1": [
-				"Alright, Java, let me see...",
-				"Java, the coding language, not to be confused with brewed coffee...",
-				"Java, the coding language, not to be confused with a breed of the domestic hen, originated in the United States...",
-				"Java, the coding language, not to be confused with one of the islands of the Malay Archipelago belonging to the Netherlands...",
-				"Let's look at some Python!"
-			],
+			"responses_1": ["filler..."],
 			"context": {
 				"filter": ["query_py", "query_jv"]
 			}

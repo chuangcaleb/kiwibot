@@ -2,7 +2,6 @@
 
 from docbot import prediction as docbot_pred
 from docbot import interface as docbot_ui
-from docbot import mathutils as docbot_mu
 import json
 import random
 import re
@@ -25,6 +24,8 @@ for intent in intents_file['intents']:
 # Load text processors
 snowball_stemmer = SnowballStemmer("english")
 english_stopwords = stopwords.words('english')
+search_stopwords = set(english_stopwords +
+                       ["tell", "what", "about", "is", "in", "does", "python", "java", "mean"])
 # english_stopwords.extend(['docbot', 'doc'])
 
 # Load glossaries
@@ -229,27 +230,34 @@ class DocBot(object):
         search_words = self.clean_search_query(raw_query.strip(".,!?"))
         search_query = " ".join(search_words)
 
-        if search_query.replace(" ", "") == 'nevermind':
+        # If search query is made up of only stopwords
+        if len(search_words) == 0:
+            responses = self.pull_responses('stopwords')
+            return responses
+
+        # If user enters "nevermind"
+        if "".join(search_words) == 'nevermind':
             return self.pull_responses('pop_to_general')
 
         # Set memory variables
         self.QUERY = " ".join(
-            [word for word in word_tokenize(raw_query) if word not in english_stopwords])
+            [word for word in word_tokenize(raw_query) if word not in search_stopwords])
         self.LANG = language
 
         responses = []
 
+        # TODO: Switch according to language (to refactor)
         if language == 'Python':
             for term in python_glossary:
                 if search_query == term.lower():
                     responses = python_glossary[term]
-                    first_response = f"This is what I know about a '{term}'!"
+                    first_response = f"This is what I know about a '{term}' in {self.LANG}!"
                     responses = [first_response] + responses
         elif language == 'Java':
             for term in java_glossary:
                 if search_query == term.lower():
                     responses = java_glossary[term]
-                    first_response = f"This is what I know about '{term}'!"
+                    first_response = f"This is what I know about '{term}' in {self.LANG}!"
                     responses = [first_response] + responses
         else:
             # User should never get here, only a dev error
