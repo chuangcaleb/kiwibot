@@ -19,7 +19,7 @@ ERROR_THRESHOLD = 0.2
 ########################################
 
 
-def predictAllIntents(query, filtered_intents):
+def predictAllIntents(query, filtered_intents, debug_level):
 
     # Catch empty strings (Dead code, but should catch new implementations)
     if not query:
@@ -54,7 +54,8 @@ def predictAllIntents(query, filtered_intents):
     # Calculate similarity measure against each class
     for intent in filtered_intents:
         sim_data[intent] = docbot_mu.sim_cosine(bow[intent], vector_query)
-        # print(f'Similarity with {intent}: {sim_data[intent]}')
+        if debug_level >= 4:
+            print(f'Similarity with {intent}: {sim_data[intent]}')
 
     # Sort the predicted classes by similarity
     sorted_sim_data = sorted(
@@ -74,6 +75,6 @@ def predictAllIntents(query, filtered_intents):
     return sorted_sim_data
 
 
-def predictLikeliestIntent(query, filtered_intents):
-    allIntents = predictAllIntents(query, filtered_intents)
+def predictLikeliestIntent(query, filtered_intents, debug_level):
+    allIntents = predictAllIntents(query, filtered_intents, debug_level)
     return list(allIntents)[0][0]

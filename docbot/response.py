@@ -21,34 +21,53 @@ for intent in intents_file['intents']:
 english_stopwords = stopwords.words('english')
 
 
-class DocBot():
+class DocBot(object):
 
     ########################################
     # Init variables
     ########################################
 
-    def __init__(self):
+    def __init__(self, debug_level=0):
 
+        # Debug level
+        self.debug_level = debug_level
         # On startup, set context to prompt name
         self.context = 'query_py'
         # self.context = 'prompt_name'
         self.NAME = ''
         self.QUERY = ''
 
-    ########################################
-    # Main Method
-    ########################################
+        if self.debug_level >= 1:
+            print(docbot_ui.red(
+                f"\nDEBUGGING ENABLED: DocBot at debug level {self.debug_level}"))
+
+        # Greet user
+        DOC_GREETING = [
+            "Hello, my name is DocBot! I am a chatbot assistant for computer programmers.",
+            "I know a lot about your favorite programming languages!",
+            # "For example, ask me about the 'random' module in Python..."
+            "What's your name? (Case-sensitive!)"
+        ]
+        docbot_ui.docbot_says(DOC_GREETING)
+
+   ########################################
+   # Main Method
+   ########################################
 
     def gen_response(self, query):
 
-        print("Current context: ", self.context)
+        # Debug
+        if self.debug_level >= 2:
+            print("Current context: ", self.context)
 
         # >> Get intents with matching context
         filtered_intents = []
         for intent in filter_list:
             if self.context in filter_list[intent]:
                 filtered_intents.append(intent)
-        print("Possible intents: ", filtered_intents)
+        # Debug
+        if self.debug_level >= 3:
+            print("Possible intents: ", filtered_intents)
 
         # >> Retrieving appropriate intents
         # If only one matching intent/context, then force it
@@ -57,8 +76,10 @@ class DocBot():
         # Else, predict intent with the query, but only the subset filtered intent classes
         else:
             predicted_intent = docbot_pred.predictLikeliestIntent(
-                query, filtered_intents)
-        print("Predicted intent: ", predicted_intent)
+                query, filtered_intents, self.debug_level)
+        # Debug
+        if self.debug_level >= 1:
+            print("Predicted intent: ", predicted_intent)
 
         # >> Apply current context's function on the response
         responses = self.context_switch(predicted_intent, query)
@@ -104,7 +125,9 @@ class DocBot():
                     # ew such an ugly way to access
                     if 'set' in intent.get('context'):
                         self.context = intent.get('context').get('set')
-                        print("changed context to", self.context)
+                        # Debug
+                        if self.debug_level >= 2:
+                            print("Changed context to:", self.context)
 
         # >> Apply regex on response
         formatted_responses = []
