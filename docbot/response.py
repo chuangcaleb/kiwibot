@@ -21,9 +21,11 @@ for intent in intents_file['intents']:
 
 english_stopwords = stopwords.words('english')
 
-# Load python glossary
+# Load glossaries
 python_glossary = pickle.load(
     open("pickle_dump/python_glossary.pickle", "rb"))
+java_glossary = pickle.load(
+    open("pickle_dump/java_glossary.pickle", "rb"))
 
 
 class DocBot(object):
@@ -37,7 +39,7 @@ class DocBot(object):
         # Debug level
         self.debug_level = debug_level
         # On startup, set context to prompt name
-        self.context = 'query_py'
+        self.context = 'query_jv'
         # self.context = 'prompt_name'
         self.NAME = ''
         self.QUERY = ''
@@ -89,6 +91,8 @@ class DocBot(object):
         # >> Apply current context's function on the response
         responses = self.context_switch(predicted_intent, query)
 
+        responses = self.apply_regex(responses)
+
         # >> Return response to user
         docbot_ui.docbot_says(responses)
 
@@ -109,6 +113,7 @@ class DocBot(object):
         context_switcher = {
             'prompt_name': lambda: self.process_name(predicted_intent, query),
             'query_py': lambda: self.process_search(predicted_intent, query, "python"),
+            'query_jv': lambda: self.process_search(predicted_intent, query, "java"),
         }
 
         # Run the appropriate function
@@ -134,6 +139,9 @@ class DocBot(object):
                         if self.debug_level >= 2:
                             print("Changed context to:", self.context)
 
+        return responses
+
+    def apply_regex(self, responses):
         # >> Apply regex on response
         formatted_responses = []
         for response in responses:
@@ -148,7 +156,7 @@ class DocBot(object):
         return formatted_responses
 
     ########################################
-    # Context functions
+    # Context-specific functions
     ########################################
 
     def process_name(self, predicted_intent, query):
@@ -175,7 +183,7 @@ class DocBot(object):
     def process_search(self, predicted_intent, query, language):
 
         # filter english_stopwords out of query
-        keywords = [word.strip(".,!?") for word in query.split(
+        keywords = [word.strip(".,!?").lower() for word in query.split(
             " ") if word.lower() not in english_stopwords]
         search_query = " ".join(keywords)
 
@@ -183,13 +191,18 @@ class DocBot(object):
 
         if language == 'python':
             for keyword in python_glossary:
-                if search_query == keyword:
-                    print(python_glossary[keyword])
-            print("end")
+                if search_query == keyword.lower():
+                    responses = python_glossary[keyword]
+        if language == 'java':
+            for keyword in java_glossary:
+                if search_query == keyword.lower():
+                    responses = java_glossary[keyword]
+                    first_response = f"This is what I know about '{keyword}'!"
+                    responses.insert(0, first_response)
         else:
             print("Unrecognized language!")
 
         # pull responses as planned
-        responses = self.pull_responses(predicted_intent)
+        # responses = self.pull_responses(predicted_intent)
 
         return responses
