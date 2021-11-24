@@ -12,11 +12,11 @@ soup = BeautifulSoup(html_doc, 'html.parser')
 
 keywords = [keyword.get_text()
             for keyword in soup.find_all('dt')]
-raw_descriptions = [sent_tokenize(description.get_text().replace("\n", " "))
-                    for description in soup.find_all('dd')]
+definitions = [sent_tokenize(description.get_text().replace("\n", " "))
+               for description in soup.find_all('dd')]
 
 
-python_glossary = dict(zip(keywords, raw_descriptions))
+python_glossary = dict(zip(keywords, definitions))
 
 for item in python_glossary:
     print(item)
