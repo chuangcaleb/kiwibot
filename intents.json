@@ -354,7 +354,18 @@
 			],
 			"context": {
 				"filter": ["query_py"],
-				"set": "query_py"
+				"set": "general"
+			}
+		},
+		{
+			"tag": "search_result_empty",
+			"responses_1": [
+				"Hmm, I don't know anything about '$QUERY' in $LANG...",
+				"Hmm, it seems like I don't know anything about '$QUERY' in $LANG..."
+			],
+			"context": {
+				"filter": ["canned_messages"],
+				"set": "general"
 			}
 		}
 	]

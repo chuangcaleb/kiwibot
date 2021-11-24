@@ -7,7 +7,9 @@ import json
 import random
 import re
 from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 import pickle
+from nltk.stem.snowball import SnowballStemmer
 
 data_file = open('intents.json').read()
 intents_file = json.loads(data_file)
@@ -19,6 +21,7 @@ for intent in intents_file['intents']:
         filter_list[intent['tag']] = intent.get(
             'context').get('filter')
 
+snowball_stemmer = SnowballStemmer("english")
 english_stopwords = stopwords.words('english')
 
 # Load glossaries
@@ -39,10 +42,11 @@ class DocBot(object):
         # Debug level
         self.debug_level = debug_level
         # On startup, set context to prompt name
-        self.context = 'query_py'
+        self.context = 'query_jv'
         # self.context = 'prompt_name'
         self.NAME = ''
         self.QUERY = ''
+        self.LANG = ''
 
         if self.debug_level >= 1:
             print(docbot_ui.red(
@@ -90,7 +94,7 @@ class DocBot(object):
 
         # >> Apply current context's function on the response
         responses = self.context_switch(predicted_intent, query)
-
+        # >> Apply regex on responses
         responses = self.apply_regex(responses)
 
         # >> Return response to user
@@ -112,8 +116,8 @@ class DocBot(object):
         # Switch dictionary of all possible context functions
         context_switcher = {
             'prompt_name': lambda: self.process_name(predicted_intent, query),
-            'query_py': lambda: self.process_search(predicted_intent, query, "python"),
-            'query_jv': lambda: self.process_search(predicted_intent, query, "java"),
+            'query_py': lambda: self.process_search(predicted_intent, query, "Python"),
+            'query_jv': lambda: self.process_search(predicted_intent, query, "Java"),
         }
 
         # Run the appropriate function
@@ -150,6 +154,9 @@ class DocBot(object):
             # $QUERY
             formatted_response = re.sub(
                 r'\$QUERY', self.QUERY, formatted_response)
+            # $LANG
+            formatted_response = re.sub(
+                r'\$LANG', self.LANG, formatted_response)
             # Append
             formatted_responses.append(formatted_response)
 
@@ -180,33 +187,55 @@ class DocBot(object):
 
         return responses
 
+    # Clean search query:
+    #   - tokenize
+    #   - lowercase
+    #   - english_stopwords
+    #   - stem
+
+    def clean_search_query(self, query):
+
+        # tokenize query
+        tok_query = word_tokenize(query)
+
+        # lowercase and stopwords
+        filtered_query = [word.lower() for word in tok_query
+                          if word.lower() not in english_stopwords]
+
+        # Lemmatising
+        cleaned_query = [snowball_stemmer.stem(
+            word) for word in filtered_query]
+
+        return cleaned_query
+
     def process_search(self, predicted_intent, query, language):
 
         # filter english_stopwords out of query
-        search_words = docbot_mu.clean_search_query(query.strip(".,!?"))
+        search_words = self.clean_search_query(query.strip(".,!?"))
         search_query = " ".join(search_words)
 
+        # Set memory variables
         self.QUERY = search_query
+        self.LANG = language
 
         responses = []
-
-        if language == 'python':
+        if language == 'Python':
             for term in python_glossary:
                 if search_query == term.lower():
                     responses = python_glossary[term]
                     first_response = f"This is what I know about a '{term}'!"
                     responses = [first_response] + responses
-        elif language == 'java':
+        elif language == 'Java':
             for term in java_glossary:
                 if search_query == term.lower():
                     responses = java_glossary[term]
                     first_response = f"This is what I know about '{term}'!"
                     responses = [first_response] + responses
         else:
-            print("Unrecognized language!")
+            print("ERROR: Unrecognized language!")
 
         if not responses:
-            responses = ["no results"]
+            responses = self.pull_responses('search_result_empty')
 
         # pull responses as planned
         # responses = self.pull_responses(predicted_intent)
