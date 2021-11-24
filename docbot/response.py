@@ -169,7 +169,7 @@ class DocBot(object):
 
     def process_search(self, predicted_intent, query, language):
 
-        # filter name out of query
+        # filter english_stopwords out of query
         keywords = [word.strip(".,!?") for word in query.split(
             " ") if word.lower() not in english_stopwords]
         search_query = " ".join(keywords)
