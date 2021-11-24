@@ -32,6 +32,9 @@ def predictAllIntents(query, filtered_intents, debug_level):
     # Clean query
     cleaned_query = docbot_mu.clean_general_query(query)
 
+    if debug_level >= 3:
+        print("Cleaned query:", cleaned_query)
+
     # Handle stopwords
     if not cleaned_query:
         return [('stopwords', 1)]
@@ -54,12 +57,15 @@ def predictAllIntents(query, filtered_intents, debug_level):
     # Calculate similarity measure against each class
     for intent in filtered_intents:
         sim_data[intent] = docbot_mu.sim_cosine(bow[intent], vector_query)
-        if debug_level >= 4:
-            print(f'Similarity with {intent}: {sim_data[intent]}')
 
     # Sort the predicted classes by similarity
     sorted_sim_data = sorted(
         sim_data.items(), key=lambda item: item[1], reverse=True)
+
+    # Debug
+    if debug_level >= 4:
+        for prediction in sorted_sim_data:
+            print(f'Sim w/ {prediction[0]}: {prediction[1]}')
 
     # Catch if highest prediction below error threshold
     if list(sorted_sim_data)[0][1] < ERROR_THRESHOLD:

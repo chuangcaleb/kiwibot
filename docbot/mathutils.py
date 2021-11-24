@@ -14,7 +14,7 @@ lemmatizer = WordNetLemmatizer()
 ignore_words = [',', "!"]
 
 english_stopwords = stopwords.words('english')
-meaningful_stopwords = ["my", "your", "i", "you"]
+meaningful_stopwords = ["my", "your", "i", "you", "how", "are"]
 for word in meaningful_stopwords:
     english_stopwords.remove(word)
 

@@ -11,6 +11,7 @@ from nltk.tokenize import word_tokenize
 import pickle
 from nltk.stem.snowball import SnowballStemmer
 
+# Load intents
 data_file = open('intents.json').read()
 intents_file = json.loads(data_file)
 
@@ -21,8 +22,10 @@ for intent in intents_file['intents']:
         filter_list[intent['tag']] = intent.get(
             'context').get('filter')
 
+# Load text processors
 snowball_stemmer = SnowballStemmer("english")
 english_stopwords = stopwords.words('english')
+# english_stopwords.extend(['docbot', 'doc'])
 
 # Load glossaries
 python_glossary = pickle.load(
@@ -83,17 +86,26 @@ class DocBot(object):
         # >> Retrieving appropriate intents
         # If only one matching intent/context, then force it
         if len(filtered_intents) == 1:
+
             predicted_intent = filtered_intents[0]
+
         # Else, predict intent with the query, but only the subset filtered intent classes
         else:
+
             predicted_intent = docbot_pred.predictLikeliestIntent(
                 raw_query, filtered_intents, self.debug_level)
+
         # Debug
         if self.debug_level >= 1:
             print("Predicted intent: ", predicted_intent)
 
         # >> Apply current context's function on the response
         responses = self.context_switch(predicted_intent, raw_query)
+
+        # Debug
+        if self.debug_level >= 4:
+            print("Responses before regex sub: ", responses)
+
         # >> Apply regex on responses
         responses = self.apply_regex(responses)
 
@@ -116,8 +128,8 @@ class DocBot(object):
         # Switch dictionary of all possible context functions
         context_switcher = {
             'prompt_name': lambda: self.process_name(predicted_intent, raw_query),
-            'query_py': lambda: self.process_search(predicted_intent, raw_query, "Python"),
-            'query_jv': lambda: self.process_search(predicted_intent, raw_query, "Java"),
+            'query_py': lambda: self.process_search(raw_query, "Python"),
+            'query_jv': lambda: self.process_search(raw_query, "Java"),
         }
 
         # Run the appropriate function
@@ -170,6 +182,7 @@ class DocBot(object):
 
         name_stopwords = ["my", "name", "is",
                           "the", " ", "i'm", "i", "am", "me", "name's", "they", "call"]
+        name_stopwords.extend(english_stopwords)
         # filter name out of query
         names = [word.strip(".,!") for word in raw_query.split(
             " ") if word.lower() not in name_stopwords]
@@ -179,13 +192,15 @@ class DocBot(object):
         self.NAME = full_name
 
         # If invalid symbols
+        if len(full_name) == 0:
+            responses = self.pull_responses('stopwords')
+            responses.append("Can you tell me your name?")
+            return responses
         if not re.match(r"(?i)^(?:(?![×Þß÷þø])[-a-zÀ-ÿ\ \-])+$", full_name):
-            responses = self.pull_responses('invalid_name')
+            return self.pull_responses('invalid_name')
         else:  # Else, a legit name input
             # pull responses as planned
-            responses = self.pull_responses(predicted_intent)
-
-        return responses
+            return self.pull_responses(predicted_intent)
 
     # Clean search query:
     #   - tokenize
@@ -208,7 +223,7 @@ class DocBot(object):
 
         return cleaned_query
 
-    def process_search(self, predicted_intent, raw_query, language):
+    def process_search(self, raw_query, language):
 
         # filter english_stopwords out of query
         search_words = self.clean_search_query(raw_query.strip(".,!?"))
@@ -223,10 +238,10 @@ class DocBot(object):
         self.LANG = language
 
         responses = []
+
         if language == 'Python':
             for term in python_glossary:
                 if search_query == term.lower():
-                    print(term)
                     responses = python_glossary[term]
                     first_response = f"This is what I know about a '{term}'!"
                     responses = [first_response] + responses
@@ -237,12 +252,11 @@ class DocBot(object):
                     first_response = f"This is what I know about '{term}'!"
                     responses = [first_response] + responses
         else:
+            # User should never get here, only a dev error
             print("ERROR: Unrecognized language!")
 
-        if not responses:
+        if not responses:  # If responses is still empty, say "I don't know"
+            self.QUERY = raw_query
             responses = self.pull_responses('search_result_empty')
-
-        # pull responses as planned
-        # responses = self.pull_responses(predicted_intent)
 
         return responses

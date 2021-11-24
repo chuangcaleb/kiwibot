@@ -77,12 +77,10 @@
 			"tag": "options",
 			"patterns": [
 				"Who are you?",
-				"How you could help me?",
-				"What you can do?",
+				"What can you do?",
 				"What do you do?",
-				"What help you provide?",
-				"How you can be helpful?",
-				"What support is offered?",
+				"What is your purpose?",
+				"What is your job?",
 				"What are you made to do?"
 			],
 			"responses_1": ["I am a chatbot assistant for computer programmers!"],
@@ -151,7 +149,10 @@
 			"tag": "status",
 			"patterns": [
 				"How are you feeling today?",
+				"How are you feeling?",
+				"How are you doing?",
 				"How are you?",
+				"How do you do?",
 				"You alright?",
 				"Are you okay?",
 				"What's up?"
@@ -224,6 +225,7 @@
 			"patterns": ["nevermind"],
 			"responses_1": [
 				"Ah alright. ",
+				"Alright, that's that. ",
 				"Okay, $NAME.",
 				"Okay, if you insist!",
 				"Just when I was getting ready and excited!"
@@ -248,7 +250,7 @@
 				"Pleasure to meet you, $NAME!",
 				"$NAME! I know someone with the same name! Cool!"
 			],
-			"responses_2": ["Ask me to tell you about Python documentation!"],
+			"responses_2": ["Ask me to tell you about Python or Java documentation!"],
 			"context": {
 				"filter": ["prompt_name"],
 				"set": "general"
@@ -367,6 +369,53 @@
 			"context": {
 				"filter": ["general"],
 				"set": "query_py"
+			}
+		},
+		{
+			"tag": "search_jv",
+			"patterns": [
+				"Search Java docs",
+				"Search Java documentation",
+				"Can you search Java docs for me",
+				"Tell me about Java docs",
+				"What do you know about Java documentation"
+			],
+			"responses_1": [
+				"Java, huh? Hmmmm...",
+				"Alright, Java, let me see...",
+				"Java, the coding language, not to be confused with brewed coffee...",
+				"Java, the coding language, not to be confused with a breed of the domestic hen, originated in the United States...",
+				"Java, the coding language, not to be confused with one of the islands of the Malay Archipelago belonging to the Netherlands...",
+				"Let's look at some Python!"
+			],
+			"responses_2": [
+				"What do you want to know about Java?",
+				"What do you want me to tell you about Java?",
+				"What would you like to know about Java?",
+				"What would you like me to tell you about Java?"
+			],
+			"responses_3": [
+				"Just say 'Nevermind' if you don't want to talk about Java anymore!",
+				"If you don't want to talk about Java anymore, just say 'Nevermind'!",
+				"Just tell me 'Nevermind' if you don't want to talk about Java anymore!",
+				"If you don't want to talk about Java anymore, just tell me 'Nevermind'!"
+			],
+			"context": {
+				"filter": ["general"],
+				"set": "query_jv"
+			}
+		},
+		{
+			"tag": "search_result",
+			"responses_1": [
+				"Alright, Java, let me see...",
+				"Java, the coding language, not to be confused with brewed coffee...",
+				"Java, the coding language, not to be confused with a breed of the domestic hen, originated in the United States...",
+				"Java, the coding language, not to be confused with one of the islands of the Malay Archipelago belonging to the Netherlands...",
+				"Let's look at some Python!"
+			],
+			"context": {
+				"filter": ["query_py", "query_jv"]
 			}
 		},
 		{
