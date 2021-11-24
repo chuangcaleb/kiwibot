@@ -122,12 +122,13 @@ class DocBot():
             " ") if word.lower() not in name_stopwords]
         processed_query = " ".join(names)
 
+        # Always save user's name in instance's variable (even when reporting error)
+        self.NAME = processed_query
+
         # If invalid symbols
-        if not re.match(r"(?i)^(?:(?![×Þß÷þø])[-'0-9a-zÀ-ÿ\ \-])+$", processed_query):
+        if not re.match(r"(?i)^(?:(?![×Þß÷þø])[-a-zÀ-ÿ\ \-])+$", processed_query):
             responses = self.pull_responses('invalid_name')
         else:  # Else, a legit name input
-            # Save user's name in instance's variable
-            self.NAME = processed_query
             # pull responses as planned
             responses = self.pull_responses(predicted_intent)
 

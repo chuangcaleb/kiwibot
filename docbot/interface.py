@@ -41,7 +41,7 @@ def docbot_says(message):
 
     for string in message:
         # print(green(f"{string}"))
-        #! variable_sleep(string)
+        # ! variable_sleep(string)
         print(green(f"[Doc] {string}"))
 
 
