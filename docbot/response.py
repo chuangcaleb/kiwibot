@@ -42,7 +42,7 @@ class DocBot(object):
         # Debug level
         self.debug_level = debug_level
         # On startup, set context to prompt name
-        self.context = 'query_jv'
+        self.context = 'prompt_name'
         # self.context = 'prompt_name'
         self.NAME = ''
         self.QUERY = ''
@@ -65,7 +65,7 @@ class DocBot(object):
    # Main Method
    ########################################
 
-    def gen_response(self, query):
+    def gen_response(self, raw_query):
 
         # Debug
         if self.debug_level >= 2:
@@ -87,13 +87,13 @@ class DocBot(object):
         # Else, predict intent with the query, but only the subset filtered intent classes
         else:
             predicted_intent = docbot_pred.predictLikeliestIntent(
-                query, filtered_intents, self.debug_level)
+                raw_query, filtered_intents, self.debug_level)
         # Debug
         if self.debug_level >= 1:
             print("Predicted intent: ", predicted_intent)
 
         # >> Apply current context's function on the response
-        responses = self.context_switch(predicted_intent, query)
+        responses = self.context_switch(predicted_intent, raw_query)
         # >> Apply regex on responses
         responses = self.apply_regex(responses)
 
@@ -107,17 +107,17 @@ class DocBot(object):
     ########################################
 
     # Switch function to apply based on query
-    def context_switch(self, predicted_intent, query):
+    def context_switch(self, predicted_intent, raw_query):
 
         # if query is empty, force 'noanswer'
-        if not query:
+        if not raw_query:
             return self.pull_responses('noanswer')
 
         # Switch dictionary of all possible context functions
         context_switcher = {
-            'prompt_name': lambda: self.process_name(predicted_intent, query),
-            'query_py': lambda: self.process_search(predicted_intent, query, "Python"),
-            'query_jv': lambda: self.process_search(predicted_intent, query, "Java"),
+            'prompt_name': lambda: self.process_name(predicted_intent, raw_query),
+            'query_py': lambda: self.process_search(predicted_intent, raw_query, "Python"),
+            'query_jv': lambda: self.process_search(predicted_intent, raw_query, "Java"),
         }
 
         # Run the appropriate function
@@ -166,14 +166,14 @@ class DocBot(object):
     # Context-specific functions
     ########################################
 
-    def process_name(self, predicted_intent, query):
+    def process_name(self, predicted_intent, raw_query):
 
         name_stopwords = ["my", "name", "is",
                           "the", " ", "i'm", "i", "am", "me", "name's", "they", "call"]
         # filter name out of query
-        names = [word.strip(".,!") for word in query.split(
+        names = [word.strip(".,!") for word in raw_query.split(
             " ") if word.lower() not in name_stopwords]
-        full_name = " ".join(names)
+        full_name = " ".join(names).strip()
 
         # Always save user's name in instance's variable (even when reporting error)
         self.NAME = full_name
@@ -202,26 +202,31 @@ class DocBot(object):
         filtered_query = [word.lower() for word in tok_query
                           if word.lower() not in english_stopwords]
 
-        # Lemmatising
+        # Stemming
         cleaned_query = [snowball_stemmer.stem(
             word) for word in filtered_query]
 
         return cleaned_query
 
-    def process_search(self, predicted_intent, query, language):
+    def process_search(self, predicted_intent, raw_query, language):
 
         # filter english_stopwords out of query
-        search_words = self.clean_search_query(query.strip(".,!?"))
+        search_words = self.clean_search_query(raw_query.strip(".,!?"))
         search_query = " ".join(search_words)
 
+        if search_query.replace(" ", "") == 'nevermind':
+            return self.pull_responses('pop_to_general')
+
         # Set memory variables
-        self.QUERY = search_query
+        self.QUERY = " ".join(
+            [word for word in word_tokenize(raw_query) if word not in english_stopwords])
         self.LANG = language
 
         responses = []
         if language == 'Python':
             for term in python_glossary:
                 if search_query == term.lower():
+                    print(term)
                     responses = python_glossary[term]
                     first_response = f"This is what I know about a '{term}'!"
                     responses = [first_response] + responses
