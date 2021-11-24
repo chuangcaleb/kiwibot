@@ -6,6 +6,7 @@ import json
 import random
 import re
 from nltk.corpus import stopwords
+import pickle
 
 
 data_file = open('intents.json').read()
@@ -19,6 +20,10 @@ for intent in intents_file['intents']:
             'context').get('filter')
 
 english_stopwords = stopwords.words('english')
+
+# Load python glossary
+python_glossary = pickle.load(
+    open("pickle_dump/python_glossary.pickle", "rb"))
 
 
 class DocBot(object):
@@ -177,7 +182,10 @@ class DocBot(object):
         self.QUERY = search_query
 
         if language == 'python':
-            print("python!")
+            for keyword in python_glossary:
+                if search_query == keyword:
+                    print(python_glossary[keyword])
+            print("end")
         else:
             print("Unrecognized language!")
 

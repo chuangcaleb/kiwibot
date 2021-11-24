@@ -7,7 +7,7 @@ from docbot import mathutils as docbot_mu
 # Load variables
 ########################################
 
-pickle_data = pickle.load(open("training_data.pickle", "rb"))
+pickle_data = pickle.load(open("pickle_dump/training_data.pickle", "rb"))
 vocabulary = pickle_data['vocabulary']
 bow = pickle_data['w_bow']
 classes = bow.keys()

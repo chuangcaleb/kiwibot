@@ -98,4 +98,4 @@ pickle.dump({
     'vocabulary': vocabulary,
     'classes': classes,
     'w_bow': bow},
-    open("training_data.pickle", "wb"))
+    open("pickle_dump/training_data.pickle", "wb"))
