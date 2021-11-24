@@ -211,7 +211,8 @@
 				"Did I make you laugh? That's great!",
 				"LOL!",
 				"lol",
-				"Glad I could make you laugh, $NAME!"
+				"Glad I could make you laugh, $NAME!",
+				"Hhahahaha. What are we laughing at?"
 			],
 			"context": {
 				"filter": ["general"]

@@ -1,6 +1,5 @@
 import time
 import nltk
-from numpy.core.fromnumeric import var
 
 
 # Global Chat
