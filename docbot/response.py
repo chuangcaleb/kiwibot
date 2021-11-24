@@ -5,6 +5,7 @@ from docbot import interface as docbot_ui
 import json
 import random
 import re
+from nltk.corpus import stopwords
 
 
 data_file = open('intents.json').read()
@@ -17,6 +18,8 @@ for intent in intents_file['intents']:
         filter_list[intent['tag']] = intent.get(
             'context').get('filter')
 
+english_stopwords = stopwords.words('english')
+
 
 class DocBot():
 
@@ -27,8 +30,10 @@ class DocBot():
     def __init__(self):
 
         # On startup, set context to prompt name
-        self.context = 'prompt_name'
+        self.context = 'query_py'
+        # self.context = 'prompt_name'
         self.NAME = ''
+        self.QUERY = ''
 
     ########################################
     # Main Method
@@ -76,7 +81,8 @@ class DocBot():
 
         # Switch dictionary of all possible context functions
         context_switcher = {
-            'prompt_name': lambda: self.prompt_name(predicted_intent, query),
+            'prompt_name': lambda: self.process_name(predicted_intent, query),
+            'query_py': lambda: self.process_search(predicted_intent, query, "python"),
         }
 
         # Run the appropriate function
@@ -104,8 +110,12 @@ class DocBot():
         formatted_responses = []
         for response in responses:
             # $NAME
-            formatted_responses.append(
-                re.sub(r'\$NAME', self.NAME, response))
+            formatted_response = re.sub(r'\$NAME', self.NAME, response)
+            # $QUERY
+            formatted_response = re.sub(
+                r'\$QUERY', self.QUERY, formatted_response)
+            # Append
+            formatted_responses.append(formatted_response)
 
         return formatted_responses
 
@@ -113,20 +123,20 @@ class DocBot():
     # Context functions
     ########################################
 
-    def prompt_name(self, predicted_intent, query):
+    def process_name(self, predicted_intent, query):
 
         name_stopwords = ["my", "name", "is",
                           "the", " ", "i'm", "i", "am", "me", "name's", "they", "call"]
         # filter name out of query
         names = [word.strip(".,!") for word in query.split(
             " ") if word.lower() not in name_stopwords]
-        processed_query = " ".join(names)
+        full_name = " ".join(names)
 
         # Always save user's name in instance's variable (even when reporting error)
-        self.NAME = processed_query
+        self.NAME = full_name
 
         # If invalid symbols
-        if not re.match(r"(?i)^(?:(?![×Þß÷þø])[-a-zÀ-ÿ\ \-])+$", processed_query):
+        if not re.match(r"(?i)^(?:(?![×Þß÷þø])[-a-zÀ-ÿ\ \-])+$", full_name):
             responses = self.pull_responses('invalid_name')
         else:  # Else, a legit name input
             # pull responses as planned
@@ -134,8 +144,21 @@ class DocBot():
 
         return responses
 
-# my_docbot = DocBot()
-# # my_docbot.gen_response("Caleb")
-# filtered_intents = ['greet_name']
-# thing = my_docbot.filter_list.get(filtered_intents[0])
-# print(thing)
+    def process_search(self, predicted_intent, query, language):
+
+        # filter name out of query
+        keywords = [word.strip(".,!?") for word in query.split(
+            " ") if word.lower() not in english_stopwords]
+        search_query = " ".join(keywords)
+
+        self.QUERY = search_query
+
+        if language == 'python':
+            print("python!")
+        else:
+            print("Unrecognized language!")
+
+        # pull responses as planned
+        responses = self.pull_responses(predicted_intent)
+
+        return responses

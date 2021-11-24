@@ -76,6 +76,7 @@
 		{
 			"tag": "options",
 			"patterns": [
+				"Who are you?",
 				"How you could help me?",
 				"What you can do?",
 				"What do you do?",
@@ -227,10 +228,7 @@
 				"Pleasure to meet you, $NAME!",
 				"$NAME! I know someone with the same name! Cool!"
 			],
-			"responses_2": [
-				"Which programming languages do you want to talk about?",
-				"Which coding languages do you want to talk about?"
-			],
+			"responses_2": ["Ask me to tell you about python documentation!"],
 			"context": {
 				"filter": ["prompt_name"],
 				"set": "general"
@@ -294,8 +292,7 @@
 				"Can you tell me your name?",
 				"and your name?",
 				"What is your name?",
-				"Is your name Docbot?",
-				"Who are you?"
+				"Is your name Docbot?"
 			],
 			"responses_1": [
 				"My name? You've already forgotten my name? I'm slightly hurt.",
@@ -318,6 +315,46 @@
 			],
 			"context": {
 				"filter": ["general"]
+			}
+		},
+		{
+			"tag": "search_py",
+			"patterns": [
+				"Search python docs",
+				"Search python documentation",
+				"Can you search python docs for me",
+				"Tell me about python docs",
+				"What do you know about python documentation"
+			],
+			"responses_1": [
+				"Python, huh? Hmmmm...",
+				"Alright, python, let me see...",
+				"Python, the snake language, not to be confused with Parseltongue...",
+				"Let's look at some python!"
+			],
+			"responses_2": [
+				"What do you want to know about python?",
+				"What do you want me to tell you about python?",
+				"What would you like to know about python?",
+				"What would you like me to tell you about python?"
+			],
+			"context": {
+				"filter": ["general"],
+				"set": "query_py"
+			}
+		},
+		{
+			"tag": "respond_py",
+			"responses_1": [
+				"Here's what I can tell you about '$QUERY'...",
+				"Here's what I know about '$QUERY'...",
+				"Alright, this is what I can tell you about '$QUERY'...",
+				"Alright, this is what I know about about '$QUERY'...",
+				"Pardon me if I get '$QUERY' wrong, but..."
+			],
+			"context": {
+				"filter": ["query_py"],
+				"set": "query_py"
 			}
 		}
 	]

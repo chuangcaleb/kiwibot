@@ -32,7 +32,7 @@ DOC_GREETING = [
     "Hello, my name is DocBot! I am a chatbot assistant for computer programmers.",
     "I know a lot about your favorite programming languages!",
     # "For example, ask me about the 'random' module in Python..."
-    "What's your name? (Case-sensitive; I take usernames!)"
+    "What's your name? (Case-sensitive!)"
 ]
 docbot_ui.docbot_says(DOC_GREETING)
 
