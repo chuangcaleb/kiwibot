@@ -7,8 +7,10 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from scipy import spatial
+from nltk.stem.snowball import SnowballStemmer
 
 lemmatizer = WordNetLemmatizer()
+snowball_stemmer = SnowballStemmer("english")
 # Remove stopwords, lowercase
 ignore_words = [',', "!"]
 
@@ -37,9 +39,9 @@ def sim_cosine(vector_1, vector_2):
 # Clean query:
 #   - tokenize
 #   - lowercase
-#   - stopwords
+#   - ignore_stopwords
 #   - lemmatize
-def clean_query(query):
+def clean_general_query(query):
 
     # tokenize query
     tok_query = nltk.word_tokenize(query)
@@ -48,7 +50,27 @@ def clean_query(query):
     filtered_query = [word.lower() for word in tok_query
                       if word.lower() not in ignore_words]
 
-    # Stemming --> Lemmatising
+    # Lemmatising
     cleaned_query = [lemmatizer.lemmatize(word) for word in filtered_query]
+
+    return cleaned_query
+
+
+# Clean search query:
+#   - tokenize
+#   - lowercase
+#   - english_stopwords
+#   - stem
+def clean_search_query(query):
+
+    # tokenize query
+    tok_query = nltk.word_tokenize(query)
+
+    # lowercase and stopwords
+    filtered_query = [word.lower() for word in tok_query
+                      if word.lower() not in english_stopwords]
+
+    # Lemmatising
+    cleaned_query = [snowball_stemmer.stem(word) for word in filtered_query]
 
     return cleaned_query

@@ -2,12 +2,12 @@
 
 from docbot import prediction as docbot_pred
 from docbot import interface as docbot_ui
+from docbot import mathutils as docbot_mu
 import json
 import random
 import re
 from nltk.corpus import stopwords
 import pickle
-
 
 data_file = open('intents.json').read()
 intents_file = json.loads(data_file)
@@ -39,7 +39,7 @@ class DocBot(object):
         # Debug level
         self.debug_level = debug_level
         # On startup, set context to prompt name
-        self.context = 'query_jv'
+        self.context = 'query_py'
         # self.context = 'prompt_name'
         self.NAME = ''
         self.QUERY = ''
@@ -183,24 +183,30 @@ class DocBot(object):
     def process_search(self, predicted_intent, query, language):
 
         # filter english_stopwords out of query
-        keywords = [word.strip(".,!?").lower() for word in query.split(
-            " ") if word.lower() not in english_stopwords]
-        search_query = " ".join(keywords)
+        search_words = docbot_mu.clean_search_query(query.strip(".,!?"))
+        search_query = " ".join(search_words)
 
         self.QUERY = search_query
 
+        responses = []
+
         if language == 'python':
-            for keyword in python_glossary:
-                if search_query == keyword.lower():
-                    responses = python_glossary[keyword]
-        if language == 'java':
-            for keyword in java_glossary:
-                if search_query == keyword.lower():
-                    responses = java_glossary[keyword]
-                    first_response = f"This is what I know about '{keyword}'!"
-                    responses.insert(0, first_response)
+            for term in python_glossary:
+                if search_query == term.lower():
+                    responses = python_glossary[term]
+                    first_response = f"This is what I know about a '{term}'!"
+                    responses = [first_response] + responses
+        elif language == 'java':
+            for term in java_glossary:
+                if search_query == term.lower():
+                    responses = java_glossary[term]
+                    first_response = f"This is what I know about '{term}'!"
+                    responses = [first_response] + responses
         else:
             print("Unrecognized language!")
+
+        if not responses:
+            responses = ["no results"]
 
         # pull responses as planned
         # responses = self.pull_responses(predicted_intent)

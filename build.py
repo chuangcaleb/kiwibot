@@ -46,7 +46,7 @@ for intent in intents_file['intents']:
 
 # lemmatize, lowercase and remove stopwords
 for intent in intents:
-    tok_doc[intent] = list(chain.from_iterable(docbot_mu.clean_query(
+    tok_doc[intent] = list(chain.from_iterable(docbot_mu.clean_general_query(
         pattern) for pattern in intents[intent]))
     # tok_doc[intent] = [clean_query(word) for word in tok_doc[intent]]
 

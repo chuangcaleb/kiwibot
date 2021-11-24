@@ -30,7 +30,7 @@ def predictAllIntents(query, filtered_intents, debug_level):
     vector_query = np.zeros(len(vocabulary))
 
     # Clean query
-    cleaned_query = docbot_mu.clean_query(query)
+    cleaned_query = docbot_mu.clean_general_query(query)
 
     # Handle stopwords
     if not cleaned_query:
