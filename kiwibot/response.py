@@ -26,7 +26,7 @@ for intent in intents_file['intents']:
 snowball_stemmer = SnowballStemmer("english")
 english_stopwords = stopwords.words('english')
 search_stopwords = set(english_stopwords +
-                       ["tell", "who", "what", "about", "is", "in", "does", "mean"])
+                       ["tell", "who", "what", "are", "about", "is", "in", "does", "mean"])
 
 
 class KiwiBot(object):

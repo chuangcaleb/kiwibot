@@ -75,11 +75,13 @@
 			"tag": "options",
 			"patterns": [
 				"Who are you?",
+				"Who are you?",
+				"What are you?",
 				"What can you do?",
 				"What do you do?",
 				"What is your purpose?",
 				"What is your job?",
-				"What are you made to do?"
+				"What are you made for?"
 			],
 			"responses_1": [
 				"I am Kiwi, a knowledge-base information-retrieval chatbot!"
@@ -347,8 +349,11 @@
 				"What do you know about",
 				"What can you tell me about",
 				"What is",
+				"What are",
 				"Who is",
-				"Who are"
+				"Who are",
+				"What does mean",
+				"What do mean"
 			],
 			"responses_1": ["SEARCH. Yea! Well this is awkward."],
 			"context": {
