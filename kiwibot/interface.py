@@ -12,7 +12,7 @@ colors = {
     'end': '\033[0m',
 }
 
-TIME_MULTIPLIER = 0.15
+TIME_MULTIPLIER = 0.12
 
 
 def green(message):

@@ -413,6 +413,32 @@
 			"context": {
 				"filter": ["canned_messages"]
 			}
+		},
+		{
+			"tag": "search_timeout_error",
+			"responses_1": [
+				"Oops. Uhhh. This is awkward.",
+				"Oops. Uhhh. This is so awkward.",
+				"Oops. This is embarrassing.",
+				"Oops. This is so embarrassing.",
+				"Ahem. Hi there. Funny to find us here.",
+				"Well then. This is awkward.",
+				"I'm a humbug — I'm a very good chatbot. I'm just a very bad wizard.",
+				"Uhhh. Hi. Hi there. Didn't expect to see us here."
+			],
+			"responses_2": [
+				"I do need internet for my wizardry magic to flourish...",
+				"I need an internet connection... for my thingimajig. Don't worry about it.",
+				"I may or may not require internet to function..."
+			],
+			"responses_3": [
+				"If you could do me a favor and find some internet...",
+				"If you could connect to WiFi for just a moment there...",
+				"Please do conenct your device to internet for me. Thanks!"
+			],
+			"context": {
+				"filter": ["canned_messages"]
+			}
 		}
 	]
 }

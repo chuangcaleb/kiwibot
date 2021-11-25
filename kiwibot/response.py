@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem.snowball import SnowballStemmer
 import wikipedia
-import string
+import requests.exceptions
 
 # Load intents
 data_file = open('intents.json').read()
@@ -243,10 +243,13 @@ class kiwibot(object):
         try:
             responses = sent_tokenize(
                 wikipedia.summary(search_query, sentences=3, auto_suggest=False))
+            # TODO: ask for what next
         except wikipedia.exceptions.DisambiguationError as e:
             self.DISAMB = e.options[:3]
             responses = self.pull_responses('search_disamb')
         except wikipedia.exceptions.PageError:
             responses = self.pull_responses('search_result_empty')
+        except (wikipedia.exceptions.HTTPTimeoutError, requests.exceptions.ConnectionError):
+            responses = self.pull_responses('search_timeout_error')
 
         return responses
