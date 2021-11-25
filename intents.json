@@ -86,9 +86,15 @@
 			"responses_1": [
 				"I am Kiwi, a knowledge-base information-retrieval chatbot!"
 			],
-			"responses_2": ["I can tell you about a whole lot of things."],
+			"responses_2": [
+				"I can tell you about a whole lot of things.",
+				"I was nearly called K.B.I.R. for an acronym. I think Kiwi is cuter.",
+				"You can ask me about anything!"
+			],
 			"responses_3": [
-				"Go ahead, ask me about Obama. Or I can tell you something random."
+				"Go ahead, ask me about Obama. Or I can tell you something random.",
+				"Go on, ask me about natural language processing. Or to tell you something random.",
+				"Come, query me on natural language processing. Or ask me to tell you something random."
 			],
 			"context": {
 				"filter": ["general"]
@@ -134,7 +140,8 @@
 				"Till next time",
 				"That's all, thank you",
 				"I'm done for the day",
-				"I'd like to quit"
+				"I'd like to quit",
+				"please quit"
 			],
 			"responses_1": [
 				"See you!",
