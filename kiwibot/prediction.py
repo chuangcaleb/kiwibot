@@ -1,7 +1,7 @@
 import pickle
 
 import numpy as np
-from kiwibot import mathutils as kiwibot_mu
+from kiwibot import math_utils as kiwibot_mu
 
 ########################################
 # Load variables

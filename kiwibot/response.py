@@ -2,14 +2,14 @@
 
 from kiwibot import prediction as kiwibot_pred
 from kiwibot import interface as kiwibot_ui
+from kiwibot import wikipedia_utils as kiwibot_wk
 import json
 import random
 import re
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.tokenize import word_tokenize
 from nltk.stem.snowball import SnowballStemmer
-import wikipedia
-import requests.exceptions
+
 
 # Load intents
 data_file = open('intents.json').read()
@@ -201,21 +201,21 @@ class KiwiBot(object):
             # pull responses as planned
             return self.pull_responses(predicted_intent)
 
-    def process_search(self, raw_query):
+    def process_search(self, raw_query, random=False):
 
         # filter english_stopwords out of query
         search_words = [word.lower() for word in word_tokenize(
             raw_query) if word.lower() not in search_stopwords]
-        search_query = " ".join(search_words)
-
-        # Debug
-        if self.debug_level >= 3:
-            print("Cleaned search query: ", search_query)
-
         # If search query is made up of only stopwords
         if len(search_words) == 0:
             responses = self.pull_responses('stopwords')
             return responses
+
+        # Join words to form search query string
+        search_query = " ".join(search_words)
+        # Debug
+        if self.debug_level >= 3:
+            print("Cleaned search query: ", search_query)
 
         # # If user enters "nevermind"
         # if "".join(search_words) == 'nevermind':
@@ -224,22 +224,6 @@ class KiwiBot(object):
         self.RAW_QUERY = " ".join(
             [word for word in word_tokenize(raw_query) if word not in search_stopwords])
 
-        responses = []
-
-        # Wikipedia search
-        try:
-            responses = sent_tokenize(
-                wikipedia.summary(search_query, sentences=3, auto_suggest=False))
-            # TODO: ask for what next
-            # responses.append("")
-        except wikipedia.exceptions.DisambiguationError as e:
-            self.DISAMB = e.options[:3]
-            responses = self.pull_responses('search_disamb')
-        except wikipedia.exceptions.PageError:
-            responses = self.pull_responses('search_result_empty')
-        except (wikipedia.exceptions.HTTPTimeoutError, requests.exceptions.ConnectionError):
-            responses = self.pull_responses('search_timeout_error')
+        responses = kiwibot_wk.wikipedia_search(self, search_query)
 
         return responses
-
-    # def random(self, raw_query):
