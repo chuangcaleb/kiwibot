@@ -40,9 +40,9 @@ def predictAllIntents(query, filtered_intents, debug_level):
         return [('stopwords', 1)]
 
     # Vectorize query according to our bag of words
-    for stem in cleaned_query:
+    for word in cleaned_query:
         try:
-            index = vocabulary.index(stem)
+            index = vocabulary.index(word)
             vector_query[index] += 1
         except ValueError:
             continue

@@ -9,6 +9,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem.snowball import SnowballStemmer
 import wikipedia
+import string
 
 # Load intents
 data_file = open('intents.json').read()
@@ -25,7 +26,7 @@ for intent in intents_file['intents']:
 snowball_stemmer = SnowballStemmer("english")
 english_stopwords = stopwords.words('english')
 search_stopwords = set(english_stopwords +
-                       ["tell", "what", "about", "is", "in", "does", "mean"])
+                       ["tell", "who", "what", "about", "is", "in", "does", "mean"])
 
 
 class DocBot(object):
@@ -51,8 +52,8 @@ class DocBot(object):
 
         # Greet user
         DOC_GREETING = [
-            "Hello, my name is Kiwi! I am a chatbot assistant for computer programmers.",
-            "I know a lot about your favorite programming languages!",
+            "Hello, my name is Kiwi! I am a knowledge-base information-retrieval chatbot.",
+            "I know a lot about a lot of things! But first!",
             "What's your name? (Case-sensitive!)"
         ]
         docbot_ui.docbot_says(DOC_GREETING)
@@ -93,7 +94,7 @@ class DocBot(object):
             print("Predicted intent: ", predicted_intent)
 
         # >> Apply current context's function on the response
-        responses = self.context_switch(predicted_intent, raw_query)
+        responses = self.function_switch(predicted_intent, raw_query)
 
         # >> Apply regex on responses
         responses = self.apply_regex(responses)
@@ -108,7 +109,7 @@ class DocBot(object):
     ########################################
 
     # Switch function to apply based on intent
-    def context_switch(self, predicted_intent, raw_query):
+    def function_switch(self, predicted_intent, raw_query):
 
         # if query is empty, force 'noanswer'
         if not raw_query:
@@ -213,25 +214,11 @@ class DocBot(object):
     #   - english_stopwords
     #   - stem
 
-    def clean_search_query(self, query):
-
-        # tokenize query
-        tok_query = word_tokenize(query)
-
-        # lowercase and stopwords
-        filtered_query = [word.lower() for word in tok_query
-                          if word.lower() not in english_stopwords]
-
-        # Stemming
-        cleaned_query = [snowball_stemmer.stem(
-            word) for word in filtered_query]
-
-        return cleaned_query
-
     def process_search(self, raw_query):
 
         # filter english_stopwords out of query
-        search_words = self.clean_search_query(raw_query.strip(".,!?"))
+        search_words = [word.lower() for word in word_tokenize(
+            raw_query) if word.lower() not in search_stopwords]
         search_query = " ".join(search_words)
 
         # Debug

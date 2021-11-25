@@ -83,8 +83,11 @@
 				"What is your job?",
 				"What are you made to do?"
 			],
-			"responses_1": ["I am an knowledge base information retrieval chatbot!"],
+			"responses_1": [
+				"I am Kiwi, a knowledge-base information-retrieval chatbot!"
+			],
 			"responses_2": ["I can tell you about a whole lot of things."],
+			"responses_3": ["Go ahead, ask me about Obama."],
 			"context": {
 				"filter": ["general"]
 			}
@@ -246,7 +249,7 @@
 				"Pleasure to meet you, $NAME!",
 				"$NAME! I know someone with the same name! Cool!"
 			],
-			"responses_2": ["Ask me to tell you about Python or Java documentation!"],
+			"responses_2": ["Ask me to tell you about chatbots!"],
 			"context": {
 				"filter": ["prompt_name"],
 				"set": "general"
@@ -338,12 +341,13 @@
 			}
 		},
 		{
-			"tag": "search_py",
+			"tag": "search",
 			"patterns": [
 				"What do you know about",
 				"What can you tell me about",
-				"What is are",
-				"Who is are"
+				"What is",
+				"Who is",
+				"Who are"
 			],
 			"responses_1": [
 				"Python, huh? Hmmmm...",
