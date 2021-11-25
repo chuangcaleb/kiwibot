@@ -45,6 +45,7 @@ class DocBot(object):
         self.NAME = ''
         self.RAW_QUERY = ''
         self.LANG = ''
+        self.DISAMB = ['', '', '']
 
         if self.debug_level >= 1:
             print(docbot_ui.red(
@@ -149,6 +150,8 @@ class DocBot(object):
                     responses.append(random.choice(intent['responses_2']))
                 if 'responses_3' in intent:
                     responses.append(random.choice(intent['responses_3']))
+                if 'responses_4' in intent:
+                    responses.append(random.choice(intent['responses_4']))
                 if 'context' in intent:
                     # ew such an ugly way to access
                     if 'set' in intent.get('context'):
@@ -166,15 +169,18 @@ class DocBot(object):
 
         # >> Apply regex on response
         formatted_responses = []
-        for response in responses:
+        for i, response in enumerate(responses):
             # $NAME
             formatted_response = re.sub(r'\$NAME', self.NAME, response)
-            # $QUERY
+            # $RAW_QUERY
             formatted_response = re.sub(
-                r'\$QUERY', self.RAW_QUERY, formatted_response)
+                r'\$RAW_QUERY', self.RAW_QUERY, formatted_response)
             # $LANG
             formatted_response = re.sub(
                 r'\$LANG', self.LANG, formatted_response)
+            # $DISAMB
+            formatted_response = re.sub(
+                r'\$DISAMB', self.DISAMB[i-1], formatted_response)
             # Append
             formatted_responses.append(formatted_response)
 
@@ -208,12 +214,6 @@ class DocBot(object):
             # pull responses as planned
             return self.pull_responses(predicted_intent)
 
-    # Clean search query:
-    #   - tokenize
-    #   - lowercase
-    #   - english_stopwords
-    #   - stem
-
     def process_search(self, raw_query):
 
         # filter english_stopwords out of query
@@ -230,20 +230,23 @@ class DocBot(object):
             responses = self.pull_responses('stopwords')
             return responses
 
-        # If user enters "nevermind"
-        if "".join(search_words) == 'nevermind':
-            return self.pull_responses('pop_to_general')
+        # # If user enters "nevermind"
+        # if "".join(search_words) == 'nevermind':
+        #     return self.pull_responses('pop_to_general')
 
-        # Set memory variables
-        # Include english_stopwords and
         self.RAW_QUERY = " ".join(
             [word for word in word_tokenize(raw_query) if word not in search_stopwords])
 
         responses = []
-        responses = sent_tokenize(wikipedia.summary(search_query, sentences=3))
 
-        if not responses:  # If responses is still empty, say "I don't know"
-            self.RAW_QUERY = raw_query
+        # Wikipedia search
+        try:
+            responses = sent_tokenize(
+                wikipedia.summary(search_query, sentences=3, auto_suggest=False))
+        except wikipedia.exceptions.DisambiguationError as e:
+            self.DISAMB = e.options[:3]
+            responses = self.pull_responses('search_disamb')
+        except wikipedia.exceptions.PageError:
             responses = self.pull_responses('search_result_empty')
 
         return responses

@@ -373,24 +373,44 @@
 			}
 		},
 		{
-			"tag": "search_result",
-			"responses_1": ["filler..."],
+			"tag": "search_disamb",
+			"responses_1": [
+				"I'm not sure which '$RAW_QUERY' you're referring to.",
+				"Uhh, I'm not too sure what '$RAW_QUERY' refers to.",
+				"I'm not completely sure which '$RAW_QUERY' you mean."
+			],
+			"responses_2": [
+				"Did you mean '$DISAMB'?",
+				"Perhaps you meant '$DISAMB'?",
+				"I think you might've meant '$DISAMB'?",
+				"I think you meant '$DISAMB'?",
+				"I'm almost certain you meant '$DISAMB'?"
+			],
+			"responses_3": [
+				"Or did you mean '$DISAMB'?",
+				"Or perhaps you meant '$DISAMB'?",
+				"Or you might've meant '$DISAMB'?"
+			],
+			"responses_4": [
+				"...or '$DISAMB'?",
+				"...or what about '$DISAMB'?",
+				"...or maybe '$DISAMB'?"
+			],
 			"context": {
-				"filter": ["query_py"]
+				"filter": ["canned_messages"]
 			}
 		},
 		{
 			"tag": "search_result_empty",
 			"responses_1": [
-				"Hmm, I don't know anything about '$RAW_QUERY' in $LANG...",
-				"Hmm, it seems like I don't know anything about '$RAW_QUERY' in $LANG..."
+				"Hmm, I don't know anything about '$RAW_QUERY'...",
+				"Hmm, it seems like I don't know anything about '$RAW_QUERY'..."
 			],
 			"responses_2": [
-				"Make sure you're using the right key words!",
-				"Just say 'Nevermind' if you don't want to talk about Python anymore!",
-				"If you don't want to talk about Python anymore, just say 'Nevermind'!",
-				"Just tell me 'Nevermind' if you don't want to talk about Python anymore!",
-				"If you don't want to talk about Python anymore, just tell me 'Nevermind'!"
+				"Are you sure you've spelled it right?",
+				"It sounds funny to me.",
+				"Make sure you've used the right keywords!",
+				"Perhaps check your spelling!"
 			],
 			"context": {
 				"filter": ["canned_messages"]

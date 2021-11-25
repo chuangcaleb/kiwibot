@@ -29,7 +29,7 @@ print(docbot_ui.green(
 
 # Initialize
 terminate = False
-my_docbot = docbot_resp.DocBot(debug_level=4)
+my_docbot = docbot_resp.DocBot(debug_level=0)
 
 
 # Main while loop
