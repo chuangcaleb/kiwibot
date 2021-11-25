@@ -41,7 +41,6 @@ class KiwiBot(object):
         self.debug_level = debug_level
         # On startup, set context to prompt name
         self.context = 'prompt_name'
-        # self.context = 'prompt_name'
         self.NAME = ''
         self.RAW_QUERY = ''
         self.LANG = ''
