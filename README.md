@@ -1,6 +1,6 @@
 # HAI Coursework 1: AN INTERACTIVE NLP-BASED AI SYSTEM
 
-## Project Title: Chatbot Assistant for Computer Programmers
+## Project Title: Wikipedia Information Retrieval Chatbot
 
 20204134 Chuang Caleb hcycc2
 
@@ -10,7 +10,7 @@ BSc Hons Computer Science with Artificial Intelligence
 
 ---
 
-Docbot is a....
+KiwiBot is a....
 
 ## Features
 
@@ -32,6 +32,7 @@ Ensure you have the following non-standard python libraries installed in your en
 - `nltk`
 - `numpy`
 - `scipy`
+- `wikipedia`
 
 ### 2. Building
 

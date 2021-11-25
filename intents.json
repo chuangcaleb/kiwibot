@@ -83,13 +83,8 @@
 				"What is your job?",
 				"What are you made to do?"
 			],
-			"responses_1": ["I am a chatbot assistant for computer programmers!"],
-			"responses_2": [
-				"I can search for documentation across different languages."
-			],
-			"responses_3": [
-				"If you get stuck, just say 'Now what?' and I can try to give you some options!"
-			],
+			"responses_1": ["I am an knowledge base information retrieval chatbot!"],
+			"responses_2": ["I can tell you about a whole lot of things."],
 			"context": {
 				"filter": ["general"]
 			}
@@ -97,7 +92,7 @@
 		{
 			"tag": "greeting",
 			"patterns": [
-				"Hi there, Docbot",
+				"Hi there, Kiwi",
 				"Hey",
 				"Hello there!",
 				"Good day",
@@ -106,7 +101,7 @@
 				"Good evening",
 				"What's up!",
 				"Ola",
-				"Sup, Docbot",
+				"Sup, Kiwi",
 				"Yo"
 			],
 			"responses_1": [
@@ -281,6 +276,7 @@
 				"What is my name?",
 				"Do you know my name?",
 				"Can you tell me my name?",
+				"Tell me who I am",
 				"Do you remember my name?",
 				"Can you recall my name?",
 				"Who am I?"
@@ -300,8 +296,8 @@
 				"$NAME! $NAME. $NAME... $NAME$NAME$NAME",
 				"Your name is $NAME — that's like, the very first thing we talked about.",
 				"$NAME, just like my fourth cousin's pet fox's veterinarian's ex-husband's human. Exact same name, it's crazy.",
-				"I'm DocBot. You're $NAME. Best friends forever, right?",
-				"You're $NAME. I'm DocBot. Best friends forever, right?",
+				"I'm Kiwi. You're $NAME. Best friends forever, right?",
+				"You're $NAME. I'm Kiwi. Best friends forever, right?",
 				"Your name is $NAME. Can we move on to the documentation questions now?"
 			],
 			"context": {
@@ -313,9 +309,10 @@
 			"patterns": [
 				"What's your name?",
 				"Can you tell me your name?",
+				"Tell me who you are",
 				"and your name?",
 				"What is your name?",
-				"Is your name Docbot?"
+				"Is your name Kiwi?"
 			],
 			"responses_1": [
 				"My name? You've already forgotten my name? I'm slightly hurt.",
@@ -327,14 +324,14 @@
 				"You know I can do so much more than tell you my name when you forget it, right?"
 			],
 			"responses_2": [
-				"DocBot. Easy. Next question.",
-				"I'm DocBot! The one and only. At least, as far as I'm aware of.",
-				"DocBot! Docbot. DocBot... DocBotDocBotDocBot",
-				"My name is DocBot — that's like, the very first thing we talked about.",
+				"Kiwi. Easy. Next question.",
+				"I'm Kiwi! The one and only. At least, as far as I'm aware of.",
+				"Kiwi! Kiwi. Kiwi... KiwiKiwiKiwi",
+				"My name is Kiwi — that's like, the very first thing we talked about.",
 				"$NAME, just like my fourth cousin's pet fox's veterinarian's ex-husband's human. Exact same name, it's crazy.",
-				"I'm DocBot. You're $NAME. Best friends forever, right?",
-				"You're $NAME. I'm DocBot. Best friends forever, right?",
-				"My name is DocBot. Can we move on to the documentation questions now?"
+				"I'm Kiwi. You're $NAME. Best friends forever, right?",
+				"You're $NAME. I'm Kiwi. Best friends forever, right?",
+				"My name is Kiwi. Can we move on to the documentation questions now?"
 			],
 			"context": {
 				"filter": ["general"]
@@ -343,11 +340,10 @@
 		{
 			"tag": "search_py",
 			"patterns": [
-				"Search Python docs",
-				"Search Python documentation",
-				"Can you search Python docs for me",
-				"Tell me about Python docs",
-				"What do you know about Python documentation"
+				"What do you know about",
+				"What can you tell me about",
+				"What is are",
+				"Who is are"
 			],
 			"responses_1": [
 				"Python, huh? Hmmmm...",
@@ -369,55 +365,21 @@
 			],
 			"context": {
 				"filter": ["general"],
-				"set": "query_py"
-			}
-		},
-		{
-			"tag": "search_jv",
-			"patterns": [
-				"Search Java docs",
-				"Search Java documentation",
-				"Can you search Java docs for me",
-				"Tell me about Java docs",
-				"What do you know about Java documentation"
-			],
-			"responses_1": [
-				"Java, huh? Hmmmm...",
-				"Alright, Java, let me see...",
-				"Java, the coding language, not to be confused with brewed coffee...",
-				"Java, the coding language, not to be confused with a breed of the domestic hen, originated in the United States...",
-				"Java, the coding language, not to be confused with one of the islands of the Malay Archipelago belonging to the Netherlands...",
-				"Let's look at some Python!"
-			],
-			"responses_2": [
-				"What do you want to know about Java?",
-				"What do you want me to tell you about Java?",
-				"What would you like to know about Java?",
-				"What would you like me to tell you about Java?"
-			],
-			"responses_3": [
-				"Just say 'Nevermind' if you don't want to talk about Java anymore!",
-				"If you don't want to talk about Java anymore, just say 'Nevermind'!",
-				"Just tell me 'Nevermind' if you don't want to talk about Java anymore!",
-				"If you don't want to talk about Java anymore, just tell me 'Nevermind'!"
-			],
-			"context": {
-				"filter": ["general"],
-				"set": "query_jv"
+				"set": "query"
 			}
 		},
 		{
 			"tag": "search_result",
 			"responses_1": ["filler..."],
 			"context": {
-				"filter": ["query_py", "query_jv"]
+				"filter": ["query_py"]
 			}
 		},
 		{
 			"tag": "search_result_empty",
 			"responses_1": [
-				"Hmm, I don't know anything about '$QUERY' in $LANG...",
-				"Hmm, it seems like I don't know anything about '$QUERY' in $LANG..."
+				"Hmm, I don't know anything about '$RAW_QUERY' in $LANG...",
+				"Hmm, it seems like I don't know anything about '$RAW_QUERY' in $LANG..."
 			],
 			"responses_2": [
 				"Make sure you're using the right key words!",

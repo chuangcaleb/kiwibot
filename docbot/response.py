@@ -6,9 +6,9 @@ import json
 import random
 import re
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-import pickle
+from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem.snowball import SnowballStemmer
+import wikipedia
 
 # Load intents
 data_file = open('intents.json').read()
@@ -25,14 +25,7 @@ for intent in intents_file['intents']:
 snowball_stemmer = SnowballStemmer("english")
 english_stopwords = stopwords.words('english')
 search_stopwords = set(english_stopwords +
-                       ["tell", "what", "about", "is", "in", "does", "python", "java", "mean"])
-# english_stopwords.extend(['docbot', 'doc'])
-
-# Load glossaries
-python_glossary = pickle.load(
-    open("pickle_dump/python_glossary.pickle", "rb"))
-java_glossary = pickle.load(
-    open("pickle_dump/java_glossary.pickle", "rb"))
+                       ["tell", "what", "about", "is", "in", "does", "mean"])
 
 
 class DocBot(object):
@@ -49,7 +42,7 @@ class DocBot(object):
         self.context = 'prompt_name'
         # self.context = 'prompt_name'
         self.NAME = ''
-        self.QUERY = ''
+        self.RAW_QUERY = ''
         self.LANG = ''
 
         if self.debug_level >= 1:
@@ -58,9 +51,8 @@ class DocBot(object):
 
         # Greet user
         DOC_GREETING = [
-            "Hello, my name is DocBot! I am a chatbot assistant for computer programmers.",
+            "Hello, my name is Kiwi! I am a chatbot assistant for computer programmers.",
             "I know a lot about your favorite programming languages!",
-            # "For example, ask me about the 'random' module in Python..."
             "What's your name? (Case-sensitive!)"
         ]
         docbot_ui.docbot_says(DOC_GREETING)
@@ -76,25 +68,25 @@ class DocBot(object):
             print("Current context: ", self.context)
 
         # >> Get intents with matching context
-        filtered_intents = []
+        possible_intents = []
         for intent in filter_list:
             if self.context in filter_list[intent]:
-                filtered_intents.append(intent)
+                possible_intents.append(intent)
         # Debug
         if self.debug_level >= 3:
-            print("Possible intents: ", filtered_intents)
+            print("Possible intents: ", possible_intents)
 
         # >> Retrieving appropriate intents
         # If only one matching intent/context, then force it
-        if len(filtered_intents) == 1:
+        if len(possible_intents) == 1:
 
-            predicted_intent = filtered_intents[0]
+            predicted_intent = possible_intents[0]
 
         # Else, predict intent with the query, but only the subset filtered intent classes
         else:
 
             predicted_intent = docbot_pred.predictLikeliestIntent(
-                raw_query, filtered_intents, self.debug_level)
+                raw_query, possible_intents, self.debug_level)
 
         # Debug
         if self.debug_level >= 1:
@@ -102,10 +94,6 @@ class DocBot(object):
 
         # >> Apply current context's function on the response
         responses = self.context_switch(predicted_intent, raw_query)
-
-        # Debug
-        if self.debug_level >= 4:
-            print("Responses before regex sub: ", responses)
 
         # >> Apply regex on responses
         responses = self.apply_regex(responses)
@@ -119,23 +107,35 @@ class DocBot(object):
     # Context switching helper functions
     ########################################
 
-    # Switch function to apply based on query
+    # Switch function to apply based on intent
     def context_switch(self, predicted_intent, raw_query):
 
         # if query is empty, force 'noanswer'
         if not raw_query:
             return self.pull_responses('noanswer')
 
+        """ Old code
         # Switch dictionary of all possible context functions
         context_switcher = {
             'prompt_name': lambda: self.process_name(predicted_intent, raw_query),
-            'query_py': lambda: self.process_search(raw_query, "Python"),
-            'query_jv': lambda: self.process_search(raw_query, "Java"),
+            'general': lambda: self.process_search(raw_query),
         }
 
         # Run the appropriate function
         # -> if context function doesn't exist, then just pull appropriate responses
         return context_switcher.get(self.context, lambda: self.pull_responses(predicted_intent))()
+        #  """
+        # Debug
+        if self.debug_level >= 3:
+            print("Predicted intent, context: ",
+                  predicted_intent, self.context)
+
+        if self.context == 'prompt_name':
+            return self.process_name(predicted_intent, raw_query)
+        elif predicted_intent == 'search':
+            return self.process_search(raw_query)
+        else:
+            return self.pull_responses(predicted_intent)
 
     def pull_responses(self, predicted_intent):
 
@@ -155,10 +155,14 @@ class DocBot(object):
                         # Debug
                         if self.debug_level >= 2:
                             print("Changed context to:", self.context)
-
         return responses
 
     def apply_regex(self, responses):
+
+        # Debug
+        if self.debug_level >= 4:
+            print("Responses before regex sub: ", responses)
+
         # >> Apply regex on response
         formatted_responses = []
         for response in responses:
@@ -166,7 +170,7 @@ class DocBot(object):
             formatted_response = re.sub(r'\$NAME', self.NAME, response)
             # $QUERY
             formatted_response = re.sub(
-                r'\$QUERY', self.QUERY, formatted_response)
+                r'\$QUERY', self.RAW_QUERY, formatted_response)
             # $LANG
             formatted_response = re.sub(
                 r'\$LANG', self.LANG, formatted_response)
@@ -224,11 +228,15 @@ class DocBot(object):
 
         return cleaned_query
 
-    def process_search(self, raw_query, language):
+    def process_search(self, raw_query):
 
         # filter english_stopwords out of query
         search_words = self.clean_search_query(raw_query.strip(".,!?"))
         search_query = " ".join(search_words)
+
+        # Debug
+        if self.debug_level >= 3:
+            print("Cleaned search query: ", search_query)
 
         # If search query is made up of only stopwords
         if len(search_words) == 0:
@@ -240,31 +248,15 @@ class DocBot(object):
             return self.pull_responses('pop_to_general')
 
         # Set memory variables
-        self.QUERY = " ".join(
+        # Include english_stopwords and
+        self.RAW_QUERY = " ".join(
             [word for word in word_tokenize(raw_query) if word not in search_stopwords])
-        self.LANG = language
 
         responses = []
-
-        # TODO: Switch according to language (to refactor)
-        if language == 'Python':
-            for term in python_glossary:
-                if search_query == term.lower():
-                    responses = python_glossary[term]
-                    first_response = f"This is what I know about a '{term}' in {self.LANG}!"
-                    responses = [first_response] + responses
-        elif language == 'Java':
-            for term in java_glossary:
-                if search_query == term.lower():
-                    responses = java_glossary[term]
-                    first_response = f"This is what I know about '{term}' in {self.LANG}!"
-                    responses = [first_response] + responses
-        else:
-            # User should never get here, only a dev error
-            print("ERROR: Unrecognized language!")
+        responses = sent_tokenize(wikipedia.summary(search_query, sentences=3))
 
         if not responses:  # If responses is still empty, say "I don't know"
-            self.QUERY = raw_query
+            self.RAW_QUERY = raw_query
             responses = self.pull_responses('search_result_empty')
 
         return responses
