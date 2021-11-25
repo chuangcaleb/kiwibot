@@ -35,7 +35,7 @@ def white(message):
     return f"{colors['white']}{message}{colors['end']}"
 
 
-def docbot_says(message):
+def kiwibot_says(message):
 
     print()
 

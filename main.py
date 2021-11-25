@@ -1,10 +1,10 @@
 from nltk.stem import WordNetLemmatizer
-from docbot import interface as docbot_ui
-from docbot import response as docbot_resp
+from kiwibot import interface as kiwibot_ui
+from kiwibot import response as kiwibot_resp
 
-# Desc: Main entry point executable for docbot
+# Desc: Main entry point executable for kiwibot
 
-#! Run lemmatizer once at init; if not, then there is noticeable delay only on Docbot's first response. Weird.
+#! Run lemmatizer once at init; if not, then there is noticeable delay only on kiwibot's first response. Weird.
 # Run a print statement before and after this code block, you can see the time delay.
 # print("before instantiation")
 lemmatizer = WordNetLemmatizer()
@@ -20,25 +20,25 @@ lemmatizer.lemmatize("")
 #!
 
 # Print Header
-print(docbot_ui.green(
+print(kiwibot_ui.green(
     "\n###################################################################################"))
-print(docbot_ui.green(
+print(kiwibot_ui.green(
     "################################# K I W I B O T ###################################"))
-print(docbot_ui.green(
+print(kiwibot_ui.green(
     "###################################################################################"))
 
 # Initialize
 terminate = False
-my_docbot = docbot_resp.DocBot(debug_level=0)
+my_kiwibot = kiwibot_resp.kiwibot(debug_level=0)
 
 
 # Main while loop
 while not terminate:
-    query = docbot_ui.user_says()
-    terminate = my_docbot.gen_response(query)
+    query = kiwibot_ui.user_says()
+    terminate = my_kiwibot.gen_response(query)
 
 # Print Footer
-print(docbot_ui.green(
+print(kiwibot_ui.green(
     "\n###################################################################################"))
-print(docbot_ui.green(
+print(kiwibot_ui.green(
     "########################################################################### kiwibot\n"))

@@ -1,7 +1,7 @@
 import pickle
 
 import numpy as np
-from docbot import mathutils as docbot_mu
+from kiwibot import mathutils as kiwibot_mu
 
 ########################################
 # Load variables
@@ -30,7 +30,7 @@ def predictAllIntents(query, filtered_intents, debug_level):
     vector_query = np.zeros(len(vocabulary))
 
     # Clean query
-    cleaned_query = docbot_mu.clean_general_query(query)
+    cleaned_query = kiwibot_mu.clean_general_query(query)
 
     if debug_level >= 3:
         print("Cleaned query:", cleaned_query)
@@ -52,11 +52,11 @@ def predictAllIntents(query, filtered_intents, debug_level):
         return [('undefined', 1)]
 
     # Apply term weighting to the vectorized query
-    vector_query = docbot_mu.logfreq_weighting(vector_query)
+    vector_query = kiwibot_mu.logfreq_weighting(vector_query)
 
     # Calculate similarity measure against each class
     for intent in filtered_intents:
-        sim_data[intent] = docbot_mu.sim_cosine(bow[intent], vector_query)
+        sim_data[intent] = kiwibot_mu.sim_cosine(bow[intent], vector_query)
 
     # Sort the predicted classes by similarity
     sorted_sim_data = sorted(

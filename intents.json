@@ -190,7 +190,7 @@
 				"My pleasure, $NAME!",
 				"No problem!",
 				"No problem, $NAME!",
-				"Don't thank me!",
+				"Don't have to thank me!",
 				"Glad to fulfill my purpose, $NAME!"
 			],
 			"context": {
@@ -308,7 +308,7 @@
 			}
 		},
 		{
-			"tag": "docbot_name",
+			"tag": "kiwibot_name",
 			"patterns": [
 				"What's your name?",
 				"Can you tell me your name?",

@@ -1,7 +1,7 @@
 # Mangages the response of the chatbot according to the predicted class
 
-from docbot import prediction as docbot_pred
-from docbot import interface as docbot_ui
+from kiwibot import prediction as kiwibot_pred
+from kiwibot import interface as kiwibot_ui
 import json
 import random
 import re
@@ -29,7 +29,7 @@ search_stopwords = set(english_stopwords +
                        ["tell", "who", "what", "about", "is", "in", "does", "mean"])
 
 
-class DocBot(object):
+class kiwibot(object):
 
     ########################################
     # Init variables
@@ -48,8 +48,8 @@ class DocBot(object):
         self.DISAMB = ['', '', '']
 
         if self.debug_level >= 1:
-            print(docbot_ui.red(
-                f"\nDEBUGGING ENABLED: DocBot at debug level {self.debug_level}"))
+            print(kiwibot_ui.red(
+                f"\nDEBUGGING ENABLED: KiwiBot at debug level {self.debug_level}"))
 
         # Greet user
         DOC_GREETING = [
@@ -57,7 +57,7 @@ class DocBot(object):
             "I know a lot about a lot of things! But first!",
             "What's your name? (Case-sensitive!)"
         ]
-        docbot_ui.docbot_says(DOC_GREETING)
+        kiwibot_ui.kiwibot_says(DOC_GREETING)
 
    ########################################
    # Main Method
@@ -87,7 +87,7 @@ class DocBot(object):
         # Else, predict intent with the query, but only the subset filtered intent classes
         else:
 
-            predicted_intent = docbot_pred.predictLikeliestIntent(
+            predicted_intent = kiwibot_pred.predictLikeliestIntent(
                 raw_query, possible_intents, self.debug_level)
 
         # Debug
@@ -101,7 +101,7 @@ class DocBot(object):
         responses = self.apply_regex(responses)
 
         # >> Return response to user
-        docbot_ui.docbot_says(responses)
+        kiwibot_ui.kiwibot_says(responses)
 
         return (predicted_intent == 'goodbye')
 

@@ -18,7 +18,7 @@ from itertools import chain
 
 import numpy as np
 
-from docbot import mathutils as docbot_mu
+from kiwibot import mathutils as kiwibot_mu
 
 ########################################
 # ## Loading Intents Data
@@ -46,7 +46,7 @@ for intent in intents_file['intents']:
 
 # lemmatize, lowercase and remove stopwords
 for intent in intents:
-    tok_doc[intent] = list(chain.from_iterable(docbot_mu.clean_general_query(
+    tok_doc[intent] = list(chain.from_iterable(kiwibot_mu.clean_general_query(
         pattern) for pattern in intents[intent]))
     # tok_doc[intent] = [clean_query(word) for word in tok_doc[intent]]
 
@@ -87,7 +87,7 @@ for intent in classes:
 
 # Weighting function for the terms in our bag of words model
 for intent in bow:
-    bow[intent] = docbot_mu.logfreq_weighting(bow[intent])
+    bow[intent] = kiwibot_mu.logfreq_weighting(bow[intent])
     # print(f'{intent}: {bow[intent][1:10]}')
 
 ########################################
