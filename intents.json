@@ -350,24 +350,7 @@
 				"Who is",
 				"Who are"
 			],
-			"responses_1": [
-				"Python, huh? Hmmmm...",
-				"Alright, Python, let me see...",
-				"Python, the snake language, not to be confused with Parseltongue...",
-				"Let's look at some Python!"
-			],
-			"responses_2": [
-				"What do you want to know about Python?",
-				"What do you want me to tell you about Python?",
-				"What would you like to know about Python?",
-				"What would you like me to tell you about Python?"
-			],
-			"responses_3": [
-				"Just say 'Nevermind' if you don't want to talk about Python anymore!",
-				"If you don't want to talk about Python anymore, just say 'Nevermind'!",
-				"Just tell me 'Nevermind' if you don't want to talk about Python anymore!",
-				"If you don't want to talk about Python anymore, just tell me 'Nevermind'!"
-			],
+			"responses_1": ["SEARCH. Yea! Well this is awkward."],
 			"context": {
 				"filter": ["general"],
 				"set": "query"
@@ -451,7 +434,7 @@
 				"say something random",
 				"give me a random fact"
 			],
-			"responses_1": ["Oops. Uhhh. This is awkward."],
+			"responses_1": ["rANDOM: Oops. Uhhh. This is awkward."],
 			"context": {
 				"filter": ["general"]
 			}
