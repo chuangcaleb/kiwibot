@@ -1,11 +1,11 @@
 from nltk.tokenize import sent_tokenize
 import wikipedia
 import requests.exceptions
+from wikipedia.wikipedia import _wiki_request
 
 
 def wikipedia_search(bot, search_query):
 
-    # Wikipedia search
     try:
         responses = sent_tokenize(
             wikipedia.summary(search_query, sentences=3, auto_suggest=False))
@@ -20,3 +20,7 @@ def wikipedia_search(bot, search_query):
         responses = bot.pull_responses('search_timeout_error')
 
     return responses
+
+
+def wikipedia_random_search(bot):
+    return wikipedia_search(bot, wikipedia.random())

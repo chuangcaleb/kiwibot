@@ -120,6 +120,7 @@ class KiwiBot(object):
         function_switcher = {
             'greet_name': lambda: self.process_name(predicted_intent, raw_query),
             'search': lambda: self.process_search(raw_query),
+            'random': lambda: kiwibot_wk.wikipedia_random_search(raw_query),
         }
 
         # Run the appropriate function
@@ -201,7 +202,7 @@ class KiwiBot(object):
             # pull responses as planned
             return self.pull_responses(predicted_intent)
 
-    def process_search(self, raw_query, random=False):
+    def process_search(self, raw_query):
 
         # filter english_stopwords out of query
         search_words = [word.lower() for word in word_tokenize(
