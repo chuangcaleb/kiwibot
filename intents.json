@@ -85,7 +85,9 @@
 				"I am Kiwi, a knowledge-base information-retrieval chatbot!"
 			],
 			"responses_2": ["I can tell you about a whole lot of things."],
-			"responses_3": ["Go ahead, ask me about Obama."],
+			"responses_3": [
+				"Go ahead, ask me about Obama. Or I can tell you something random."
+			],
 			"context": {
 				"filter": ["general"]
 			}
@@ -247,7 +249,8 @@
 				"Pleasure to meet you, $NAME!",
 				"$NAME! I know someone with the same name! Cool!"
 			],
-			"responses_2": ["Ask me to tell you about chatbots!"],
+			"responses_2": ["Just say 'bye' or something when you're done!"],
+			"responses_3": ["Ask me to tell you about chatbots!"],
 			"context": {
 				"filter": ["prompt_name"],
 				"set": "general"
@@ -438,6 +441,19 @@
 			],
 			"context": {
 				"filter": ["canned_messages"]
+			}
+		},
+		{
+			"tag": "random",
+			"patterns": [
+				"tell me something random!",
+				"tell me a random fact!",
+				"say something random",
+				"give me a random fact"
+			],
+			"responses_1": ["Oops. Uhhh. This is awkward."],
+			"context": {
+				"filter": ["general"]
 			}
 		}
 	]

@@ -29,7 +29,7 @@ search_stopwords = set(english_stopwords +
                        ["tell", "who", "what", "about", "is", "in", "does", "mean"])
 
 
-class kiwibot(object):
+class KiwiBot(object):
 
     ########################################
     # Init variables
@@ -116,28 +116,15 @@ class kiwibot(object):
         if not raw_query:
             return self.pull_responses('noanswer')
 
-        """ Old code
         # Switch dictionary of all possible context functions
-        context_switcher = {
-            'prompt_name': lambda: self.process_name(predicted_intent, raw_query),
-            'general': lambda: self.process_search(raw_query),
+        function_switcher = {
+            'greet_name': lambda: self.process_name(predicted_intent, raw_query),
+            'search': lambda: self.process_search(raw_query),
         }
 
         # Run the appropriate function
         # -> if context function doesn't exist, then just pull appropriate responses
-        return context_switcher.get(self.context, lambda: self.pull_responses(predicted_intent))()
-        #  """
-        # Debug
-        if self.debug_level >= 3:
-            print("Predicted intent, context: ",
-                  predicted_intent, self.context)
-
-        if self.context == 'prompt_name':
-            return self.process_name(predicted_intent, raw_query)
-        elif predicted_intent == 'search':
-            return self.process_search(raw_query)
-        else:
-            return self.pull_responses(predicted_intent)
+        return function_switcher.get(predicted_intent, lambda: self.pull_responses(predicted_intent))()
 
     def pull_responses(self, predicted_intent):
 
@@ -244,6 +231,7 @@ class kiwibot(object):
             responses = sent_tokenize(
                 wikipedia.summary(search_query, sentences=3, auto_suggest=False))
             # TODO: ask for what next
+            # responses.append("")
         except wikipedia.exceptions.DisambiguationError as e:
             self.DISAMB = e.options[:3]
             responses = self.pull_responses('search_disamb')
@@ -253,3 +241,5 @@ class kiwibot(object):
             responses = self.pull_responses('search_timeout_error')
 
         return responses
+
+    # def random(self, raw_query):
