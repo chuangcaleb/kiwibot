@@ -23,8 +23,6 @@
 			"tag": "undefined",
 			"responses_1": [
 				"Sorry, but I don't recognize the words that you're saying.",
-				"I don't have a very large vocabulary... 5.57 kilobytes, to be exact...",
-				"Though I'm 2-and-a-half-weeks-old, I have a 7-year-old's vocabulary! Take that, real children!",
 				"I don't recognize these words! I need more training!"
 			],
 			"responses_2": [
