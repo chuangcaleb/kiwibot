@@ -1,7 +1,13 @@
 from nltk.tokenize import sent_tokenize
 import wikipedia
 import requests.exceptions
-import random
+
+# So in the wikipedia package, wikipedia.py prints a GuessedAtParserWarning in prompt
+# when wikpedia.summary returns a disambiguation. There is no way on my side to
+# fix the problem, and since the warning uglily prints in console/terminal where
+# the chatbot is, I have no choice but to ignore the warning
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def wikipedia_search(bot, search_query, is_random=False):
@@ -19,7 +25,6 @@ def wikipedia_search(bot, search_query, is_random=False):
     except (wikipedia.exceptions.HTTPTimeoutError, requests.exceptions.ConnectionError):
         responses = bot.pull_responses('search_timeout_error')
 
-    print(responses)
     return responses
 
 
