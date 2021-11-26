@@ -395,6 +395,14 @@
 				"...or what about '$DISAMB'?",
 				"...or maybe '$DISAMB'?"
 			],
+			"responses_5": [
+				"Please ask me again!",
+				"Can you ask me again?",
+				"Try asking me again!",
+				"Please ask me one more time!",
+				"Can you ask me one more time?",
+				"Try asking me one more time!"
+			],
 			"context": {
 				"filter": ["canned_messages"]
 			}

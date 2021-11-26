@@ -19,6 +19,10 @@ def wikipedia_search(bot, search_query, is_random=False):
         cleaned_summary = re.sub(r"([\n])+", "", raw_summary)
         responses = sent_tokenize(cleaned_summary)
 
+        # Always return three responses, no matter how many sentences.
+        # If not, this breaks $DISAMB in regex
+        responses = responses[:3]
+
         # TODO: ask for what next
         # responses.append("")
     except wikipedia.exceptions.DisambiguationError as e:
@@ -29,9 +33,7 @@ def wikipedia_search(bot, search_query, is_random=False):
     except (wikipedia.exceptions.HTTPTimeoutError, requests.exceptions.ConnectionError):
         responses = bot.pull_responses('search_timeout_error')
 
-    # Always return three responses, no matter how many sentences.
-    # If not, this breaks $DISAMB in regex
-    return responses[:3]
+    return responses
 
 
 def wikipedia_random_search(bot):

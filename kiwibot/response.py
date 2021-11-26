@@ -132,13 +132,16 @@ class KiwiBot(object):
         responses = []
         for intent in intents_file['intents']:
             if intent['tag'] == predicted_intent:
-                responses.append(random.choice(intent['responses_1']))
+                if 'responses_1' in intent:
+                    responses.append(random.choice(intent['responses_1']))
                 if 'responses_2' in intent:
                     responses.append(random.choice(intent['responses_2']))
                 if 'responses_3' in intent:
                     responses.append(random.choice(intent['responses_3']))
                 if 'responses_4' in intent:
                     responses.append(random.choice(intent['responses_4']))
+                if 'responses_5' in intent:
+                    responses.append(random.choice(intent['responses_5']))
                 if 'context' in intent:
                     # ew such an ugly way to access
                     if 'set' in intent.get('context'):
@@ -166,8 +169,9 @@ class KiwiBot(object):
             formatted_response = re.sub(
                 r'\$LANG', self.LANG, formatted_response)
             # $DISAMB
+            disamb_index = [''] + self.DISAMB + ['']
             formatted_response = re.sub(
-                r'\$DISAMB', self.DISAMB[i-1], formatted_response)
+                r'\$DISAMB', disamb_index[i], formatted_response)
             # Append
             formatted_responses.append(formatted_response)
 
