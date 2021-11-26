@@ -40,8 +40,11 @@ class KiwiBot(object):
 
         # Debug level
         self.debug_level = debug_level
-        # On startup, set context to prompt name
-        self.context = 'prompt_name'
+        # On startup, set context to prompt name -> intent: intro takes care of it now
+        self.context = ''
+        self.active_page = []
+        self.page_progress = 0
+
         self.NAME = ''
         self.RAW_QUERY = ''
         self.LANG = ''
@@ -52,12 +55,7 @@ class KiwiBot(object):
                 f"\nDEBUGGING ENABLED: KiwiBot at debug level {self.debug_level}"))
 
         # Greet user
-        DOC_GREETING = [
-            "Hello, my name is Kiwi! I am a knowledge-base information-retrieval chatbot.",
-            "I know a lot about a lot of things! But first!",
-            "What's your name? (Case-sensitive!)"
-        ]
-        kiwibot_ui.kiwibot_says(DOC_GREETING)
+        kiwibot_ui.kiwibot_says(self.pull_responses("intro"))
 
    ########################################
    # Main Method
@@ -125,6 +123,7 @@ class KiwiBot(object):
             'greet_name': lambda: self.process_name(predicted_intent, raw_query),
             'search': lambda: self.process_search(raw_query),
             'random': lambda: kiwibot_wk.wikipedia_random_search(self),
+            'more': lambda: self.tell_more()
         }
 
         # Run the appropriate function
@@ -228,5 +227,20 @@ class KiwiBot(object):
             [word for word in word_tokenize(raw_query) if word not in search_stopwords])
 
         responses = kiwibot_wk.wikipedia_search(self, search_query)
+
+        return responses
+
+    def tell_more(self):
+
+        # Get next index
+        # Increment progress counter
+        self.page_progress = self.page_progress + 3
+
+        # Pull next three sentences
+        responses = self.active_page[self.page_progress:self.page_progress+3]
+
+        # End of extract
+        if not responses:
+            responses = self.pull_responses('end_of_more')
 
         return responses

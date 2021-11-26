@@ -30,7 +30,7 @@ print(kiwibot_ui.green(
 
 # Initialize
 terminate = False
-my_kiwibot = kiwibot_resp.KiwiBot(debug_level=0)
+my_kiwibot = kiwibot_resp.KiwiBot(debug_level=4)
 
 
 # Main while loop

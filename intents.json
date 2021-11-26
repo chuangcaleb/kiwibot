@@ -1,6 +1,18 @@
 {
 	"intents": [
 		{
+			"tag": "intro",
+			"responses_1": [
+				"Hello, my name is Kiwi! I am a knowledge-base information-retrieval chatbot."
+			],
+			"responses_2": ["I know a lot about a lot of things! But first!"],
+			"responses_3": ["What's your name? (Case-sensitive!)"],
+			"context": {
+				"filter": ["canned_messages"],
+				"set": "prompt_name"
+			}
+		},
+		{
 			"tag": "noanswer",
 			"responses_1": [
 				"Yes?",
@@ -480,6 +492,19 @@
 			"responses_1": ["more: Oops. Uhhh. This is awkward."],
 			"context": {
 				"filter": ["active_topic"]
+			}
+		},
+		{
+			"tag": "end_of_more",
+			"responses_1": [
+				"And that's all I have to say about that.",
+				"That's all I know, $NAME!",
+				"Sorry $NAME, but that's all I know!",
+				"Okay, that's all I know, for now."
+			],
+			"context": {
+				"filter": ["canned_messages"],
+				"set": "general"
 			}
 		}
 	]
