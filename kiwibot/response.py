@@ -25,9 +25,14 @@ for intent in intents_file['intents']:
 
 # Load text processors
 snowball_stemmer = SnowballStemmer("english")
+
+# Curating custom stopwords
 english_stopwords = stopwords.words('english')
 search_stopwords = set(english_stopwords +
                        ["tell", "who", "me", "what", "are", "about", "is", "in", "does", "mean"])
+name_stopwords = ["my", "name", "is",
+                  "the", " ", "i'm", "i", "am", "me", "name's", "they", "call"]
+name_stopwords.extend(english_stopwords)
 
 
 class KiwiBot(object):
@@ -75,16 +80,13 @@ class KiwiBot(object):
         # Debug
         if self.debug_level >= 3:
             print("Possible intents: ", possible_intents)
-
         # >> Retrieving appropriate intents
         # If only one matching intent/context, then force it
         if len(possible_intents) == 1:
-
             predicted_intent = possible_intents[0]
 
         # Else, predict intent with the query, but only the subset filtered intent classes
         else:
-
             predicted_intent = kiwibot_pred.predictLikeliestIntent(
                 raw_query, possible_intents, self.debug_level)
 
@@ -185,10 +187,7 @@ class KiwiBot(object):
 
     def process_name(self, predicted_intent, raw_query):
 
-        name_stopwords = ["my", "name", "is",
-                          "the", " ", "i'm", "i", "am", "me", "name's", "they", "call"]
-        name_stopwords.extend(english_stopwords)
-        # filter name out of query
+        # extract name out of query
         names = [word.strip(".,!") for word in raw_query.split(
             " ") if word.lower() not in name_stopwords]
         full_name = " ".join(names).strip()
