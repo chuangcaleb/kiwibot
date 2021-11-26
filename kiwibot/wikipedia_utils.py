@@ -25,6 +25,7 @@ def wikipedia_search(bot, search_query, is_random=False):
         # Always return three responses, no matter how many sentences.
         # If not, this breaks $DISAMB in regex
         responses = tokenized_summary[:3]
+        responses.append("You can always ask me to tell you more!")
 
         # Set bot memory variables
         bot.context = 'active_topic'
