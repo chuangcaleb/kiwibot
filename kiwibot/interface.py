@@ -43,7 +43,7 @@ def kiwibot_says(message):
 
     for string in message:
         # ! variable_sleep(string)
-        print(green(f"[Doc] {string}"))
+        print(green(f"[Kiwi] {string}"))
 
 
 def variable_sleep(string):
