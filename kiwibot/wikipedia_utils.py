@@ -1,3 +1,4 @@
+import re
 from nltk.tokenize import sent_tokenize
 import wikipedia
 import requests.exceptions
@@ -12,9 +13,16 @@ warnings.filterwarnings("ignore")
 
 def wikipedia_search(bot, search_query, is_random=False):
 
+    print(search_query)
+
     try:
-        responses = sent_tokenize(
-            wikipedia.summary(search_query, sentences=3, auto_suggest=is_random))[:3]  # Limit to first three results, pages like "Jerry H. Bilik" pulls more sentences
+        raw_summary = wikipedia.summary(
+            search_query, sentences=3, auto_suggest=is_random)
+        cleaned_summary = re.sub(r"([\n])+", "", raw_summary)
+        responses = sent_tokenize(cleaned_summary)
+
+        # Limit to first three results, pages like "Jerry H. Bilik" pulls more sentences
+        # limit to three tokenized setences
         # TODO: ask for what next
         # responses.append("")
     except wikipedia.exceptions.DisambiguationError as e:
@@ -25,6 +33,7 @@ def wikipedia_search(bot, search_query, is_random=False):
     except (wikipedia.exceptions.HTTPTimeoutError, requests.exceptions.ConnectionError):
         responses = bot.pull_responses('search_timeout_error')
 
+    print(responses)
     return responses
 
 
