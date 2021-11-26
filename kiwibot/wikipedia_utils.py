@@ -13,16 +13,12 @@ warnings.filterwarnings("ignore")
 
 def wikipedia_search(bot, search_query, is_random=False):
 
-    print(search_query)
-
     try:
         raw_summary = wikipedia.summary(
             search_query, sentences=3, auto_suggest=is_random)
         cleaned_summary = re.sub(r"([\n])+", "", raw_summary)
         responses = sent_tokenize(cleaned_summary)
 
-        # Limit to first three results, pages like "Jerry H. Bilik" pulls more sentences
-        # limit to three tokenized setences
         # TODO: ask for what next
         # responses.append("")
     except wikipedia.exceptions.DisambiguationError as e:
@@ -33,8 +29,9 @@ def wikipedia_search(bot, search_query, is_random=False):
     except (wikipedia.exceptions.HTTPTimeoutError, requests.exceptions.ConnectionError):
         responses = bot.pull_responses('search_timeout_error')
 
-    print(responses)
-    return responses
+    # Always return three responses, no matter how many sentences.
+    # If not, this breaks $DISAMB in regex
+    return responses[:3]
 
 
 def wikipedia_random_search(bot):
@@ -43,7 +40,7 @@ def wikipedia_random_search(bot):
         responses = wikipedia_search(bot, wikipedia.random(), is_random=True)
     # If random page gets disambiguated (so weird), try random search again
     except (wikipedia.exceptions.PageError, AttributeError):
-        print("Hold on...")
+        # print("Hold on...")
         return wikipedia_random_search(bot)
 
     return responses

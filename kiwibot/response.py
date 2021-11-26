@@ -204,7 +204,7 @@ class KiwiBot(object):
     def process_search(self, raw_query):
 
         # filter english_stopwords out of query
-        search_words = [word.lower() for word in word_tokenize(
+        search_words = [word for word in word_tokenize(
             raw_query) if word.lower() not in search_stopwords]
         # If search query is made up of only stopwords
         if len(search_words) == 0:
@@ -215,16 +215,10 @@ class KiwiBot(object):
         search_query = " ".join(search_words)
         # Debug
         if self.debug_level >= 3:
-            print("Cleaned search query: ", search_query)
-
-        # # If user enters "nevermind"
-        # if "".join(search_words) == 'nevermind':
-        #     return self.pull_responses('pop_to_general')
+            print("Cleaned search query:", search_query)
 
         self.RAW_QUERY = " ".join(
             [word for word in word_tokenize(raw_query) if word not in search_stopwords])
-
-        print(search_query)
 
         responses = kiwibot_wk.wikipedia_search(self, search_query)
 
