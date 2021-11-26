@@ -56,3 +56,7 @@ Now you can run the command-line chatbot by executing in a terminal of your choi
 ```python
 python main.py
 ```
+
+---
+
+> NOTE: I have implemented a delay between chatbot responses to simulate the delay of an actual person typing a response, to make it realistic. If you want to skip this delay, go to kiwibot/interface.py and set `TIME_MULTIPLIER = 0`.

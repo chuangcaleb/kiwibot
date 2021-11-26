@@ -14,7 +14,7 @@ colors = {
     'end': '\033[0m',
 }
 
-TIME_MULTIPLIER = 0.12
+TIME_MULTIPLIER = 0.1
 
 
 def green(message):
@@ -42,7 +42,7 @@ def kiwibot_says(message):
     print()
 
     for string in message:
-        # ! variable_sleep(string)
+        variable_sleep(string)
         print(green(f"[Kiwi] {string}"))
 
 

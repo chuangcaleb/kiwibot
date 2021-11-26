@@ -13,12 +13,6 @@ lemmatizer = WordNetLemmatizer()
 lemmatizer.lemmatize("")
 # print("after lemma")
 
-#!
-#!
-#! REMEMBER TO UNCOMMENT sleep() on interface.py
-#!
-#!
-
 # Print Header
 print(kiwibot_ui.green(
     "\n###################################################################################"))
