@@ -100,3 +100,5 @@ pickle.dump({
     'classes': classes,
     'w_bow': bow},
     open("pickle_dump/training_data.pickle", "wb"))
+
+print("\nModel built! Now run 'clear' in the console to clear it before running main.py!")
