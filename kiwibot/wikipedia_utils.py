@@ -1,7 +1,10 @@
 import re
-from nltk.tokenize import sent_tokenize
-import wikipedia
+
 import requests.exceptions
+import wikipedia
+from nltk.tokenize import sent_tokenize
+
+# Handles wikipedia retrieval
 
 # So in the wikipedia package, wikipedia.py prints a GuessedAtParserWarning in prompt
 # when wikpedia.summary returns a disambiguation. There is no way on my side to

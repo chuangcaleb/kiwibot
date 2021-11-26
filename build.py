@@ -1,14 +1,15 @@
 
 # # **HAI Coursework 1: AN INTERACTIVE NLP-BASED AI SYSTEM**
 #
-# ## Project Title: Chatbot Assistant for Computer Programmers
+# ## Project Title: Wikipedia Information Retrieval Chatbot
 #
 # 20204134 Chuang Caleb hcycc2
 #
 # BSc Hons Computer Science with Artificial Intelligence
 #
 # ---
-#
+
+# Trains with intents.json and builds the model, and saves it locally
 
 # ### Imports
 

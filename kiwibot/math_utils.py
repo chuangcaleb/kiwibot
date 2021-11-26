@@ -1,13 +1,13 @@
-# Utils file for calculation function definitions that are shared by many files
 
 from math import log10
 
-from nltk.tokenize import word_tokenize
 import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 from scipy import spatial
 
+# Utils file for calculation function definitions that are shared by many files
 
 lemmatizer = WordNetLemmatizer()
 # Remove stopwords, lowercase

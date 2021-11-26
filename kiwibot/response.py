@@ -1,15 +1,16 @@
-# Mangages the response of the chatbot according to the predicted class
-
-from kiwibot import prediction as kiwibot_pred
-from kiwibot import interface as kiwibot_ui
-from kiwibot import wikipedia_utils as kiwibot_wk
 import json
 import random
 import re
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem.snowball import SnowballStemmer
 
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
+from nltk.tokenize import word_tokenize
+
+from kiwibot import interface as kiwibot_ui
+from kiwibot import prediction as kiwibot_pred
+from kiwibot import wikipedia_utils as kiwibot_wk
+
+# Mangages the response of the chatbot according to the predicted class
 
 # Load intents
 data_file = open('intents.json').read()

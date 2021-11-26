@@ -1,7 +1,10 @@
 import pickle
 
 import numpy as np
+
 from kiwibot import math_utils as kiwibot_mu
+
+# Handles prediction of intent based on query and (preprocessed) context
 
 ########################################
 # Load variables

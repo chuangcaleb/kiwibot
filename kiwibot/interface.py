@@ -1,6 +1,8 @@
 import time
+
 import nltk
 
+# Handles chat display appearances i.e. what the user sees
 
 # Global Chat
 colors = {
