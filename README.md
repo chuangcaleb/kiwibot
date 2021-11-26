@@ -1,10 +1,6 @@
-# HAI Coursework 1: AN INTERACTIVE NLP-BASED AI SYSTEM
+# KiwiBot - A Wikipedia Information Retrieval Chatbot
 
-## Project Title: Wikipedia Information Retrieval Chatbot
-
-20204134 Chuang Caleb hcycc2
-
-BSc Hons Computer Science with Artificial Intelligence
+---
 
 ## Overview
 
