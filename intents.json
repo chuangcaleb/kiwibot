@@ -112,7 +112,7 @@
 			"responses_3": [
 				"Go ahead, ask me about Obama. Or I can tell you something random.",
 				"Go on, ask me about natural language processing. Or to tell you something random.",
-				"Come, query me on natural language processing. Or ask me to tell you something random."
+				"Come, ask me about natural language processing. Or ask me to tell you something random."
 			],
 			"context": {
 				"filter": ["general", "active_topic"],
@@ -328,6 +328,7 @@
 			"tag": "kiwibot_name",
 			"patterns": [
 				"What's your name?",
+				"What is your name?",
 				"Can you tell me your name?",
 				"Tell me who you are",
 				"and your name?",
