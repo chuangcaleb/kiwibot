@@ -385,7 +385,7 @@
 				"What does mean",
 				"What do mean"
 			],
-			"responses_1": ["SEARCH. Yea! Well this is awkward."],
+			"responses_1": ["SEARCH. Yea! Well You shouldn't be seeing this. hehe.."],
 			"context": {
 				"filter": ["general", "active_topic"],
 				"set": "general"
@@ -480,7 +480,9 @@
 				"say something random",
 				"give me a random fact"
 			],
-			"responses_1": ["rANDOM: Oops. Uhhh. This is awkward."],
+			"responses_1": [
+				"rANDOM: Oops. Uhhh. You shouldn't be seeing this. hehe.."
+			],
 			"context": {
 				"filter": ["general", "active_topic"],
 				"set": "general"
@@ -489,7 +491,7 @@
 		{
 			"tag": "more",
 			"patterns": ["tell me more!", "keep going", "what else?"],
-			"responses_1": ["more: Oops. Uhhh. This is awkward."],
+			"responses_1": ["more: Oops. Uhhh. You shouldn't be seeing this. hehe.."],
 			"context": {
 				"filter": ["active_topic"]
 			}

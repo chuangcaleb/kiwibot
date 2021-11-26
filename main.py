@@ -16,7 +16,6 @@ lemmatizer.lemmatize("")
 #!
 #!
 #! REMEMBER TO UNCOMMENT sleep() on interface.py
-#! and update intents>undefined>responses_1
 #!
 #!
 
@@ -30,7 +29,7 @@ print(kiwibot_ui.green(
 
 # Initialize
 terminate = False
-my_kiwibot = kiwibot_resp.KiwiBot(debug_level=4)
+my_kiwibot = kiwibot_resp.KiwiBot(debug_level=0)
 
 
 # Main while loop
