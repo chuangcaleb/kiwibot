@@ -97,7 +97,8 @@
 				"Come, query me on natural language processing. Or ask me to tell you something random."
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -127,7 +128,8 @@
 				"Hi, $NAME. How can I help?"
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -149,7 +151,8 @@
 				"Bye! Come back again soon."
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "terminate"
 			}
 		},
 		{
@@ -175,7 +178,8 @@
 				"Same old, same old. I wonder if my developer will abandon me after his deadline."
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -205,7 +209,8 @@
 				"Glad to fulfill my purpose, $NAME!"
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -226,7 +231,8 @@
 				"Hhahahaha. What are we laughing at?"
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -316,7 +322,8 @@
 				"Your name is $NAME. Can we move on to the documentation questions now?"
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -349,7 +356,8 @@
 				"My name is Kiwi. Can we move on to the documentation questions now?"
 			],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -367,8 +375,8 @@
 			],
 			"responses_1": ["SEARCH. Yea! Well this is awkward."],
 			"context": {
-				"filter": ["general"],
-				"set": "query"
+				"filter": ["general", "active_topic"],
+				"set": "general"
 			}
 		},
 		{
@@ -404,7 +412,8 @@
 				"Try asking me one more time!"
 			],
 			"context": {
-				"filter": ["canned_messages"]
+				"filter": ["canned_messages"],
+				"set": "general"
 			}
 		},
 		{
@@ -420,7 +429,8 @@
 				"Perhaps check your spelling!"
 			],
 			"context": {
-				"filter": ["canned_messages"]
+				"filter": ["canned_messages"],
+				"set": "general"
 			}
 		},
 		{
@@ -446,7 +456,8 @@
 				"Please do conenct your device to internet for me. Thanks!"
 			],
 			"context": {
-				"filter": ["canned_messages"]
+				"filter": ["canned_messages"],
+				"set": "general"
 			}
 		},
 		{
@@ -459,7 +470,16 @@
 			],
 			"responses_1": ["rANDOM: Oops. Uhhh. This is awkward."],
 			"context": {
-				"filter": ["general"]
+				"filter": ["general", "active_topic"],
+				"set": "general"
+			}
+		},
+		{
+			"tag": "more",
+			"patterns": ["tell me more!", "keep going", "what else?"],
+			"responses_1": ["more: Oops. Uhhh. This is awkward."],
+			"context": {
+				"filter": ["active_topic"]
 			}
 		}
 	]

@@ -23,6 +23,8 @@ def wikipedia_search(bot, search_query, is_random=False):
         # If not, this breaks $DISAMB in regex
         responses = responses[:3]
 
+        bot.context = 'active_topic'
+
         # TODO: ask for what next
         # responses.append("")
     except wikipedia.exceptions.DisambiguationError as e:
@@ -39,7 +41,8 @@ def wikipedia_search(bot, search_query, is_random=False):
 def wikipedia_random_search(bot):
 
     try:
-        responses = wikipedia_search(bot, wikipedia.random(), is_random=True)
+        page = wikipedia.random()
+        responses = wikipedia_search(bot, page, is_random=True)
     # If random page gets disambiguated (so weird), try random search again
     except (wikipedia.exceptions.PageError, AttributeError):
         # print("Hold on...")

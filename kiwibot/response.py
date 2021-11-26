@@ -96,6 +96,10 @@ class KiwiBot(object):
         # >> Apply current context's function on the response
         responses = self.function_switch(predicted_intent, raw_query)
 
+        # Debug
+        if self.debug_level >= 2:
+            print("New current context is:", self.context)
+
         # >> Apply regex on responses
         responses = self.apply_regex(responses)
 
@@ -119,7 +123,7 @@ class KiwiBot(object):
         function_switcher = {
             'greet_name': lambda: self.process_name(predicted_intent, raw_query),
             'search': lambda: self.process_search(raw_query),
-            'random': lambda: kiwibot_wk.wikipedia_random_search(raw_query),
+            'random': lambda: kiwibot_wk.wikipedia_random_search(self),
         }
 
         # Run the appropriate function
@@ -146,9 +150,7 @@ class KiwiBot(object):
                     # ew such an ugly way to access
                     if 'set' in intent.get('context'):
                         self.context = intent.get('context').get('set')
-                        # Debug
-                        if self.debug_level >= 2:
-                            print("Changed context to:", self.context)
+
         return responses
 
     def apply_regex(self, responses):
