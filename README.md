@@ -1,10 +1,6 @@
 # KiwiBot - A Wikipedia Information Retrieval Chatbot
 
----
-
 ## Overview
-
----
 
 KiwiBot is a simple chatbot that offers basic summaries about any given topic. It is a "knowledge base information retrieval system", except that rather than a small, static, local knowledge base, it instead uses the `wikipedia` python package to search the massive, dynamic, online knowledge base that is wikipedia.
 
@@ -16,15 +12,11 @@ The report for this project can be found [here](https://docs.google.com/document
 
 ## Features
 
----
-
 - Identity Management
 - Context Switching
 - Knowledge Base Question Answering
 
 ## Using the chabot
-
----
 
 ### 1. Dependencies
 
