@@ -29,7 +29,7 @@ snowball_stemmer = SnowballStemmer("english")
 # Curating custom stopwords
 english_stopwords = stopwords.words('english')
 search_stopwords = set(english_stopwords +
-                       ["tell", "who", "me", "what", "are", "about", "is", "in", "does", "mean"])
+                       ["tell", "who", "me", "what", "are", "about", "is", "in", "does", "mean", "?", "know"])
 name_stopwords = ["my", "name", "is",
                   "the", " ", "i'm", "i", "am", "me", "name's", "they", "call"]
 name_stopwords.extend(english_stopwords)

@@ -18,10 +18,7 @@
 				"Yes?",
 				"Did you say something?",
 				"Could you say that again that a little louder?",
-				"Did you say something, $NAME?",
-				"Could you say that again that a little louder, $NAME?",
 				"Did you forget to unmute your mic?",
-				"Did you forget to unmute your mic, $NAME?",
 				"*stares blankly back at you*",
 				"Ooh! I love the quiet game!"
 			],
@@ -79,10 +76,7 @@
 			"responses_1": [
 				"I can't draw enough meaning from what you just said!",
 				"I need to be told more than that to understand you.",
-				"I need more contextual words. More!!",
-				"I can't draw enough meaning from what you just said, $NAME...",
-				"I need to be told more than that to understand you, $NAME.",
-				"I need more contextual words, $NAME. More!!"
+				"I need more contextual words. More!!"
 			],
 			"responses_2": [
 				"Try using more specific words!",
@@ -104,7 +98,8 @@
 				"What do you do?",
 				"What is your purpose?",
 				"What is your job?",
-				"What are you made for?"
+				"What are you made for?",
+				"tell me about yourself"
 			],
 			"responses_1": [
 				"I am Kiwi, a knowledge-base information-retrieval chatbot!"
@@ -366,15 +361,15 @@
 		{
 			"tag": "search",
 			"patterns": [
-				"What do you know about",
-				"Tell me about",
-				"Tell me about",
-				"What is",
-				"What are",
-				"Who is",
-				"Who are",
-				"What does mean",
-				"What do mean"
+				"What do you know about?",
+				"Tell me about?",
+				"Tell me about?",
+				"What is?",
+				"What are?",
+				"Who is?",
+				"Who are?",
+				"What does mean?",
+				"What do mean?"
 			],
 			"responses_1": ["SEARCH. Yea! Well You shouldn't be seeing this. hehe.."],
 			"context": {
