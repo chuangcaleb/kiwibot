@@ -26,7 +26,7 @@ for intent in intents_file['intents']:
 snowball_stemmer = SnowballStemmer("english")
 english_stopwords = stopwords.words('english')
 search_stopwords = set(english_stopwords +
-                       ["tell", "who", "what", "are", "about", "is", "in", "does", "mean"])
+                       ["tell", "who", "me", "what", "are", "about", "is", "in", "does", "mean"])
 
 
 class KiwiBot(object):
@@ -223,6 +223,8 @@ class KiwiBot(object):
 
         self.RAW_QUERY = " ".join(
             [word for word in word_tokenize(raw_query) if word not in search_stopwords])
+
+        print(search_query)
 
         responses = kiwibot_wk.wikipedia_search(self, search_query)
 

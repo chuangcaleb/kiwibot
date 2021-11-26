@@ -356,7 +356,8 @@
 			"tag": "search",
 			"patterns": [
 				"What do you know about",
-				"What can you tell me about",
+				"Tell me about",
+				"Tell me about",
 				"What is",
 				"What are",
 				"Who is",
@@ -444,7 +445,7 @@
 			"tag": "random",
 			"patterns": [
 				"tell me something random!",
-				"tell me a random fact!",
+				"a random fact!",
 				"say something random",
 				"give me a random fact"
 			],
