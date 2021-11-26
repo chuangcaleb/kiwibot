@@ -16,7 +16,6 @@ KiwiBot is a....
 
 ---
 
-- Small Talk
 - Identity Management
 - Context Switching
 - Knowledge Base Question Answering

@@ -18,7 +18,10 @@
 				"Yes?",
 				"Did you say something?",
 				"Could you say that again that a little louder?",
+				"Did you say something, $NAME?",
+				"Could you say that again that a little louder, $NAME?",
 				"Did you forget to unmute your mic?",
+				"Did you forget to unmute your mic, $NAME?",
 				"*stares blankly back at you*",
 				"Ooh! I love the quiet game!"
 			],
@@ -35,7 +38,9 @@
 			"tag": "undefined",
 			"responses_1": [
 				"Sorry, but I don't recognize the words that you're saying.",
-				"I don't recognize these words! I need more training!"
+				"I don't recognize these words! I need more training!",
+				"Sorry, $NAME, but I don't recognize the words that you're saying.",
+				"I don't recognize these words, $NAME! I need more training!"
 			],
 			"responses_2": [
 				"I'm not smart enough to recognize typos or big words!",
@@ -52,8 +57,11 @@
 			"tag": "uncertain",
 			"responses_1": [
 				"I'm not *too* sure what you just said.",
+				"I'm not *too* sure what you just said, $NAME.",
 				"Uhhh... I don't want to wrongly assume what you want.",
+				"Uhhh... I don't want to wrongly assume what you want, $NAME.",
 				"I recognize what you're saying, but I'm not sure what you mean.",
+				"I recognize what you're saying, $NAME, but I'm not sure what you mean.",
 				"Beep boop. Best estimated class is below error threshold beep boop."
 			],
 			"responses_2": [
@@ -71,7 +79,10 @@
 			"responses_1": [
 				"I can't draw enough meaning from what you just said!",
 				"I need to be told more than that to understand you.",
-				"I need more contextual words. More!!"
+				"I need more contextual words. More!!",
+				"I can't draw enough meaning from what you just said, $NAME...",
+				"I need to be told more than that to understand you, $NAME.",
+				"I need more contextual words, $NAME. More!!"
 			],
 			"responses_2": [
 				"Try using more specific words!",
@@ -158,9 +169,9 @@
 				"please quit"
 			],
 			"responses_1": [
-				"See you!",
-				"Alright, bye!",
-				"Bye! Come back again soon."
+				"See you, $NAME!",
+				"Alright, bye, $NAME!",
+				"Bye, $NAME! Come back again soon."
 			],
 			"context": {
 				"filter": ["general", "active_topic"],
@@ -237,6 +248,7 @@
 			],
 			"responses_1": [
 				"Did I make you laugh? That's great!",
+				"Did I make you laugh, $NAME? That's great!",
 				"LOL!",
 				"lol",
 				"Glad I could make you laugh, $NAME!",
@@ -244,27 +256,6 @@
 			],
 			"context": {
 				"filter": ["general", "active_topic"],
-				"set": "general"
-			}
-		},
-		{
-			"tag": "pop_to_general",
-			"patterns": ["nevermind"],
-			"responses_1": [
-				"Ah alright. ",
-				"Alright, that's that. ",
-				"Okay, $NAME.",
-				"Okay, if you insist!",
-				"Just when I was getting ready and excited!"
-			],
-			"responses_2": [
-				"What can I do for you instead?",
-				"What can I do for you now?",
-				"How can I help you, instead?",
-				"What do you want me to help you with now?"
-			],
-			"context": {
-				"filter": ["canned_messages"],
 				"set": "general"
 			}
 		},
@@ -279,7 +270,7 @@
 				"$NAME! I know someone with the same name! Cool!"
 			],
 			"responses_2": ["Just say 'bye' or something when you're done!"],
-			"responses_3": ["Ask me to tell you about chatbots!"],
+			"responses_3": ["Ask me what a chatbot is!"],
 			"context": {
 				"filter": ["prompt_name"],
 				"set": "general"
@@ -395,8 +386,11 @@
 			"tag": "search_disamb",
 			"responses_1": [
 				"I'm not sure which '$RAW_QUERY' you're referring to.",
+				"I'm not sure which '$RAW_QUERY' you're referring to, $NAME.",
 				"Uhh, I'm not too sure what '$RAW_QUERY' refers to.",
-				"I'm not completely sure which '$RAW_QUERY' you mean."
+				"Uhh, I'm not too sure what '$RAW_QUERY' refers to, $NAME.",
+				"I'm not completely sure which '$RAW_QUERY' you mean.",
+				"I'm not completely sure which '$RAW_QUERY' you mean, $NAME."
 			],
 			"responses_2": [
 				"Did you mean '$DISAMB'?",
@@ -432,7 +426,13 @@
 			"tag": "search_result_empty",
 			"responses_1": [
 				"Hmm, I don't know anything about '$RAW_QUERY'...",
-				"Hmm, it seems like I don't know anything about '$RAW_QUERY'..."
+				"Hmm, $NAME, I don't know anything about '$RAW_QUERY'...",
+				"Hmm, it seems like I don't know anything about '$RAW_QUERY'...",
+				"Hmm, $NAME, it seems like I don't know anything about '$RAW_QUERY'...",
+				"Sorry, I don't know anything about '$RAW_QUERY'...",
+				"Sorry, $NAME, I don't know anything about '$RAW_QUERY'...",
+				"Sorry, it seems like I don't know anything about '$RAW_QUERY'...",
+				"Sorry, $NAME, it seems like I don't know anything about '$RAW_QUERY'..."
 			],
 			"responses_2": [
 				"Are you sure you've spelled it right?",
