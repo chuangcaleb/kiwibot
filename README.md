@@ -14,6 +14,10 @@ KiwiBot is a simple chatbot that offers basic summaries about any given topic. I
 
 The python package would simplify a lot of the query-searching aspect of the program, so more focus can be placed on the chat user interface aspect. Besides that, pulling data from a large dataset can give the illusion of a more knowledgeable, personal and realistic chatbot.
 
+This project was part of the Humans-AI Interactions Module.
+
+The report for this project can be found [here](https://docs.google.com/document/d/1E2wGUxfbE8L4w1zS6fW0pPOgOymix8UhWyN-zHXxaaQ/edit?usp=sharing).
+
 ## Features
 
 ---
