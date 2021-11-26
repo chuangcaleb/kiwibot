@@ -10,7 +10,9 @@ BSc Hons Computer Science with Artificial Intelligence
 
 ---
 
-KiwiBot is a....
+KiwiBot is a simple chatbot that offers basic summaries about any given topic. It is a "knowledge base information retrieval system", except that rather than a small, static, local knowledge base, it instead uses the `wikipedia` python package to search the massive, dynamic, online knowledge base that is wikipedia.
+
+The python package would simplify a lot of the query-searching aspect of the program, so more focus can be placed on the chat user interface aspect. Besides that, pulling data from a large dataset can give the illusion of a more knowledgeable, personal and realistic chatbot.
 
 ## Features
 
