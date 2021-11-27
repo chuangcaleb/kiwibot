@@ -1,6 +1,6 @@
 import time
 
-import nltk
+from nltk.tokenize import word_tokenize
 
 # Handles chat display appearances i.e. what the user sees
 
@@ -48,7 +48,7 @@ def kiwibot_says(message):
 
 def variable_sleep(string):
 
-    words = len(nltk.word_tokenize(string))
+    words = len(word_tokenize(string))
     delay = words * TIME_MULTIPLIER
     time.sleep(delay)
 

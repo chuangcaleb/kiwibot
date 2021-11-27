@@ -1,9 +1,15 @@
 from nltk.stem import WordNetLemmatizer
+import nltk.downloader
 
 from kiwibot import interface as kiwibot_ui
 from kiwibot import response as kiwibot_resp
 
 # Desc: Main entry point executable for kiwibot
+
+# Download NLTK resources
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('punkt')
 
 #! Run lemmatizer once at init; if not, then there is noticeable delay only on kiwibot's first response. Weird.
 # Run a print statement before and after this code block, you can see the time delay.
