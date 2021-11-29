@@ -19,7 +19,8 @@ def wikipedia_search(bot, search_query, is_random=False):
     try:
         raw_summary = wikipedia.summary(
             search_query, sentences=16, auto_suggest=is_random)
-        cleaned_summary = re.sub(r"([\n])+", "", raw_summary)
+        raw_summary = re.sub(r"([\n])+", " ", raw_summary)
+        cleaned_summary = re.sub(r"(\=\=(.*?)\=\=)", " ", raw_summary)
         tokenized_summary = sent_tokenize(cleaned_summary)
 
         # Always return three responses, no matter how many sentences.
