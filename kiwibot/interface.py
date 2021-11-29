@@ -48,9 +48,10 @@ def kiwibot_says(message):
 
 def variable_sleep(string):
 
-    words = len(word_tokenize(string))
-    delay = words * TIME_MULTIPLIER
-    time.sleep(delay)
+    if TIME_MULTIPLIER:
+        words = len(word_tokenize(string))
+        delay = words * TIME_MULTIPLIER
+        time.sleep(delay)
 
 
 def user_says():
